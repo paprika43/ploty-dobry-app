@@ -5789,19 +5789,26 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     state.panX = capW / 2 - ((minX + maxX) / 2) * CELL_SIZE * fitZoom;
     state.panY = capH / 2 - ((minY + maxY) / 2) * CELL_SIZE * fitZoom;
 
-    // Render WITH dimensions (JPEG to keep size under localStorage 5MB limit)
+    // Helper: flatten canvas onto white background and encode as JPEG
+    function _canvasToJpeg() {
+      const flat = document.createElement('canvas');
+      flat.width = capW; flat.height = capH;
+      const fc = flat.getContext('2d');
+      fc.fillStyle = '#ffffff';
+      fc.fillRect(0, 0, capW, capH);
+      fc.drawImage(canvas, 0, 0);
+      return flat.toDataURL('image/jpeg', 0.82);
+    }
+
+    // Render WITH dimensions
     state.showDimensions = true;
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, capW, capH);
     render();
-    const imgWithDims = canvas.toDataURL('image/jpeg', 0.82);
+    const imgWithDims = _canvasToJpeg();
 
     // Render WITHOUT dimensions
     state.showDimensions = false;
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, capW, capH);
     render();
-    const imgNoDims = canvas.toDataURL('image/jpeg', 0.82);
+    const imgNoDims = _canvasToJpeg();
 
     // Restore everything
     canvas.width = oldW; canvas.height = oldH;
