@@ -5776,13 +5776,12 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     const rangeX = maxX - minX + 6;
     const rangeY = maxY - minY + 6;
 
-    // Use offscreen canvas with dpr scaling for correct rendering
+    // Use fixed export canvas (no dpr scaling) to keep data URL small enough for localStorage
     const oldW = canvas.width, oldH = canvas.height;
     const oldStyle = canvas.style.cssText;
-    const capW = 2000, capH = 1500;
-    const dpr = window.devicePixelRatio;
-    canvas.width = capW * dpr; canvas.height = capH * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const capW = 1200, capH = 900;
+    canvas.width = capW; canvas.height = capH;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     // Fit fence
     const fitZoom = Math.min(capW / (rangeX * CELL_SIZE), capH / (rangeY * CELL_SIZE), 4);
@@ -5790,19 +5789,19 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     state.panX = capW / 2 - ((minX + maxX) / 2) * CELL_SIZE * fitZoom;
     state.panY = capH / 2 - ((minY + maxY) / 2) * CELL_SIZE * fitZoom;
 
-    // Render WITH dimensions
+    // Render WITH dimensions (JPEG to keep size under localStorage 5MB limit)
     state.showDimensions = true;
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, capW, capH);
     render();
-    const imgWithDims = canvas.toDataURL('image/png');
+    const imgWithDims = canvas.toDataURL('image/jpeg', 0.82);
 
     // Render WITHOUT dimensions
     state.showDimensions = false;
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, capW, capH);
     render();
-    const imgNoDims = canvas.toDataURL('image/png');
+    const imgNoDims = canvas.toDataURL('image/jpeg', 0.82);
 
     // Restore everything
     canvas.width = oldW; canvas.height = oldH;
@@ -5824,7 +5823,7 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     resizeCanvas();
     render();
 
-    // Store both versions
+    // Store both versions – JPEG at 1200×900 is ~200–400 KB, well within the 5 MB localStorage limit
     try {
       localStorage.setItem('plotyNacrtImage', JSON.stringify({
         withDims: imgWithDims,
@@ -5834,38 +5833,7 @@ document.getElementById('themeToggle').addEventListener('click', () => {
         timestamp: Date.now()
       }));
     } catch(ex) {
-      // Try lower quality JPEG if PNG too large
-      try {
-        canvas.width = capW * dpr; canvas.height = capH * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        state.zoom = fitZoom;
-        state.panX = capW / 2 - ((minX + maxX) / 2) * CELL_SIZE * fitZoom;
-        state.panY = capH / 2 - ((minY + maxY) / 2) * CELL_SIZE * fitZoom;
-        state.showDimensions = true;
-        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, capW, capH); render();
-        const jpgWith = canvas.toDataURL('image/jpeg', 0.7);
-        state.showDimensions = false;
-        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, capW, capH); render();
-        const jpgNo = canvas.toDataURL('image/jpeg', 0.7);
-        canvas.width = oldW; canvas.height = oldH;
-        state.zoom = savedZoom; state.panX = savedPanX; state.panY = savedPanY;
-        state.showDimensions = savedShowDim; state.ghostCursor = savedGhost;
-        state.selectedVertex = savedSelectedVertex;
-        state.hoveredVertex = savedHoveredVertex;
-        state.hoveredSegment = savedHoveredSegment;
-        state.hoveredPostKey = savedHoveredPostKey;
-        state.hoveredPanelKey = savedHoveredPanelKey;
-        state.selectedPosts = savedSelectedPosts;
-        state.selectedSegments = savedSelectedSegments;
-        state.selectedStruts = savedSelectedStruts;
-        state.selectedFields = savedSelectedFields;
-        state.selectedIntPosts = savedSelectedIntPosts;
-        state.selectedWires = savedSelectedWires;
-        resizeCanvas(); render();
-        localStorage.setItem('plotyNacrtImage', JSON.stringify({
-          withDims: jpgWith, noDims: jpgNo, width: capW, height: capH, timestamp: Date.now()
-        }));
-      } catch(ex2) { console.warn('Export too large for localStorage'); }
+      console.warn('Export too large for localStorage even as JPEG', ex);
     }
     // Let the default link navigation happen
   });
