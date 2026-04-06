@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ploty Dobrý – Kalkulátor oplocení</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="logo.png" alt="Ploty Dobrý" style="height:36px; vertical-align:middle;">
+    </div>
+    <div class="header-center">
+      <h1>Ploty Dobrý – Plánovač oplocení</h1>
+    </div>
+    <div class="header-right">
+      <a href="sketcher.html" id="btnNacrt" class="btn-quote" title="Náčrt zaměření" style="text-decoration:none;">✏️ Náčrt</a>
+      <button id="btnCatalog" class="btn-quote" title="Katalog produktů">📦 Katalog</button>
+      <button id="btnQuote" class="btn-quote" title="Udělat cenovou nabídku">📊 Cenová nabídka</button>
+      <button id="themeToggle" title="Přepnout tmavý/světlý režim">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <button id="sidebarToggle" class="sidebar-toggle" title="Skrýt/Zobrazit panel">◀</button>
+
+      <!-- Typ oplocení -->
+      <section class="panel" id="panelType">
+        <h2>Typ oplocení</h2>
+        <div class="radio-group">
+          <label><input type="radio" name="fenceType" value="ctyrhranne_bez_nd" checked> Čtyřhranné pletivo (bez ND)</label>
+          <label><input type="radio" name="fenceType" value="ctyrhranne_s_nd"> Čtyřhranné pletivo (s ND)</label>
+          <label><input type="radio" name="fenceType" value="svarovane"> Svařované pletivo</label>
+          <label><input type="radio" name="fenceType" value="panely_2d"> Plotové panely 2D</label>
+          <label><input type="radio" name="fenceType" value="panely_3d"> Plotové panely 3D</label>
+          <label><input type="radio" name="fenceType" value="betonovy"> Betonový plot</label>
+        </div>
+      </section>
+
+      <!-- Konfigurace -->
+      <section class="panel" id="panelConfig">
+        <h2>Konfigurace</h2>
+
+        <!-- Výška -->
+        <div class="form-group">
+          <label for="cfgHeight">Výška pletiva/panelu (cm)</label>
+          <input type="number" id="cfgHeight" value="150" min="50" max="300" step="1" style="width:80px;">
+        </div>
+
+        <!-- Max šířka pole -->
+        <div class="form-group">
+          <label for="cfgMaxField">Max. šířka pole (m)</label>
+          <input type="number" id="cfgMaxField" value="2.5" min="1" max="5" step="0.1" style="width:80px;">
+        </div>
+
+        <!-- Podhrabové desky -->
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="cfgPodhrab"> Podhrabové desky
+          </label>
+        </div>
+        <div class="form-group indent" id="grpPodhrabVyska" style="display:none;">
+          <label for="cfgPodhrabVyska">Výška podhr. desky</label>
+          <select id="cfgPodhrabVyska">
+            <option value="20">20 cm (rovinka)</option>
+            <option value="30">30 cm (svah)</option>
+          </select>
+        </div>
+
+        <!-- Povrch -->
+        <div class="form-group">
+          <label for="cfgPovrch">Povrch</label>
+          <select id="cfgPovrch">
+            <option value="zemina">Zemina (betonáž)</option>
+            <option value="beton">Beton / asfalt (patky)</option>
+          </select>
+        </div>
+
+        <!-- Stínící tkanina -->
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="cfgStineni"> Stínící tkanina
+            <span class="tooltip" title="Při stínící tkanině se automaticky volí STRONG sloupky">ℹ️</span>
+          </label>
+        </div>
+
+        <!-- === ČTYŘHRANNÉ PLETIVO === -->
+        <div class="type-options" id="optCtyrhranne">
+          <h3>Nastavení pletiva</h3>
+          <div class="form-group">
+            <label for="cfgPrumerDratu">Průměr drátu</label>
+            <select id="cfgPrumerDratu">
+              <option value="2.5">2,5 mm</option>
+              <option value="3.0">3,0 mm</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cfgTypSloupku">Typ sloupků</label>
+            <select id="cfgTypSloupku">
+              <option value="kulate_38">Kulaté 38 mm</option>
+              <option value="kulate_48" selected>Kulaté 48 mm</option>
+              <option value="hranate_60x40">Hranaté 60×40 mm</option>
+              <option value="hranate_60x60">Hranaté 60×60 mm</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cfgRoleDelka">Délka role</label>
+            <select id="cfgRoleDelka">
+              <option value="15">15 m</option>
+              <option value="25" selected>25 m</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- === SVAŘOVANÉ PLETIVO === -->
+        <div class="type-options" id="optSvarovane" style="display:none;">
+          <h3>Nastavení svařovaného pletiva</h3>
+          <div class="form-group">
+            <label for="cfgSvarSloupky">Typ sloupků</label>
+            <select id="cfgSvarSloupky">
+              <option value="klasicke_48">Klasické kulaté 48 mm</option>
+              <option value="prolis_bekaclip">S prolisem (Bekaclip)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cfgSvarRoleDelka">Délka role</label>
+            <select id="cfgSvarRoleDelka">
+              <option value="15">15 m</option>
+              <option value="25" selected>25 m</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- === PANELY 2D === -->
+        <div class="type-options" id="optPanely2d" style="display:none;">
+          <h3>Nastavení panelů 2D</h3>
+          <div class="form-group">
+            <label for="cfgSila2D">Síla drátu</label>
+            <select id="cfgSila2D">
+              <option value="5/4/5">5/4/5 mm</option>
+              <option value="6/5/6" selected>6/5/6 mm</option>
+              <option value="8/6/8">8/6/8 mm</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cfgBarva2D">Barva</label>
+            <select id="cfgBarva2D">
+              <option value="zelena" selected>Zelená</option>
+              <option value="antracit">Antracit</option>
+              <option value="zinek">Zinek</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- === PANELY 3D === -->
+        <div class="type-options" id="optPanely3d" style="display:none;">
+          <h3>Nastavení panelů 3D</h3>
+          <div class="form-group">
+            <label for="cfgSila3D">Síla drátu</label>
+            <select id="cfgSila3D">
+              <option value="4">4 mm</option>
+              <option value="5" selected>5 mm</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cfgBarva3D">Barva</label>
+            <select id="cfgBarva3D">
+              <option value="zelena" selected>Zelená</option>
+              <option value="antracit">Antracit</option>
+              <option value="zinek">Zinek</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- === BETONOVÝ PLOT === -->
+        <div class="type-options" id="optBetonovy" style="display:none;">
+          <h3>Nastavení betonového plotu</h3>
+          <div class="form-group">
+            <label for="cfgBetonVzor">Vzor desek</label>
+            <select id="cfgBetonVzor">
+              <option value="jednostranny">Jednostranný</option>
+              <option value="oboustranny">Oboustranný</option>
+              <option value="bez_vzoru">Bez vzoru</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cfgBetonDesky">Počet desek na výšku</label>
+            <select id="cfgBetonDesky">
+              <option value="1">1 deska (50 cm)</option>
+              <option value="2">2 desky (100 cm)</option>
+              <option value="3" selected>3 desky (150 cm)</option>
+              <option value="4">4 desky (200 cm)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="cfgBetonSokl"> Sokl
+            </label>
+          </div>
+          <div class="form-group indent" id="grpBetonSoklVyska" style="display:none;">
+            <label for="cfgBetonSoklVyska">Výška soklu</label>
+            <select id="cfgBetonSoklVyska">
+              <option value="20">20 cm</option>
+              <option value="50">50 cm</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Doprava -->
+        <div class="form-group" style="margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
+          <label for="cfgVzdalenost">Vzdálenost pro dopravu (km)</label>
+          <input type="number" id="cfgVzdalenost" value="0" min="0" step="1">
+        </div>
+      </section>
+
+      <!-- Nástroje -->
+      <section class="panel" id="panelTools">
+        <h2>Nástroje</h2>
+        <div class="tool-buttons">
+          <button id="toolDraw" class="tool-btn active" title="Kreslit trasu plotu (kliknutím na mřížku)">
+            ✏️ Kreslit
+          </button>
+          <button id="toolSelect" class="tool-btn" title="Vybrat a přesunout body">
+            🔀 Vybrat
+          </button>
+          <button id="toolGate" class="tool-btn" title="Přidat branku/bránu na úsek">
+            🚪 Branka/brána
+          </button>
+          <button id="toolDelete" class="tool-btn" title="Smazat bod/branku kliknutím">
+            🗑️ Smazat
+          </button>
+          <button id="toolWall" class="tool-btn" title="Kreslit zeď (dvojklik/Esc pro dokončení)">
+            🧱 Zeď
+          </button>
+          <button id="toolTerrain" class="tool-btn" title="Modelace povrchu a terénu">
+            🏔️ Terén
+          </button>
+          <button id="toolHouse" class="tool-btn" title="Umístit dům (2 kliky = protější rohy)">
+            🏠 Dům
+          </button>
+        </div>
+        <!-- Wall config (visible only when wall tool is active) -->
+        <div id="wallConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:6px; font-size:13px;">
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <label>Tloušťka:
+              <input type="number" id="wallThickness" value="20" min="5" max="100" step="5" style="width:55px;"> cm
+            </label>
+            <label>Výška:
+              <input type="number" id="wallHeight" value="200" min="50" max="400" step="10" style="width:55px;"> cm
+            </label>
+          </div>
+          <div style="margin-top:6px; display:flex; gap:4px; align-items:center;">
+            <span>Barva:</span>
+            <button class="wall-color-btn" data-color="stribrna" title="Stříbrná" style="background:#bdc3c7;"></button>
+            <button class="wall-color-btn" data-color="bila" title="Bílá" style="background:#ecf0f1;"></button>
+            <button class="wall-color-btn" data-color="antracit" title="Antracit" style="background:#4a4f52;"></button>
+            <button class="wall-color-btn" data-color="zelena" title="Zelená" style="background:#27ae60;"></button>
+            <button class="wall-color-btn" data-color="hneda" title="Hnědá" style="background:#8b6914;"></button>
+            <button class="wall-color-btn" data-color="cervena" title="Červená" style="background:#c0392b;"></button>
+          </div>
+          <div style="margin-top:4px; font-size:11px; color:var(--text-muted,#999);">
+            Dvojklik nebo Esc pro dokončení zdi.
+          </div>
+        </div>
+        <!-- House config (visible only when house tool is active) -->
+        <div id="houseConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:6px; font-size:13px;">
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <label>Výška:
+              <input type="number" id="houseHeight" value="300" min="200" max="600" step="10" style="width:55px;"> cm
+            </label>
+            <label>Střecha:
+              <select id="houseRoofType" style="font-size:12px;">
+                <option value="sedlova" selected>Sedlová</option>
+                <option value="plochá">Plochá</option>
+                <option value="valbova">Valbová</option>
+              </select>
+            </label>
+          </div>
+          <div style="margin-top:6px; display:flex; gap:4px; align-items:center;">
+            <span>Barva:</span>
+            <button class="house-color-btn" data-color="bila" title="Bílá" style="background:#ecf0f1; width:22px; height:22px; border:2px solid #aaa; border-radius:4px; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="zluta" title="Žlutá" style="background:#f8e473; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="oranzova" title="Oranžová" style="background:#e8a040; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="cervena" title="Červená" style="background:#c0392b; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="modra" title="Modrá" style="background:#5dade2; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="zelena" title="Zelená" style="background:#58d68d; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+          </div>
+          <div style="margin-top:6px; display:flex; gap:4px; align-items:center;">
+            <span>Střecha:</span>
+            <button class="roof-color-btn" data-color="hneda" title="Hnědá" style="background:#8b4513; width:22px; height:22px; border:2px solid #aaa; border-radius:4px; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="cervena" title="Červená" style="background:#8b2500; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="seda" title="Šedá" style="background:#6e6e6e; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="cerna" title="Černá" style="background:#2c2c2c; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="zelena" title="Zelená" style="background:#2d572c; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="modra" title="Modrá" style="background:#34495e; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+          </div>
+          <div style="margin-top:4px; font-size:11px; color:var(--text-muted,#999);">
+            Klikejte body domu, dvojklik ukončí tvar.
+          </div>
+        </div>
+        <!-- Terrain config (visible only when terrain tool is active) -->
+        <div id="terrainConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:6px; font-size:13px;">
+          <div id="terrainPaintOpts">
+            <div style="display:flex; gap:4px; flex-wrap:wrap;">
+              <button class="terrain-surface-btn active" data-surface="trava" title="Tráva" style="width:40px;height:28px;border:2px solid #27ae60;border-radius:4px;cursor:pointer;background:#4a8a3a;font-size:10px;color:#fff;">Tráva</button>
+              <button class="terrain-surface-btn" data-surface="hlina" title="Hlína" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#7a5c3a;font-size:10px;color:#fff;">Hlína</button>
+              <button class="terrain-surface-btn" data-surface="beton" title="Beton" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#8a8e92;font-size:10px;color:#fff;">Beton</button>
+              <button class="terrain-surface-btn" data-surface="pisek" title="Písek" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#c4a96a;font-size:10px;color:#543;">Písek</button>
+              <button class="terrain-surface-btn" data-surface="dlazba" title="Dlažba" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#6e6e6e;font-size:10px;color:#fff;">Dlažba</button>
+            </div>
+          </div>
+          <div style="margin-top:6px;">
+            <label style="font-size:11px;">Výška bloku:
+              <select id="terrainBlockHeight" style="font-size:11px;padding:1px 4px;">
+                <option value="0" selected>0 (rovina)</option>
+                <option value="0.1">+10 cm</option>
+                <option value="0.2">+20 cm</option>
+                <option value="0.3">+30 cm</option>
+                <option value="0.5">+50 cm</option>
+                <option value="1.0">+1 m</option>
+              </select>
+            </label>
+          </div>
+          <div style="margin-top:6px;">
+            <label style="font-size:11px;">Štětec: 
+              <select id="terrainBrushSize" style="font-size:11px;padding:1px 4px;">
+                <option value="1" selected>1×1</option>
+                <option value="2">3×3</option>
+                <option value="3">5×5</option>
+              </select>
+            </label>
+          </div>
+          <div style="margin-top:4px; font-size:11px; color:var(--text-muted,#999);">
+            Klikněte/táhněte na mřížce. Pravé tlač. = vymazat.
+          </div>
+        </div>
+        <div class="tool-buttons" style="margin-top:8px;">
+          <button id="btnUndo" title="Zpět (Ctrl+Z)">↩️ Zpět</button>
+          <button id="btnReset" title="Vymazat vše">🔄 Reset</button>
+        </div>
+      </section>
+
+      <!-- Výpočty -->
+      <section class="panel" id="panelCalc">
+        <h2>Výpočty</h2>
+        <div id="calcResults">
+          <p class="calc-empty">Nakreslete trasu plotu pro zobrazení výpočtů.</p>
+        </div>
+      </section>
+
+      <!-- Export -->
+      <section class="panel" id="panelExport">
+        <h2>Export</h2>
+        <div class="tool-buttons">
+          <button id="btnCopy">📋 Kopírovat do schránky</button>
+          <button id="btnPrint">🖨️ Exportovat PDF</button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- PLAYGROUND -->
+    <section id="playground">
+      <canvas id="canvas"></canvas>
+      <div id="three-container" style="display:none;"></div>
+
+      <!-- 2D/3D View toggle -->
+      <div id="viewToggle">
+        <button id="btn2D" class="view-btn active" title="2D pohled shora (kreslení)">2D</button>
+        <button id="btn3D" class="view-btn" title="3D pohled (prohlížení)">3D</button>
+        <label id="dimToggle" title="Zobrazit detailní rozměry"><input type="checkbox" id="showDimensions"> Rozměry</label>
+      </div>
+
+      <!-- Zoom controls -->
+      <div id="zoomControls">
+        <button id="zoomIn" title="Přiblížit (+)">+</button>
+        <span id="zoomLevel">100%</span>
+        <button id="zoomOut" title="Oddálit (-)">−</button>
+        <button id="zoomFit" title="Přizpůsobit">⊡</button>
+      </div>
+
+      <!-- Scale indicator -->
+      <div id="scaleIndicator">
+        <div class="scale-bar"></div>
+        <span>1 čtverec = 1 m</span>
+      </div>
+
+      <!-- Legend -->
+      <div id="legend">
+        <h4>Legenda</h4>
+        <div class="legend-item"><span class="legend-color" style="background:#e74c3c;"></span> Sloupek</div>
+        <div class="legend-item"><span class="legend-color" style="background:#e67e22;"></span> Vzpěra</div>
+        <div class="legend-item"><span class="legend-color" style="background:#3498db;"></span> Branka</div>
+        <div class="legend-item"><span class="legend-color" style="background:#9b59b6;"></span> Brána</div>
+        <div class="legend-item"><span class="legend-color" style="background:#2ecc71;"></span> Plot</div>
+      </div>
+
+      <!-- Info tooltip -->
+      <div id="infoTooltip" style="display:none;"></div>
+
+      <!-- Color picker toolbar -->
+      <div id="colorToolbar" style="display:none;">
+        <span id="colorToolbarLabel">Barva:</span>
+        <button class="color-btn" data-barva="zelena" title="Zelená"><span style="background:#27ae60"></span></button>
+        <button class="color-btn" data-barva="antracit" title="Antracit"><span style="background:#4a4f52"></span></button>
+        <button class="color-btn" data-barva="stribrna" title="Stříbrná"><span style="background:#c8d0d4"></span></button>
+        <button id="colorToolbarClear" title="Výchozí barva">✕</button>
+        <span class="toolbar-sep">|</span>
+        <span id="sizeControlGroup" style="display:none;">
+          <span>Výška (cm):</span>
+          <input type="number" id="heightInput" min="50" max="400" step="5" value="150" style="width:65px;">
+          <button id="heightApplyBtn" class="size-btn" title="Nastavit výšku">OK</button>
+        </span>
+        <span id="clipColorGroup" style="display:none;">
+          <span class="toolbar-sep">|</span>
+          <span>Příchytky:</span>
+          <button class="clip-color-btn" data-barva="zelena" title="Zelená"><span style="background:#27ae60"></span></button>
+          <button class="clip-color-btn" data-barva="antracit" title="Antracit"><span style="background:#4a4f52"></span></button>
+          <button class="clip-color-btn" data-barva="stribrna" title="Stříbrná"><span style="background:#c8d0d4"></span></button>
+          <button id="clipColorClear" title="Výchozí barva příchytek">✕</button>
+        </span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dialog pro branku/bránu -->
+  <div id="gateDialog" class="dialog-overlay" style="display:none;">
+    <div class="dialog">
+      <h3 id="gateDialogTitle">Přidat branku / bránu</h3>
+      <div class="form-group">
+        <label>Typ</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gateType" value="branka" checked> Branka</label>
+          <label><input type="radio" name="gateType" value="brana"> Brána</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gateWidth">Šířka (cm)</label>
+        <input type="number" id="gateWidth" value="120" min="60" max="600" step="10">
+      </div>
+      <div class="form-group">
+        <label for="gateHeight">Výška (cm)</label>
+        <input type="number" id="gateHeight" value="150" min="50" max="300" step="10">
+        <div id="gateHeightHint" style="display:none;font-size:11px;color:#e67e22;margin-top:4px;">
+          ⚠️ Branka/brána má pod sebou 5cm mezeru pro otevírání – výška brány by měla být nižší než výška plotu.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gatePosition">Pozice od začátku úseku (m)</label>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <input type="number" id="gatePosition" value="2.5" min="0" max="100" step="0.1" style="width:80px;">
+          <span id="gatePositionLabel" style="font-size:12px;color:#888;">/ ? m</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-top:4px;">
+          Tip: Bránu/branku můžete přetahovat myší na 2D plochej.
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Barva</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gateBarva" value="zelena" checked> Zelená</label>
+          <label><input type="radio" name="gateBarva" value="antracit"> Antracit</label>
+          <label><input type="radio" name="gateBarva" value="stribrna"> Stříbrná</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gateStyle">Typ výplně</label>
+        <select id="gateStyle">
+          <option value="ctyrhranne_s_nd">Čtyřhranné s ND</option>
+          <option value="ctyrhranne_bez_nd">Čtyřhranné bez ND</option>
+          <option value="svarovane">Svařované</option>
+          <option value="panely_2d">Panely 2D</option>
+          <option value="panely_3d">Panely 3D</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+          <input type="checkbox" id="gateShadeCloth"> Stínicí tkanina na brance/bráně
+        </label>
+        <div id="gateShadeColorGroup" style="display:none;margin-top:6px;">
+          <label style="font-size:12px;">Barva tkaniny</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gateShadeBarva" value="zelena" checked> Zelená</label>
+            <label><input type="radio" name="gateShadeBarva" value="antracit"> Antracit</label>
+            <label><input type="radio" name="gateShadeBarva" value="stribrna"> Stříbrná</label>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-buttons">
+        <button id="gateConfirm" class="btn-primary">Potvrdit</button>
+        <button id="gateDelete" class="btn-secondary" style="display:none;background:#e74c3c;color:#fff;">Smazat</button>
+        <button id="gateCancel" class="btn-secondary">Zrušit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context menu -->
+  <div id="contextMenu" class="context-menu" style="display:none;">
+    <button id="ctxDeletePoint">🗑️ Smazat bod</button>
+    <button id="ctxAddStrut">➕ Přidat vzpěru</button>
+    <button id="ctxAddGate">🚪 Přidat branku/bránu</button>
+    <button id="ctxSetSegStyle">⚙️ Nastavení úseku</button>
+    <button id="ctxToggleShade">🌿 Stínicí tkanina</button>
+    <button id="ctxFlipFence" style="display:none">🔄 Otočit plot (face)</button>
+  </div>
+
+  <!-- Dialog pro typ/barvu úseku -->
+  <div id="segStyleDialog" class="dialog-overlay" style="display:none;">
+    <div class="dialog">
+      <h3>Nastavení úseku</h3>
+      <div class="form-group">
+        <label>Typ pletiva</label>
+        <select id="segStyleType">
+          <option value="ctyrhranne_bez_nd">Čtyřhranné (bez ND)</option>
+          <option value="ctyrhranne_s_nd">Čtyřhranné (s ND)</option>
+          <option value="svarovane">Svařované</option>
+          <option value="panely_2d">Panely 2D</option>
+          <option value="panely_3d">Panely 3D</option>
+          <option value="betonovy">Betonový</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="segHeight">Výška pletiva (cm)</label>
+        <input type="number" id="segHeight" value="150" min="50" max="300" step="1" style="width:80px;">
+      </div>
+      <div class="form-group">
+        <label for="segTypSloupku">Typ sloupků</label>
+        <select id="segTypSloupku">
+          <option value="">Výchozí (globální)</option>
+          <option value="kulate_38">Kulaté 38 mm</option>
+          <option value="kulate_48">Kulaté 48 mm</option>
+          <option value="hranate_60x40">Hranaté 60×40 mm</option>
+          <option value="hranate_60x60">Hranaté 60×60 mm</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Barva</label>
+        <div style="display:flex; gap:10px; margin-top:6px;">
+          <label class="color-swatch-label">
+            <input type="radio" name="segBarva" value="zelena" checked>
+            <span class="color-swatch" style="background:#2ecc40;" title="Zelená"></span>
+          </label>
+          <label class="color-swatch-label">
+            <input type="radio" name="segBarva" value="antracit">
+            <span class="color-swatch" style="background:#4a4f52;" title="Antracit"></span>
+          </label>
+          <label class="color-swatch-label">
+            <input type="radio" name="segBarva" value="stribrna">
+            <span class="color-swatch" style="background:#c8d0d4;" title="Stříbrná"></span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group" id="segPodhrabGroup">
+        <label>
+          <input type="checkbox" id="segNoPodhrab"> Podhrabová deska na tomto úseku
+        </label>
+      </div>
+      <div class="form-group indent" id="segPodhrabVyskaGroup" style="display:none;">
+        <label for="segPodhrabVyska">Výška podhr. desky (cm)</label>
+        <select id="segPodhrabVyska">
+          <option value="20">20 cm (rovinka)</option>
+          <option value="30">30 cm (svah)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="segMaxField">Max. šířka pole (m)</label>
+        <input type="number" id="segMaxField" value="2.5" min="1" max="5" step="0.1" style="width:80px;">
+      </div>
+      <div class="dialog-buttons">
+        <button id="segStyleConfirm" class="btn-primary">Použít</button>
+        <button id="segStyleReset" class="btn-secondary">Výchozí</button>
+        <button id="segStyleCancel" class="btn-secondary">Zrušit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Katalog produktů overlay -->
+  <div id="catalogOverlay" class="dialog-overlay" style="display:none;">
+    <div class="dialog catalog-dialog">
+      <div class="catalog-header">
+        <h3>📦 Katalog produktů</h3>
+        <div class="catalog-toolbar">
+          <input type="text" id="catalogSearch" placeholder="Hledat produkt (název, kód)…" class="catalog-search-input">
+          <select id="catalogCategory" class="catalog-category-select">
+            <option value="">Všechny kategorie</option>
+          </select>
+          <button id="catalogRefresh" class="btn-primary" title="Aktualizovat data z e-shopu">🔄 Aktualizovat</button>
+        </div>
+        <div id="catalogStatus" class="catalog-status"></div>
+      </div>
+      <div id="catalogGrid" class="catalog-grid"></div>
+      <div class="dialog-buttons">
+        <span id="catalogCount" class="catalog-count"></span>
+        <button id="catalogClose" class="btn-secondary">Zavřít</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cenová nabídka overlay -->
+  <div id="quoteOverlay" class="dialog-overlay" style="display:none;">
+    <div class="dialog quote-dialog">
+      <div class="quote-header">
+        <h3>📊 Cenová nabídka – pomocník</h3>
+        <p class="quote-subtitle">Vyberte typ oplocení a projděte si checklist, aby vám nic neuniklo.</p>
+      </div>
+      <div class="quote-type-select">
+        <label>Typ oplocení:</label>
+        <select id="quoteType">
+          <option value="">– vyberte typ –</option>
+          <option value="ctyrhranne">Čtyřhranné pletivo (klasické)</option>
+          <option value="svarovane">Svařované pletivo</option>
+          <option value="panely2d">Plotové panely 2D</option>
+          <option value="panely3d">Plotové panely 3D</option>
+          <option value="betonovy">Betonový plot</option>
+          <option value="plotovky">WPC Plotovky</option>
+          <option value="hlinikove">Hliníkové oplocení</option>
+          <option value="gabiony">Gabiony</option>
+          <option value="lesnicke">Lesnické/speciální pletivo</option>
+          <option value="brany">Brány a branky</option>
+          <option value="zastineni">Zastínění na plot</option>
+        </select>
+      </div>
+      <div id="quoteContent" class="quote-content"></div>
+      <div class="dialog-buttons">
+        <button id="quoteClose" class="btn-secondary">Zavřít</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ploty Dobrý – Náčrt zaměření</title>
+  <link rel="stylesheet" href="sketcher.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <!-- BRANDING HEADER -->
+  <div id="brandBar">
+    <a href="index.html" class="brand-home" title="Zpět do kalkulátoru">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      <span>Kalkulátor</span>
+    </a>
+    <div class="brand-center">
+      <img src="logo.png" alt="Ploty Dobrý" class="brand-logo">
+      <span class="brand-title">Ploty Dobrý</span>
+      <span class="brand-sep">|</span>
+      <span class="brand-subtitle">Náčrt zaměření</span>
+    </div>
+    <div class="brand-right"></div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div id="toolbar">
+    <div class="toolbar-row">
+      <div class="toolbar-group tool-select">
+
+      <div class="toolbar-group tool-select">
+        <button class="tb-btn active" data-tool="hand" title="Ruka – posun plátna (H)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 00-4 0v1M14 7V4a2 2 0 00-4 0v6M10 5.5V3a2 2 0 00-4 0v9"/><path d="M6 12v-1.5a2 2 0 00-4 0V16a8 8 0 0016 0v-5a2 2 0 00-4 0"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="select" title="Výběr / Přesun (V)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="pencil" title="Tužka – volné kreslení (P)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="line" title="Čára (L)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="rect" title="Obdélník (R)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="ellipse" title="Elipsa (E)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="10" ry="7"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="pen" title="Pero – Bézier křivky (B)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="text" title="Text (T)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9.5" y1="20" x2="14.5" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="dimension" title="Kóta – rozměr (D)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="7 9 4 12 7 15"/><polyline points="17 9 20 12 17 15"/><line x1="4" y1="6" x2="4" y2="18"/><line x1="20" y1="6" x2="20" y2="18"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="fence" title="Plot – pattern (F)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="9"/><rect x="9.5" y="2" width="5" height="9"/><rect x="17" y="2" width="5" height="9"/><rect x="2" y="13" width="5" height="9"/><rect x="9.5" y="13" width="5" height="9"/><rect x="17" y="13" width="5" height="9"/></svg>
+        </button>
+        <button class="tb-btn" data-tool="eraser" title="Guma (X)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20H7L3 16a1 1 0 010-1.4l9.6-9.6a1 1 0 011.4 0l7 7a1 1 0 010 1.4L14 20"/><line x1="18" y1="13" x2="11" y2="20"/></svg>
+        </button>
+      </div>
+      <div class="toolbar-sep"></div>
+
+      <div class="toolbar-group props-group">
+        <label class="prop-label" title="Barva čáry" style="display:flex;align-items:center;gap:4px;">
+          <input type="color" id="strokeColorPicker" value="#000000" style="width:24px;height:24px;padding:0;border:none;cursor:pointer;">
+          <input type="text" id="strokeColor" value="#000000" maxlength="7" style="width:70px;font-family:monospace;font-size:12px;padding:2px 4px;border:1px solid #666;border-radius:3px;background:#2c2c2c;color:#fff;">
+        </label>
+        <div class="quick-colors">
+          <button class="color-swatch" data-color="#27ae60" title="Zelená (RAL 6005)" style="background:#27ae60;"></button>
+          <button class="color-swatch" data-color="#3d4f4f" title="Antracit (RAL 7016)" style="background:#3d4f4f;"></button>
+          <button class="color-swatch" data-color="#b0b5b3" title="Stříbrná / Zn" style="background:#b0b5b3;"></button>
+        </div>
+        <label class="prop-label" title="Výplň">
+          <input type="color" id="fillColor" value="#ffffff">
+          <input type="checkbox" id="fillEnabled"> <span class="prop-text">Výplň</span>
+        </label>
+        <select id="lineWidth" title="Tloušťka">
+          <option value="1">1 px</option>
+          <option value="2" selected>2 px</option>
+          <option value="3">3 px</option>
+          <option value="5">5 px</option>
+          <option value="8">8 px</option>
+        </select>
+        <select id="fencePattern" title="Typ pletiva" style="display:none;">
+          <option value="diamond" selected>◇ Čtyřhranné</option>
+          <option value="grid">▭ Obdélníkové</option>
+        </select>
+      </div>
+      <div class="toolbar-sep"></div>
+
+      <div class="toolbar-group props-group">
+        <label class="prop-label">
+          <input type="checkbox" id="snapGrid"> <span class="prop-text">Snap</span>
+        </label>
+        <select id="gridSize" title="Velikost mřížky">
+          <option value="10">10</option>
+          <option value="20" selected>20</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+        </select>
+        <label class="prop-label">
+          <input type="checkbox" id="showGrid" checked> <span class="prop-text">Mřížka</span>
+        </label>
+      </div>
+      <div class="toolbar-sep"></div>
+
+      <div class="toolbar-group">
+        <button class="tb-btn" id="btnUndo" title="Zpět (Ctrl+Z)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+        </button>
+        <button class="tb-btn" id="btnRedo" title="Vpřed (Ctrl+Y)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.13-9.36L23 10"/></svg>
+        </button>
+        <button class="tb-btn" id="btnClear" title="Smazat vše">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+        </button>
+        <button class="tb-btn" id="btnZoomFit" title="Přizpůsobit pohled">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <div class="toolbar-sep"></div>
+
+      <div class="toolbar-group">
+        <button class="tb-btn tb-export" id="btnPDF" title="Export do PDF">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div id="statusbar">
+    <span id="statusCoords">0, 0</span>
+    <span class="sb-sep">|</span>
+    <span id="statusZoom">100%</span>
+    <span class="sb-sep">|</span>
+    <span id="statusTool">Ruka</span>
+    <span class="sb-sep">|</span>
+    <span id="statusA4">A4 na výšku – 210×297 mm</span>
+  </div>
+
+  <!-- CANVAS -->
+  <canvas id="sketchCanvas"></canvas>
+
+  <!-- Dimension input popup -->
+  <div id="dimPopup" class="popup" style="display:none;">
+    <label class="popup-label">Rozměr:</label>
+    <input type="text" id="dimInput" placeholder="např. 20m, 60mm" autocomplete="off">
+    <button id="dimConfirm" class="popup-btn">✓</button>
+    <button id="dimCancel" class="popup-btn popup-cancel">✕</button>
+  </div>
+
+  <!-- Text input popup -->
+  <div id="textPopup" class="popup" style="display:none;">
+    <textarea id="textInput" placeholder="Zadejte text..." rows="3"></textarea>
+    <div class="popup-actions">
+      <button id="textConfirm" class="popup-btn">✓ Vložit</button>
+      <button id="textCancel" class="popup-btn popup-cancel">✕</button>
+    </div>
+  </div>
+
+  <!-- Import fence dialog -->
+  <div id="importOverlay" style="display:none;">
+    <div id="importDialog">
+      <h3>📐 Import plotu z kalkulátoru</h3>
+      <p class="import-desc">V kalkulátoru máte rozkreslený plot. Chcete ho importovat do náčrtu?</p>
+      <div class="import-preview"><canvas id="importPreviewCanvas"></canvas></div>
+      <div class="import-options">
+        <label class="import-opt">
+          <input type="checkbox" id="importWithDims" checked>
+          <span>S rozměry (kóty)</span>
+        </label>
+      </div>
+      <div class="import-actions">
+        <button id="importConfirm" class="popup-btn">✓ Importovat</button>
+        <button id="importSkip" class="popup-btn popup-cancel">✕ Přeskočit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Preview overlay -->
+  <div id="pdfOverlay" style="display:none;">
+    <div id="pdfDialog">
+      <div class="pdf-header">
+        <h3>📄 Náhled PDF</h3>
+        <button id="pdfClose" class="popup-btn popup-cancel" style="margin-left:auto;">✕</button>
+      </div>
+      <div class="pdf-preview"><canvas id="pdfPreviewCanvas"></canvas></div>
+      <div class="pdf-actions">
+        <button id="pdfDownloadLow" class="popup-btn">⬇ Stáhnout PDF (malý soubor)</button>
+        <button id="pdfDownloadHQ" class="popup-btn" style="background:#2ecc71;color:#fff;">⬇ Stáhnout PDF (vysoká kvalita)</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sketcher.js"></script>
+</body>
+</html>
