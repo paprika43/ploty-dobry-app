@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
   <header>
@@ -47,19 +48,19 @@
         <h2>Konfigurace</h2>
 
         <!-- Výška -->
-        <div class="form-group">
-          <label for="cfgHeight">Výška pletiva/panelu (cm)</label>
+        <div class="form-group" id="grpHeight">
+          <label for="cfgHeight" id="lblHeight">Výška pletiva/panelu (cm)</label>
           <input type="number" id="cfgHeight" value="150" min="50" max="300" step="1" style="width:80px;">
         </div>
 
         <!-- Max šířka pole -->
-        <div class="form-group">
+        <div class="form-group" id="grpMaxField">
           <label for="cfgMaxField">Max. šířka pole (m)</label>
           <input type="number" id="cfgMaxField" value="2.5" min="1" max="5" step="0.1" style="width:80px;">
         </div>
 
         <!-- Podhrabové desky -->
-        <div class="form-group">
+        <div class="form-group" id="grpPodhrab">
           <label>
             <input type="checkbox" id="cfgPodhrab"> Podhrabové desky
           </label>
@@ -82,7 +83,7 @@
         </div>
 
         <!-- Stínící tkanina -->
-        <div class="form-group">
+        <div class="form-group" id="grpStineni">
           <label>
             <input type="checkbox" id="cfgStineni"> Stínící tkanina
             <span class="tooltip" title="Při stínící tkanině se automaticky volí STRONG sloupky">ℹ️</span>
@@ -134,6 +135,15 @@
               <option value="25" selected>25 m</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="cfgSvarOkoVyska">Výška oka (cm)</label>
+            <select id="cfgSvarOkoVyska">
+              <option value="2.5">2,5 cm</option>
+              <option value="5" selected>5 cm</option>
+              <option value="7.5">7,5 cm</option>
+              <option value="10">10 cm</option>
+            </select>
+          </div>
         </div>
 
         <!-- === PANELY 2D === -->
@@ -181,6 +191,15 @@
         <div class="type-options" id="optBetonovy" style="display:none;">
           <h3>Nastavení betonového plotu</h3>
           <div class="form-group">
+            <label for="cfgBetonBarva">Barva desek</label>
+            <select id="cfgBetonBarva">
+              <option value="seda" selected>Šedá</option>
+              <option value="piskova">Písková</option>
+              <option value="hneda">Hnědá</option>
+              <option value="cervena">Cihlově červená</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="cfgBetonVzor">Vzor desek</label>
             <select id="cfgBetonVzor">
               <option value="jednostranny">Jednostranný</option>
@@ -211,10 +230,156 @@
           </div>
         </div>
 
-        <!-- Doprava -->
-        <div class="form-group" style="margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
-          <label for="cfgVzdalenost">Vzdálenost pro dopravu (km)</label>
-          <input type="number" id="cfgVzdalenost" value="0" min="0" step="1">
+        <!-- ═══════════════════════════════════════ -->
+        <!-- DOPRAVA A LOGISTIKA                     -->
+        <!-- ═══════════════════════════════════════ -->
+        <div class="doprava-section" style="margin-top:12px; border-top:2px solid var(--accent); padding-top:12px;">
+          <h3 style="margin:0 0 10px 0; font-size:15px; font-weight:700;">🚛 Doprava a logistika</h3>
+          
+          <!-- Adresa stavby -->
+          <div class="form-group">
+            <label for="cfgAdresaStavby">Adresa stavby (dodání)</label>
+            <input type="text" id="cfgAdresaStavby" placeholder="např. Brno, Královo Pole">
+          </div>
+
+          <!-- Betonárka -->
+          <div class="form-group">
+            <label for="cfgBetonarka">Betonárka (odkud)</label>
+            <input type="text" id="cfgBetonarka" placeholder="adresa nebo název betonárky">
+            <div style="margin-top:6px;">
+              <button id="btnHledatBetonarky" class="btn-small" style="width:100%;">🔍 Hledat betonárky v okolí stavby</button>
+              <div id="betonarkyVysledky" style="margin-top:4px; max-height:180px; overflow-y:auto;"></div>
+            </div>
+            <div id="ulozeneBetonarky" style="margin-top:4px;">
+              <select id="cfgBetonarkaSelect" style="width:100%; font-size:12px;">
+                <option value="">— Uložené betonárky —</option>
+              </select>
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                <button id="btnUlozBetonarku" class="btn-small">💾 Uložit</button>
+                <button id="btnSmazBetonarku" class="btn-small">🗑️ Smazat</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button id="btnSpocitatVzdalenost" class="btn-accent" style="width:100%;">📍 Spočítat vzdálenost online</button>
+            <div id="vzdalenostStatus" style="margin-top:6px; font-size:12px; color:var(--text-muted);"></div>
+          </div>
+
+          <!-- ── 1) DOPRAVA MONTÁŽNÍKA ── -->
+          <div style="margin-top:12px; padding:10px; background:#eaf7ea; border:2px solid #27ae60;">
+            <h4 style="margin:0 0 8px 0; font-size:13px; color:#27ae60; font-weight:700;">🧑‍🔧 Doprava montážníka</h4>
+            <div class="form-group" style="margin-bottom:4px;">
+              <label><input type="checkbox" id="cfgDoprMontZpat" checked> Zpáteční (×2)</label>
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprMontKm">Vzdálenost (km) jednosměrně</label>
+              <input type="number" id="cfgDoprMontKm" value="0" min="0" step="0.1">
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprMontCest">Počet cest</label>
+              <input type="number" id="cfgDoprMontCest" value="1" min="1" step="1">
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprMontSazba">Sazba (Kč/km)</label>
+              <input type="number" id="cfgDoprMontSazba" value="15" min="0" step="1">
+            </div>
+            <div class="form-group" style="margin-bottom:4px;">
+              <label><input type="checkbox" id="cfgDoprMontMytne"> Mýtné</label>
+            </div>
+            <div class="form-group indent" id="grpDoprMontMytne" style="display:none;">
+              <label for="cfgDoprMontMytneKc">Mýtné — fixní cena (Kč)</label>
+              <input type="number" id="cfgDoprMontMytneKc" value="0" min="0" step="10">
+            </div>
+          </div>
+
+          <!-- ── 2) DOPRAVA BETONOVÝCH PRODUKTŮ ── -->
+          <div style="margin-top:8px; padding:10px; background:#fef9e7; border:2px solid #f39c12;">
+            <h4 style="margin:0 0 8px 0; font-size:13px; color:#e67e22; font-weight:700;">🧱 Doprava betonových produktů</h4>
+            <div style="font-size:10px; color:#888; margin-bottom:6px;">Betonové sloupky, desky, pytlový beton, podhrabové desky — MIMO beton z betonárky</div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label><input type="checkbox" id="cfgDopravaBetProduktu"> Spočítat dopravu bet. produktů</label>
+            </div>
+            <div id="grpBetProdukty" style="display:none;">
+              <div class="form-group" style="margin-bottom:6px;">
+                <label for="cfgDoprBetVozidlo">Typ vozidla</label>
+                <select id="cfgDoprBetVozidlo">
+                  <option value="dodavka">Dodávka (do 1,5 t)</option>
+                  <option value="vlek">Auto s vlekem (do 2,5 t)</option>
+                  <option value="hydraulicka">Auto s hydraulickou rukou (do 25 t)</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:4px;">
+                <label><input type="checkbox" id="cfgDoprBetZpat" checked> Zpáteční (×2)</label>
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label for="cfgDoprBetKm">Vzdálenost (km) jednosměrně</label>
+                <input type="number" id="cfgDoprBetKm" value="0" min="0" step="0.1">
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label for="cfgDoprBetCest">Počet cest (otáček)</label>
+                <input type="number" id="cfgDoprBetCest" value="1" min="1" step="1">
+              </div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <label for="cfgDoprBetSazba">Sazba (Kč/km)</label>
+                <input type="number" id="cfgDoprBetSazba" value="15" min="0" step="1">
+              </div>
+              <div class="form-group" style="margin-bottom:4px;">
+                <label><input type="checkbox" id="cfgDoprBetMytne"> Mýtné</label>
+              </div>
+              <div class="form-group indent" id="grpDoprBetMytne" style="display:none;">
+                <label for="cfgDoprBetMytneKc">Mýtné — fixní cena (Kč)</label>
+                <input type="number" id="cfgDoprBetMytneKc" value="0" min="0" step="10">
+              </div>
+              <div id="betProduktyVysledek" style="font-size:12px; color:#555; margin-top:6px;"></div>
+            </div>
+          </div>
+
+          <!-- ── 3) DOPRAVA BETONU Z BETONÁRKY ── -->
+          <div style="margin-top:8px; padding:10px; background:#eaf2fd; border:2px solid #3498db;">
+            <h4 style="margin:0 0 8px 0; font-size:13px; color:#2980b9; font-weight:700;">🏭 Doprava betonu z betonárky</h4>
+            <div style="font-size:10px; color:#888; margin-bottom:6px;">Tekutý beton z míchačky — počítá se z kubíků</div>
+            <div class="form-group" style="margin-bottom:4px;">
+              <label><input type="checkbox" id="cfgDoprBetonZpat" checked> Zpáteční (×2)</label>
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprBetonKm">Vzdálenost (km) jednosměrně</label>
+              <input type="number" id="cfgDoprBetonKm" value="0" min="0" step="0.1">
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprBetonCest">Počet cest</label>
+              <input type="number" id="cfgDoprBetonCest" value="1" min="1" step="1">
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprBetonSazba">Sazba (Kč/km)</label>
+              <input type="number" id="cfgDoprBetonSazba" value="15" min="0" step="1">
+            </div>
+            <div class="form-group" style="margin-bottom:4px;">
+              <label><input type="checkbox" id="cfgDoprBetonMytne"> Mýtné</label>
+            </div>
+            <div class="form-group indent" id="grpDoprBetonMytne" style="display:none;">
+              <label for="cfgDoprBetonMytneKc">Mýtné — fixní cena (Kč)</label>
+              <input type="number" id="cfgDoprBetonMytneKc" value="0" min="0" step="10">
+            </div>
+          </div>
+
+          <!-- ── PALETY A VYKLÁDKA ── -->
+          <div style="margin-top:8px; padding:10px; background:#f8f0fc; border:2px solid #8e44ad;">
+            <h4 style="margin:0 0 6px 0; font-size:13px; color:#8e44ad; font-weight:700;">📦 Palety a vykládka</h4>
+            <div style="font-size:10px; color:#888; margin-bottom:6px;">
+              1 paleta = 53 pytlů betonu | 20 bet. desek | 25 bet. sloupků<br>
+              Vykládka zboží z palety: 120 Kč/paleta (výchozí)
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgVkladkaPaleta">Cena vykládky za paletu (Kč)</label>
+              <input type="number" id="cfgVkladkaPaleta" value="120" min="0" step="10">
+            </div>
+            <div class="form-group" style="margin-bottom:6px;">
+              <label for="cfgDoprBetPaletCustom">Počet palet (0 = automaticky)</label>
+              <input type="number" id="cfgDoprBetPaletCustom" value="0" min="0" step="1">
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -245,7 +410,7 @@
           </button>
         </div>
         <!-- Wall config (visible only when wall tool is active) -->
-        <div id="wallConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:6px; font-size:13px;">
+        <div id="wallConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:0; font-size:13px;">
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <label>Tloušťka:
               <input type="number" id="wallThickness" value="20" min="5" max="100" step="5" style="width:55px;"> cm
@@ -268,7 +433,7 @@
           </div>
         </div>
         <!-- House config (visible only when house tool is active) -->
-        <div id="houseConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:6px; font-size:13px;">
+        <div id="houseConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:0; font-size:13px;">
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <label>Výška:
               <input type="number" id="houseHeight" value="300" min="200" max="600" step="10" style="width:55px;"> cm
@@ -283,35 +448,35 @@
           </div>
           <div style="margin-top:6px; display:flex; gap:4px; align-items:center;">
             <span>Barva:</span>
-            <button class="house-color-btn" data-color="bila" title="Bílá" style="background:#ecf0f1; width:22px; height:22px; border:2px solid #aaa; border-radius:4px; cursor:pointer;"></button>
-            <button class="house-color-btn" data-color="zluta" title="Žlutá" style="background:#f8e473; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="house-color-btn" data-color="oranzova" title="Oranžová" style="background:#e8a040; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="house-color-btn" data-color="cervena" title="Červená" style="background:#c0392b; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="house-color-btn" data-color="modra" title="Modrá" style="background:#5dade2; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="house-color-btn" data-color="zelena" title="Zelená" style="background:#58d68d; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="bila" title="Bílá" style="background:#ecf0f1; width:22px; height:22px; border:2px solid #aaa; border-radius:0; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="zluta" title="Žlutá" style="background:#f8e473; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="oranzova" title="Oranžová" style="background:#e8a040; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="cervena" title="Červená" style="background:#c0392b; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="modra" title="Modrá" style="background:#5dade2; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="house-color-btn" data-color="zelena" title="Zelená" style="background:#58d68d; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
           </div>
           <div style="margin-top:6px; display:flex; gap:4px; align-items:center;">
             <span>Střecha:</span>
-            <button class="roof-color-btn" data-color="hneda" title="Hnědá" style="background:#8b4513; width:22px; height:22px; border:2px solid #aaa; border-radius:4px; cursor:pointer;"></button>
-            <button class="roof-color-btn" data-color="cervena" title="Červená" style="background:#8b2500; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="roof-color-btn" data-color="seda" title="Šedá" style="background:#6e6e6e; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="roof-color-btn" data-color="cerna" title="Černá" style="background:#2c2c2c; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="roof-color-btn" data-color="zelena" title="Zelená" style="background:#2d572c; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
-            <button class="roof-color-btn" data-color="modra" title="Modrá" style="background:#34495e; width:22px; height:22px; border:2px solid transparent; border-radius:4px; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="hneda" title="Hnědá" style="background:#8b4513; width:22px; height:22px; border:2px solid #aaa; border-radius:0; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="cervena" title="Červená" style="background:#8b2500; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="seda" title="Šedá" style="background:#6e6e6e; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="cerna" title="Černá" style="background:#2c2c2c; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="zelena" title="Zelená" style="background:#2d572c; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
+            <button class="roof-color-btn" data-color="modra" title="Modrá" style="background:#34495e; width:22px; height:22px; border:2px solid transparent; border-radius:0; cursor:pointer;"></button>
           </div>
           <div style="margin-top:4px; font-size:11px; color:var(--text-muted,#999);">
             Klikejte body domu, dvojklik ukončí tvar.
           </div>
         </div>
         <!-- Terrain config (visible only when terrain tool is active) -->
-        <div id="terrainConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:6px; font-size:13px;">
+        <div id="terrainConfig" style="display:none; margin-top:8px; padding:8px; background:var(--bg-secondary,#f5f5f5); border-radius:0; font-size:13px;">
           <div id="terrainPaintOpts">
             <div style="display:flex; gap:4px; flex-wrap:wrap;">
-              <button class="terrain-surface-btn active" data-surface="trava" title="Tráva" style="width:40px;height:28px;border:2px solid #27ae60;border-radius:4px;cursor:pointer;background:#4a8a3a;font-size:10px;color:#fff;">Tráva</button>
-              <button class="terrain-surface-btn" data-surface="hlina" title="Hlína" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#7a5c3a;font-size:10px;color:#fff;">Hlína</button>
-              <button class="terrain-surface-btn" data-surface="beton" title="Beton" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#8a8e92;font-size:10px;color:#fff;">Beton</button>
-              <button class="terrain-surface-btn" data-surface="pisek" title="Písek" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#c4a96a;font-size:10px;color:#543;">Písek</button>
-              <button class="terrain-surface-btn" data-surface="dlazba" title="Dlažba" style="width:40px;height:28px;border:2px solid transparent;border-radius:4px;cursor:pointer;background:#6e6e6e;font-size:10px;color:#fff;">Dlažba</button>
+              <button class="terrain-surface-btn active" data-surface="trava" title="Tráva" style="width:40px;height:28px;border:2px solid #27ae60;border-radius:0;cursor:pointer;background:#4a8a3a;font-size:10px;color:#fff;">Tráva</button>
+              <button class="terrain-surface-btn" data-surface="hlina" title="Hlína" style="width:40px;height:28px;border:2px solid transparent;border-radius:0;cursor:pointer;background:#7a5c3a;font-size:10px;color:#fff;">Hlína</button>
+              <button class="terrain-surface-btn" data-surface="beton" title="Beton" style="width:40px;height:28px;border:2px solid transparent;border-radius:0;cursor:pointer;background:#8a8e92;font-size:10px;color:#fff;">Beton</button>
+              <button class="terrain-surface-btn" data-surface="pisek" title="Písek" style="width:40px;height:28px;border:2px solid transparent;border-radius:0;cursor:pointer;background:#c4a96a;font-size:10px;color:#543;">Písek</button>
+              <button class="terrain-surface-btn" data-surface="dlazba" title="Dlažba" style="width:40px;height:28px;border:2px solid transparent;border-radius:0;cursor:pointer;background:#6e6e6e;font-size:10px;color:#fff;">Dlažba</button>
             </div>
           </div>
           <div style="margin-top:6px;">

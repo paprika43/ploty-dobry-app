@@ -1,0 +1,4016 @@
+[
+  {
+    "name": "AG STEEL s.r.o.",
+    "slug": "/ag-steel",
+    "ulice": "Havlíčkova 129",
+    "mesto": "Libochovice",
+    "psc": "411 17",
+    "lat": 50.4080033,
+    "lon": 14.0560976
+  },
+  {
+    "name": "Agrostav Pardubice, a.s. - betonárna Holice",
+    "slug": "/agrostav-pardubice",
+    "ulice": "",
+    "mesto": "Holice",
+    "psc": "534 01",
+    "lat": 50.0662793,
+    "lon": 15.9858513
+  },
+  {
+    "name": "ALFABETON s.r.o.- Blatná",
+    "slug": "/alfabeton-blatna",
+    "ulice": "",
+    "mesto": "Blatná",
+    "psc": "388 01",
+    "lat": 49.4239848,
+    "lon": 13.8840972
+  },
+  {
+    "name": "ALFABETON s.r.o.- Mačkov",
+    "slug": "/alfabeton-mackov",
+    "ulice": "Mačkov 63",
+    "mesto": "Blatná",
+    "psc": "388 01",
+    "lat": 49.400135,
+    "lon": 13.8878866
+  },
+  {
+    "name": "ALV BETON s.r.o.",
+    "slug": "/ales-cisar",
+    "ulice": "",
+    "mesto": "Kamenný Most - technický areál sever",
+    "psc": "273 26",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Andrla CZ s.r.o.",
+    "slug": "/andrla",
+    "ulice": "Cihelní 260",
+    "mesto": "Branka u Opavy",
+    "psc": "747 41",
+    "lat": 49.8889874,
+    "lon": 17.8726429
+  },
+  {
+    "name": "ARIM-DL, s.r.o.",
+    "slug": "/arim-dl",
+    "ulice": "Dlouhá Lhota-Drásov 205",
+    "mesto": "Dobříš",
+    "psc": "263 01",
+    "lat": 49.7813749,
+    "lon": 14.1704372
+  },
+  {
+    "name": "ATM CZ a.s. - Hradec Králové",
+    "slug": "/atm",
+    "ulice": "Klacovská 647",
+    "mesto": "Hradec Králové 15 - Svobodné Dvory",
+    "psc": "503 11",
+    "lat": 50.2220965,
+    "lon": 15.7825808
+  },
+  {
+    "name": "B &amp; BC, a. s.- betonárna Plzeň",
+    "slug": "/bbc-plzen",
+    "ulice": "Tylova 57, areál Škoda a.s.",
+    "mesto": "Plzeň",
+    "psc": "316 00",
+    "lat": 49.7477415,
+    "lon": 13.3775249
+  },
+  {
+    "name": "B &amp; BC, a. s.- betonárna Přeštice",
+    "slug": "/bbc-prestice",
+    "ulice": "",
+    "mesto": "Přeštice",
+    "psc": "334 01",
+    "lat": 49.5726096,
+    "lon": 13.3295697
+  },
+  {
+    "name": "B &amp; BC, a. s.- betonárna Zbůch",
+    "slug": "/bbc-beton-zbuch",
+    "ulice": "Sokolská 464",
+    "mesto": "Zbůch",
+    "psc": "330 22",
+    "lat": 49.6855763,
+    "lon": 13.2254688
+  },
+  {
+    "name": "B &amp; BC, a. s.- betonárna Zruč",
+    "slug": "/bbc-zruc",
+    "ulice": "Vřesová 206",
+    "mesto": "Zruč",
+    "psc": "330 08",
+    "lat": 49.8060234,
+    "lon": 13.4163401
+  },
+  {
+    "name": "B E S s.r.o.- betonárna Votice",
+    "slug": "/bes-votice",
+    "ulice": "",
+    "mesto": "Votice",
+    "psc": "259 01",
+    "lat": 49.6403939,
+    "lon": 14.6380296
+  },
+  {
+    "name": "B6 Betonárka Přeštice s.r.o. (betonárna Přeštice)",
+    "slug": "/rekaos",
+    "ulice": "Hlávkova 1218 (areál ZD za čerpací stanicí OMV)",
+    "mesto": "Přeštice",
+    "psc": "334 01",
+    "lat": 49.5726096,
+    "lon": 13.3295697
+  },
+  {
+    "name": "BERGER BETON spol. s r.o.- Homole - České Budějovice",
+    "slug": "/berger-beton-homole",
+    "ulice": "Homole 276",
+    "mesto": "Homole u",
+    "psc": "370 01",
+    "lat": 50.6270822,
+    "lon": 14.2067397
+  },
+  {
+    "name": "BERGER BETON spol. s r.o.- Chýně / Praha",
+    "slug": "/berger-beton-chyne",
+    "ulice": "",
+    "mesto": "Chýně",
+    "psc": "253 01",
+    "lat": 50.0606462,
+    "lon": 14.2272998
+  },
+  {
+    "name": "BERGER BETON spol. s r.o.- Klatovy",
+    "slug": "/berger-beton-klatovy",
+    "ulice": "Podborská 937, Průmyslová zóna",
+    "mesto": "Klatovy",
+    "psc": "339 01",
+    "lat": 49.3951183,
+    "lon": 13.2935954
+  },
+  {
+    "name": "BERGER BETON spol. s r.o.- Nová Hospoda - Plzeň",
+    "slug": "/berger-beton-plzen",
+    "ulice": "",
+    "mesto": "pošta Třemošná",
+    "psc": "330 35",
+    "lat": 49.8161847,
+    "lon": 13.3951912
+  },
+  {
+    "name": "BERGER BETON spol. s r.o.- Písek",
+    "slug": "/berger-beton-pisek",
+    "ulice": "Za Nádražím 1735/2",
+    "mesto": "Písek",
+    "psc": "397 01",
+    "lat": 49.2954994,
+    "lon": 14.1435819
+  },
+  {
+    "name": "BERGER BETON spol. s r.o.- Sadov - Karlovy Vary",
+    "slug": "/berger-beton-sadov",
+    "ulice": "",
+    "mesto": "Karlovy Vary - Sadov",
+    "psc": "362 61",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "BEThol s.r.o.",
+    "slug": "/bethol",
+    "ulice": "ČS. Armády 664 (areál pily)",
+    "mesto": "Zdice",
+    "psc": "267 51",
+    "lat": 49.9119542,
+    "lon": 13.9779864
+  },
+  {
+    "name": "BETON BYZOV s.r.o.  - betonárna Újezd u Uničova",
+    "slug": "/byzov-beton",
+    "ulice": "",
+    "mesto": "Újezd 100",
+    "psc": "783 96",
+    "lat": 49.7586276,
+    "lon": 17.180395
+  },
+  {
+    "name": "BETON RUSÍN s.r.o.",
+    "slug": "/rusin",
+    "ulice": "Rosická 333",
+    "mesto": "Tetčice",
+    "psc": "664 17",
+    "lat": 49.1773055,
+    "lon": 16.4074685
+  },
+  {
+    "name": "BETONA Ivančice s.r.o.",
+    "slug": "/betona-ivancice",
+    "ulice": "Kounická 1636/76",
+    "mesto": "",
+    "psc": "664 91",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Betonárka Blovice s.r.o.",
+    "slug": "/lm-betonarka",
+    "ulice": "Drnkova 634",
+    "mesto": "Blovice",
+    "psc": "336 01",
+    "lat": 49.5895994,
+    "lon": 13.5350078
+  },
+  {
+    "name": "Betonárka Brzkov",
+    "slug": "/betonarka-brzkov",
+    "ulice": "Palackého 988",
+    "mesto": "Polná",
+    "psc": "588 13",
+    "lat": 49.4860762,
+    "lon": 15.7282066
+  },
+  {
+    "name": "Betonárka Český Brod, s.r.o.",
+    "slug": "/betonarka-cesky-brod",
+    "ulice": "Tuchorazská 1363",
+    "mesto": "",
+    "psc": "282 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Betonárka GELLNER",
+    "slug": "/gellner",
+    "ulice": "U Černého mostu 2151",
+    "mesto": "Jirkov",
+    "psc": "431 11",
+    "lat": 50.4908179,
+    "lon": 13.4528093
+  },
+  {
+    "name": "Betonárka Klíč",
+    "slug": "/betonarka-klic",
+    "ulice": "Mnichov 2",
+    "mesto": "Vrbno pod Pradědem",
+    "psc": "792 26",
+    "lat": 50.1232975,
+    "lon": 17.3845675
+  },
+  {
+    "name": "Betonárka Mukařov s.r.o.",
+    "slug": "/mukarov",
+    "ulice": "U Mototechny 89",
+    "mesto": "Tehovec",
+    "psc": "251 62",
+    "lat": 49.9915188,
+    "lon": 14.7226788
+  },
+  {
+    "name": "Betonárka Ševel s.r.o.",
+    "slug": "/betonarka-vaclav-sevel",
+    "ulice": "",
+    "mesto": "Karviná - Hranice",
+    "psc": "733 01",
+    "lat": 49.8640113,
+    "lon": 18.5527959
+  },
+  {
+    "name": "Betonárka Velké Bílovice",
+    "slug": "/betonarkavb",
+    "ulice": "",
+    "mesto": "Velké Bílovice",
+    "psc": "691 02",
+    "lat": 48.8493878,
+    "lon": 16.892052
+  },
+  {
+    "name": "Betonárna - BETON ALI Svinný 6",
+    "slug": "/flexi-ways",
+    "ulice": "Svinný 6  (v areálu firmy Jaroslav Křišťan)",
+    "mesto": "Chotěboř",
+    "psc": "583 01",
+    "lat": 49.7202055,
+    "lon": 15.6704437
+  },
+  {
+    "name": "Betonárna - DH-stav Dc s.r.o. - SKLAD BENEŠOVSKÁ",
+    "slug": "/dh-stav-dc",
+    "ulice": "Benešovská 1468/2",
+    "mesto": "Děčín",
+    "psc": "405 02",
+    "lat": 50.776161,
+    "lon": 14.2285981
+  },
+  {
+    "name": "BETONÁRNA ČISOVICE -  PROTEKO s.r.o.",
+    "slug": "/betonarna-cisovice",
+    "ulice": "Areál Na Pahorce 226  (Strakonická - exit Řitka)",
+    "mesto": "",
+    "psc": "252 04",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "BETONÁRNA FENDRYCH s.r.o.",
+    "slug": "/fendrych",
+    "ulice": "Olešinky č.p. 43",
+    "mesto": "Dolní Rožínka",
+    "psc": "592 51",
+    "lat": 49.4746071,
+    "lon": 16.2100968
+  },
+  {
+    "name": "BETONÁRNA HLUČÍN s.r.o.",
+    "slug": "/tomas-straub",
+    "ulice": "Ostravská 1847",
+    "mesto": "Hlučín",
+    "psc": "748 01",
+    "lat": 49.8953518,
+    "lon": 18.2117029
+  },
+  {
+    "name": "Betonárna Ivančice s.r.o.",
+    "slug": "/betonarna-ivancice",
+    "ulice": "Ivančice č.ev. 1366",
+    "mesto": "",
+    "psc": "664 91",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Betonárna Klamoš s.r.o.",
+    "slug": "/dekor-beton",
+    "ulice": "Klamoš 75",
+    "mesto": "Chlumec nad Cidlinou",
+    "psc": "503 51",
+    "lat": 50.1341763,
+    "lon": 15.48819
+  },
+  {
+    "name": "Betonárna Komořany u Mostu",
+    "slug": "/banska-stavebni-most",
+    "ulice": "Třebušická 178",
+    "mesto": "Most - Komořany",
+    "psc": "434 01",
+    "lat": 50.5248797,
+    "lon": 13.5650413
+  },
+  {
+    "name": "Betonárna Nový Bydžov s.r.o.",
+    "slug": "/novy-bydzov",
+    "ulice": "1. máje 198",
+    "mesto": "Nový Bydžov",
+    "psc": "504 01",
+    "lat": 50.2285801,
+    "lon": 15.4939789
+  },
+  {
+    "name": "Betonárna Ostředek",
+    "slug": "/ostredek",
+    "ulice": "Ostředek 90",
+    "mesto": "Ostředek",
+    "psc": "257 24",
+    "lat": 49.8352931,
+    "lon": 14.8324344
+  },
+  {
+    "name": "Betonárna Příseka u Světlé s.r.o.",
+    "slug": "/stavby-kv",
+    "ulice": "č.p. 52",
+    "mesto": "Příseka",
+    "psc": "582 91",
+    "lat": 49.6707734,
+    "lon": 15.4255589
+  },
+  {
+    "name": "BETONÁRNA TŘEŠŤ",
+    "slug": "/euro-floor-brtnice",
+    "ulice": "",
+    "mesto": "Třešť",
+    "psc": "589 01",
+    "lat": 49.2911919,
+    "lon": 15.4830063
+  },
+  {
+    "name": "Betonservis Žernov s.r.o.",
+    "slug": "/tomas-nahlovsky",
+    "ulice": "Žernov 45",
+    "mesto": "Žernov",
+    "psc": "512 63",
+    "lat": 50.5524745,
+    "lon": 15.2691153
+  },
+  {
+    "name": "BETONTRANSPORT s.r.o. - Beton Hořice",
+    "slug": "/betontransport-beton-horice",
+    "ulice": "Lukavec u Hořic 54",
+    "mesto": "Hořice v Podkrkonoší",
+    "psc": "508 01",
+    "lat": 50.3562714,
+    "lon": 15.634861
+  },
+  {
+    "name": "Betostav CZ s.r.o. - betonárna Častolovice",
+    "slug": "/betostav-castolovice",
+    "ulice": "",
+    "mesto": "",
+    "psc": "517 41",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Betostav CZ s.r.o. - betonárna Nahořany",
+    "slug": "/betostav-nahorany",
+    "ulice": "",
+    "mesto": "Nahořany u Nového Města nad Metují",
+    "psc": "549 07",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Betostav CZ s.r.o. - betonárna Opočno",
+    "slug": "/betostav-opocno",
+    "ulice": "",
+    "mesto": "Opočno",
+    "psc": "517 73",
+    "lat": 50.2676907,
+    "lon": 16.1145157
+  },
+  {
+    "name": "Betostav CZ s.r.o. - betonárna Říkov",
+    "slug": "/betostav-rikov",
+    "ulice": "",
+    "mesto": "p.",
+    "psc": "552 03",
+    "lat": 49.1881767,
+    "lon": 16.5749315
+  },
+  {
+    "name": "BEZEDOS s.r.o. -  Hronov-Velké Poříčí",
+    "slug": "/bezedos-hronov",
+    "ulice": "Náchodská 628",
+    "mesto": "Velké Poříčí",
+    "psc": "549 32",
+    "lat": 50.4555843,
+    "lon": 16.1880723
+  },
+  {
+    "name": "BEZEDOS s.r.o. - Broumov-Jetřichov",
+    "slug": "/bezedos-broumov",
+    "ulice": "",
+    "mesto": "Broumov - Jetřichov",
+    "psc": "550 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "BEZEDOS s.r.o. - Náchod",
+    "slug": "/bezedos-nachod",
+    "ulice": "Vysokov 203",
+    "mesto": "Vysokov",
+    "psc": "549 12",
+    "lat": 50.4046979,
+    "lon": 16.1200869
+  },
+  {
+    "name": "BKP BETON spol. s r.o. - betonárna Dačice",
+    "slug": "/bkp-beton-dacice",
+    "ulice": "",
+    "mesto": "Dačice",
+    "psc": "380 01",
+    "lat": 49.0818108,
+    "lon": 15.437216
+  },
+  {
+    "name": "BKP BETON spol. s r.o. - betonárna Studená",
+    "slug": "/bkp-beton",
+    "ulice": "Horní Bolíkov 23",
+    "mesto": "Studená",
+    "psc": "378 56",
+    "lat": 49.1914016,
+    "lon": 15.3160264
+  },
+  {
+    "name": "Bo!beton - Ostrava",
+    "slug": "/bobeton-ostrava",
+    "ulice": "Orlovská 969/18",
+    "mesto": "Ostrava - Muglinov",
+    "psc": "712 00",
+    "lat": 49.8583663,
+    "lon": 18.296215
+  },
+  {
+    "name": "Bo!beton - Staříč",
+    "slug": "/bobeton-staric",
+    "ulice": "Staříč 546",
+    "mesto": "Staříč",
+    "psc": "739 43",
+    "lat": 49.6884379,
+    "lon": 18.2746078
+  },
+  {
+    "name": "BP BRŮNA s.r.o. - betonárna Dobřany",
+    "slug": "/bp-bruna-betonarna",
+    "ulice": "Dobré Štěstí 990",
+    "mesto": "Dobřany",
+    "psc": "334 41",
+    "lat": 49.6724109,
+    "lon": 13.3016514
+  },
+  {
+    "name": "BSG s.r.o. - betonárna Předslav",
+    "slug": "/bsg-beton",
+    "ulice": "Předslav 99",
+    "mesto": "Klatovy",
+    "psc": "339 01",
+    "lat": 49.4411627,
+    "lon": 13.3513572
+  },
+  {
+    "name": "BURKO s.r.o. SUŠICE - provoz Tedražice",
+    "slug": "/burko-tedrazice",
+    "ulice": "Pražská 285",
+    "mesto": "Sušice",
+    "psc": "342 01",
+    "lat": 49.2474129,
+    "lon": 13.5438975
+  },
+  {
+    "name": "C&amp;K BETON s.r.o. - betonárna Praha-Uhříněves",
+    "slug": "/ck-beton",
+    "ulice": "Františka Diviše 944",
+    "mesto": "Praha 10 - Uhříněves",
+    "psc": "104 00",
+    "lat": 50.0376616,
+    "lon": 14.5761996
+  },
+  {
+    "name": "CANDRMRK betonárka, a.s. - Lišov",
+    "slug": "/candrmrk-lisov",
+    "ulice": "Lazna 812",
+    "mesto": "Lišov",
+    "psc": "373 72",
+    "lat": 49.0100612,
+    "lon": 14.6131849
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Benešov",
+    "slug": "/cemex-benesov",
+    "ulice": "",
+    "mesto": "Benešov",
+    "psc": "256 01",
+    "lat": 49.7828898,
+    "lon": 14.6875926
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Beroun",
+    "slug": "/cemex-beroun",
+    "ulice": "",
+    "mesto": "Beroun",
+    "psc": "266 01",
+    "lat": 49.9640292,
+    "lon": 14.0733907
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Brno",
+    "slug": "/cemex-brno",
+    "ulice": "Masná 110",
+    "mesto": "Brno",
+    "psc": "602 00",
+    "lat": 49.1821811,
+    "lon": 16.6259895
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Břeclav",
+    "slug": "/cemex-breclav",
+    "ulice": "Hraniční, P.O.Box 20",
+    "mesto": "Břeclav - Poštorná",
+    "psc": "691 41",
+    "lat": 48.7580143,
+    "lon": 16.8497349
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Čáslav",
+    "slug": "/cemex-caslav",
+    "ulice": "",
+    "mesto": "",
+    "psc": "286 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Děčín",
+    "slug": "/cemex-decin",
+    "ulice": "",
+    "mesto": "Děčín",
+    "psc": "405 01",
+    "lat": 50.7740383,
+    "lon": 14.1977578
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Dětmarovice",
+    "slug": "/cemex-detmarovice",
+    "ulice": "",
+    "mesto": "Dětmarovice",
+    "psc": "735 71",
+    "lat": 49.8942584,
+    "lon": 18.4605013
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Dvůr Králové",
+    "slug": "/cemex-dvur-kralove",
+    "ulice": "",
+    "mesto": "Dvůr Králové nad Labem",
+    "psc": "544 01",
+    "lat": 50.4136181,
+    "lon": 15.7986837
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Frýdek-Místek",
+    "slug": "/cemex-frydekmistek",
+    "ulice": "Na Zbytkách 83",
+    "mesto": "Staré Město",
+    "psc": "738 01",
+    "lat": 49.6537163,
+    "lon": 18.3755125
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Havlíčkův Brod",
+    "slug": "/cemex-hbrod",
+    "ulice": "Jihlavská 1126",
+    "mesto": "Havlíčkův Brod",
+    "psc": "580 01",
+    "lat": 49.5919133,
+    "lon": 15.5801349
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Hodonín",
+    "slug": "/cemex-hodonin",
+    "ulice": "",
+    "mesto": "Hodonín",
+    "psc": "695 01",
+    "lat": 48.8563155,
+    "lon": 17.1220509
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Hradec Králové - Plačice",
+    "slug": "/cemex-placice",
+    "ulice": "",
+    "mesto": "Plačice",
+    "psc": "500 04",
+    "lat": 50.193151,
+    "lon": 15.776747
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Hradec Králové - Slezské Předměstí",
+    "slug": "/cemex-hradec-kralove",
+    "ulice": "Bratří Štefanů 986",
+    "mesto": "Hradec Králové",
+    "psc": "500 03",
+    "lat": 50.2207341,
+    "lon": 15.8763702
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Hradec Králové - Správčice",
+    "slug": "/cemex-spravcice",
+    "ulice": "",
+    "mesto": "Předměřice nad Labem",
+    "psc": "503 02",
+    "lat": 50.256246,
+    "lon": 15.8152897
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Chomutov",
+    "slug": "/cemex-chomutov",
+    "ulice": "",
+    "mesto": "Chomutov",
+    "psc": "430 03",
+    "lat": 50.4606456,
+    "lon": 13.4178324
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Jaroměř",
+    "slug": "/cemex-jaromer",
+    "ulice": "",
+    "mesto": "Jaroměř - Josefov",
+    "psc": "551 02",
+    "lat": 50.3376067,
+    "lon": 15.924848
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Jevíčko",
+    "slug": "/cemex-jevicko",
+    "ulice": "Olomoucká 226",
+    "mesto": "Jevíčko",
+    "psc": "569 43",
+    "lat": 49.6317813,
+    "lon": 16.7172175
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Jihlava-Pávov",
+    "slug": "/cemex-jihlava",
+    "ulice": "Pávov, P.O.Box 42",
+    "mesto": "Jihlava",
+    "psc": "586 02",
+    "lat": 49.396064,
+    "lon": 15.5903065
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Klecany",
+    "slug": "/cemex-klecany",
+    "ulice": "",
+    "mesto": "Klecany",
+    "psc": "250 67",
+    "lat": 50.1756713,
+    "lon": 14.4117052
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Kolín",
+    "slug": "/cemex-kolin",
+    "ulice": "Veltrubská 1527",
+    "mesto": "Kolín",
+    "psc": "280 02",
+    "lat": 50.0453678,
+    "lon": 15.2003005
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Kunovice",
+    "slug": "/cemex-kunovice",
+    "ulice": "Osvobození 1127",
+    "mesto": "Kunovice",
+    "psc": "686 04",
+    "lat": 49.0292701,
+    "lon": 17.4685
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Liberec",
+    "slug": "/cemex-liberec",
+    "ulice": "",
+    "mesto": "Liberec 11",
+    "psc": "460 11",
+    "lat": 50.7702958,
+    "lon": 15.0469259
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Litomyšl",
+    "slug": "/cemex-litomysl",
+    "ulice": "Trstěnická 932",
+    "mesto": "Litomyšl",
+    "psc": "570 20",
+    "lat": 49.8610788,
+    "lon": 16.3262763
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Lovosice - Prosmyky",
+    "slug": "/cemex-prosmyky",
+    "ulice": "",
+    "mesto": "Lovosice - Prosmyky",
+    "psc": "410 02",
+    "lat": 50.5083888,
+    "lon": 14.0648498
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Mělník",
+    "slug": "/cemex-melnik",
+    "ulice": "",
+    "mesto": "Mělník - Pšovka",
+    "psc": "276 01",
+    "lat": 50.3628349,
+    "lon": 14.4682631
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Mikulov",
+    "slug": "/cemex-mikulov",
+    "ulice": "Jiráskova 13",
+    "mesto": "Mikulov",
+    "psc": "692 01",
+    "lat": 48.7987895,
+    "lon": 16.6249852
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Mladá Boleslav - Dukelská",
+    "slug": "/cemex-boleslav",
+    "ulice": "",
+    "mesto": "Mladá Boleslav",
+    "psc": "293 01",
+    "lat": 50.4116187,
+    "lon": 14.9031301
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Náklo",
+    "slug": "/cemex-naklo",
+    "ulice": "",
+    "mesto": "Náklo",
+    "psc": "783 32",
+    "lat": 49.6548279,
+    "lon": 17.1315608
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Nové Strašecí",
+    "slug": "/cemex-straseci",
+    "ulice": "Jiřího Šotky 1198",
+    "mesto": "Nové Strašecí",
+    "psc": "271 01",
+    "lat": 50.1562508,
+    "lon": 13.9066222
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Ohrazenice",
+    "slug": "/cemex-ohrazenice",
+    "ulice": "",
+    "mesto": "Ohrazenice",
+    "psc": "511 01",
+    "lat": 49.7869542,
+    "lon": 13.9595092
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Olomouc",
+    "slug": "/cemex-olomouc",
+    "ulice": "Balcárkova 35",
+    "mesto": "Olomouc 10",
+    "psc": "779 00",
+    "lat": 49.5913974,
+    "lon": 17.2345331
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Ostrava-Mariánské Hory",
+    "slug": "/cemex-ostrava-mh",
+    "ulice": "Mariánskohorská 2123/92",
+    "mesto": "Ostrava - Mariánské Hory",
+    "psc": "709 00",
+    "lat": 49.8372625,
+    "lon": 18.2482648
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Otrokovice",
+    "slug": "/cemex-otrokovice",
+    "ulice": "tř. T. Bati 1764, areál DEZA, a.s.",
+    "mesto": "Otrokovice",
+    "psc": "765 02",
+    "lat": 49.2088284,
+    "lon": 17.5353865
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Pardubice-Semtín",
+    "slug": "/cemex-semtin",
+    "ulice": "Semtín 102",
+    "mesto": "Pardubice - Semtín",
+    "psc": "533 54",
+    "lat": 50.0619868,
+    "lon": 15.7483266
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Plzeň-Letkov",
+    "slug": "/cemex-letkov",
+    "ulice": "",
+    "mesto": "Plzeň - Božkov",
+    "psc": "315 03",
+    "lat": 49.7327597,
+    "lon": 13.4182073
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Plzeň-Prior",
+    "slug": "/cemex-plzen",
+    "ulice": "",
+    "mesto": "Plzeň",
+    "psc": "301 62",
+    "lat": 49.7477415,
+    "lon": 13.3775249
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Poděbrady",
+    "slug": "/cemex-podebrady",
+    "ulice": "",
+    "mesto": "Poděbrady",
+    "psc": "290 01",
+    "lat": 50.1496354,
+    "lon": 15.1237972
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Praha Libuš",
+    "slug": "/cemex-libus",
+    "ulice": "",
+    "mesto": "Praha 4 - Libuš",
+    "psc": "146 00",
+    "lat": 50.0092217,
+    "lon": 14.4625039
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Praha Stodůlky",
+    "slug": "/cemex-stodulky",
+    "ulice": "K Hájům 946",
+    "mesto": "Praha 5 - Stodůlky",
+    "psc": "155 00",
+    "lat": 50.0581852,
+    "lon": 14.3237567
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Slaný",
+    "slug": "/cemex-bysen",
+    "ulice": "Tuřany-Byseň 1",
+    "mesto": "Tuřany",
+    "psc": "273 79",
+    "lat": 50.2267633,
+    "lon": 14.0370626
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Stonava",
+    "slug": "/cemex-stonava",
+    "ulice": "",
+    "mesto": "Stonava",
+    "psc": "735 34",
+    "lat": 49.8169885,
+    "lon": 18.5250675
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Strančice",
+    "slug": "/cemex-strancice",
+    "ulice": "Svojšovice 27",
+    "mesto": "Strančice",
+    "psc": "251 63",
+    "lat": 49.9543851,
+    "lon": 14.6627275
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Šenov",
+    "slug": "/cemex-senov",
+    "ulice": "Těšínská 880",
+    "mesto": "Ostrava - Šenov",
+    "psc": "739 34",
+    "lat": 49.7908438,
+    "lon": 18.3983756
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Šumperk-Vikýřovice",
+    "slug": "/cemex-vikyrovice",
+    "ulice": "",
+    "mesto": "Vikýřovice",
+    "psc": "788 13",
+    "lat": 49.9779246,
+    "lon": 17.0123401
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Teplice",
+    "slug": "/cemex-teplice",
+    "ulice": "",
+    "mesto": "Teplice",
+    "psc": "415 01",
+    "lat": 50.6406644,
+    "lon": 13.8244461
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Třebíč",
+    "slug": "/cemex-trebic",
+    "ulice": "Průmyslová 233",
+    "mesto": "Třebíč",
+    "psc": "674 01",
+    "lat": 49.2092297,
+    "lon": 15.8986318
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Třinec",
+    "slug": "/cemex-trinec",
+    "ulice": "Frýdecká (areál TŽ) P.O.BOX 25",
+    "mesto": "Třinec",
+    "psc": "739 61",
+    "lat": 49.6779212,
+    "lon": 18.6711993
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Uherský Brod",
+    "slug": "/cemex-brod",
+    "ulice": "",
+    "mesto": "Uherský Brod",
+    "psc": "688 01",
+    "lat": 49.0217975,
+    "lon": 17.6436164
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Ústí nad Labem",
+    "slug": "/cemex-usti",
+    "ulice": "Drážďanská 832/74",
+    "mesto": "Ústí nad Labem",
+    "psc": "400 07",
+    "lat": 50.6644952,
+    "lon": 14.0717223
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Ústí nad Orlicí",
+    "slug": "/cemex-ustinadorlici",
+    "ulice": "Areál firmy Help, Moravská 537",
+    "mesto": "Ústí nad Orlicí - Hylváty",
+    "psc": "562 01",
+    "lat": 49.9659919,
+    "lon": 16.4047331
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Valašské Klobouky",
+    "slug": "/cemex-klobouky",
+    "ulice": "",
+    "mesto": "Valašské Klobouky",
+    "psc": "766 01",
+    "lat": 49.1409048,
+    "lon": 18.0075634
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Valašské Meziříčí",
+    "slug": "/cemex-valmezirici",
+    "ulice": "",
+    "mesto": "Valašské Meziříčí",
+    "psc": "757 01",
+    "lat": 49.4745164,
+    "lon": 17.9607144
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Velké Meziříčí",
+    "slug": "/cemex-mezirici",
+    "ulice": "Karlov 169",
+    "mesto": "Velké Meziříčí",
+    "psc": "594 01",
+    "lat": 49.3474907,
+    "lon": 16.031419
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Vlašim",
+    "slug": "/cemex-vlasim",
+    "ulice": "Průmyslová 1888",
+    "mesto": "Vlašim",
+    "psc": "258 01",
+    "lat": 49.6988201,
+    "lon": 14.9064325
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Vrchlabí",
+    "slug": "/cemex-vrchlabi",
+    "ulice": "Areál LTM 117",
+    "mesto": "Vrchlabí - Kunčice nad Labem",
+    "psc": "543 61",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Vsetín",
+    "slug": "/cemex-vsetin",
+    "ulice": "",
+    "mesto": "Vsetín",
+    "psc": "755 01",
+    "lat": 49.334941,
+    "lon": 17.9943487
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Zlín",
+    "slug": "/cemex-zlin",
+    "ulice": "K Farmě 606",
+    "mesto": "Zlín - Štípa",
+    "psc": "763 14",
+    "lat": 49.2670051,
+    "lon": 17.7316863
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Znojmo",
+    "slug": "/cemex-znojmo",
+    "ulice": "Dobšická 17 (areál VHS Plus)",
+    "mesto": "Znojmo",
+    "psc": "671 82",
+    "lat": 48.8554341,
+    "lon": 16.0489457
+  },
+  {
+    "name": "Cemex Czech Republic s.r.o. - betonárna Žďár nad Sázavou",
+    "slug": "/cemex-zdar",
+    "ulice": "Jihlavská 1007",
+    "mesto": "Žďár nad Sázavou",
+    "psc": "591 01",
+    "lat": 49.5553341,
+    "lon": 15.947393
+  },
+  {
+    "name": "Cemex Malešice s.r.o.",
+    "slug": "/cemex-malesice",
+    "ulice": "Teplárenská 608/11 (vjezd z ulice Průmyslová)",
+    "mesto": "Praha 10 - Malešice",
+    "psc": "108 00",
+    "lat": 50.0859108,
+    "lon": 14.5128527
+  },
+  {
+    "name": "CERTBETON s.r.o.",
+    "slug": "/certbeton",
+    "ulice": "Přísnotická 658",
+    "mesto": "Vranovice",
+    "psc": "691 25",
+    "lat": 48.9732003,
+    "lon": 16.6080619
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Český Krumlov",
+    "slug": "/cr-beton-krumlov",
+    "ulice": "",
+    "mesto": "",
+    "psc": "381 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Frymburk",
+    "slug": "/cr-beton-frymburk",
+    "ulice": "",
+    "mesto": "Frymburk",
+    "psc": "382 79",
+    "lat": 48.6609401,
+    "lon": 14.1656363
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Kaplice",
+    "slug": "/cr-beton-kaplice",
+    "ulice": "",
+    "mesto": "Kaplice",
+    "psc": "384 41",
+    "lat": 48.7389045,
+    "lon": 14.493718
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Mirotice",
+    "slug": "/cr-beton-mirotice",
+    "ulice": "",
+    "mesto": "Mirotice",
+    "psc": "398 01",
+    "lat": 49.4290263,
+    "lon": 14.0368614
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Prachatice",
+    "slug": "/cr-beton-prachatice",
+    "ulice": "",
+    "mesto": "Prachatice",
+    "psc": "383 01",
+    "lat": 49.0129091,
+    "lon": 13.997772
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Strakonice",
+    "slug": "/cr-beton-strakonice",
+    "ulice": "",
+    "mesto": "Strakonice",
+    "psc": "386 01",
+    "lat": 49.261277,
+    "lon": 13.9025043
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Veselí nad Lužnicí",
+    "slug": "/cr-beton-veseli",
+    "ulice": "Čtvrť J. Hybeše 549/II, Areál MABA Prefa",
+    "mesto": "Veselí nad Lužnicí",
+    "psc": "391 81",
+    "lat": 49.1866657,
+    "lon": 14.6989455
+  },
+  {
+    "name": "ČR Beton Bohemia spol. s r.o. - betonárna Vimperk",
+    "slug": "/cr-beton-vimperk",
+    "ulice": "",
+    "mesto": "Vimperk",
+    "psc": "385 01",
+    "lat": 49.0526997,
+    "lon": 13.774198
+  },
+  {
+    "name": "Daniel Zátka - Betonárna Luhov",
+    "slug": "/daniel-zatka",
+    "ulice": "",
+    "mesto": "Stráž pod Ralskem",
+    "psc": "471 14",
+    "lat": 50.7029923,
+    "lon": 14.8009646
+  },
+  {
+    "name": "DEAS, spol. s r.o. - Betonárna",
+    "slug": "/deas-boskovice",
+    "ulice": "Rovná 2146",
+    "mesto": "Boskovice",
+    "psc": "680 01",
+    "lat": 49.475295,
+    "lon": 16.6354225
+  },
+  {
+    "name": "DEFBETON, s.r.o.",
+    "slug": "/defbeton",
+    "ulice": "Noutonice 54",
+    "mesto": "Lichoceves",
+    "psc": "252 64",
+    "lat": 50.1675626,
+    "lon": 14.2978739
+  },
+  {
+    "name": "DestroKladno s.r.o. - transportbeton",
+    "slug": "/destro",
+    "ulice": "",
+    "mesto": "Kladno",
+    "psc": "272 03",
+    "lat": 50.1466053,
+    "lon": 14.1026398
+  },
+  {
+    "name": "DK-beton s.r.o. - Litoměřice",
+    "slug": "/dk-litomerice",
+    "ulice": "",
+    "mesto": "Litoměřice",
+    "psc": "412 01",
+    "lat": 50.5340795,
+    "lon": 14.1317985
+  },
+  {
+    "name": "Doprabet s.r.o. Lánov",
+    "slug": "/doprabet-lanov",
+    "ulice": "Č.p. 156",
+    "mesto": "Lánov",
+    "psc": "543 41",
+    "lat": 50.6202744,
+    "lon": 15.6555337
+  },
+  {
+    "name": "DROBNY Sp. z o.o. Spółka Komandytowa",
+    "slug": "/drobny-sp",
+    "ulice": "",
+    "mesto": "",
+    "psc": "",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "EKO BET Plaňany, s.r.o.",
+    "slug": "/ekobet-planany",
+    "ulice": "Pražská 403",
+    "mesto": "Plaňany",
+    "psc": "281 04",
+    "lat": 50.0475579,
+    "lon": 15.0139162
+  },
+  {
+    "name": "EKO ZAPA beton, s.r.o. - Zábřeh",
+    "slug": "/eko-zapa-zabreh",
+    "ulice": "Na Křtaltě 980/21",
+    "mesto": "Zábřeh",
+    "psc": "789 01",
+    "lat": 49.8792888,
+    "lon": 16.88733
+  },
+  {
+    "name": "EKOAGROBETON s.r.o.",
+    "slug": "/ekoagrobeton",
+    "ulice": "Spytihněv 578",
+    "mesto": "Spytihněv",
+    "psc": "763 64",
+    "lat": 49.144256,
+    "lon": 17.4938959
+  },
+  {
+    "name": "EURO DEVELOPMENT KLÁNOVICE s.r.o. - betonárna Záryby",
+    "slug": "/euro-development",
+    "ulice": "Záryby 229",
+    "mesto": "Martinov",
+    "psc": "277 13",
+    "lat": 49.856806,
+    "lon": 18.1781025
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Benešov u Semil",
+    "slug": "/frischbeton-benesov",
+    "ulice": "",
+    "mesto": "Benešov u Semil",
+    "psc": "512 06",
+    "lat": 50.6034651,
+    "lon": 15.3683661
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Beroun",
+    "slug": "/frischbeton-beroun",
+    "ulice": "Černín 87, areál AGP",
+    "mesto": "Zdice",
+    "psc": "267 51",
+    "lat": 49.9119542,
+    "lon": 13.9779864
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Brno",
+    "slug": "/frischbeton-brno",
+    "ulice": "Vinohradská 581",
+    "mesto": "Brno-",
+    "psc": "618 00",
+    "lat": 49.1731431,
+    "lon": 16.6449987
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Cerekvice nad Bystřicí",
+    "slug": "/frischbeton-cerekvice",
+    "ulice": "",
+    "mesto": "Cerekvice nad Bystřicí",
+    "psc": "507 77",
+    "lat": 50.3332491,
+    "lon": 15.7235276
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Čečkovice",
+    "slug": "/frischbeton-ceckovice",
+    "ulice": "",
+    "mesto": "",
+    "psc": "348 02",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Červená Voda",
+    "slug": "/frischbeton-voda",
+    "ulice": "",
+    "mesto": "",
+    "psc": "561 61",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Česká Lípa",
+    "slug": "/frischbeton-ceska-lipa",
+    "ulice": "Dubice 81",
+    "mesto": "",
+    "psc": "470 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Dolní Benešov",
+    "slug": "/frischbeton-dolni-benesov",
+    "ulice": "",
+    "mesto": "Dolní Benešov",
+    "psc": "747 22",
+    "lat": 49.9210128,
+    "lon": 18.1083515
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Hořesedly",
+    "slug": "/frischbeton-horesedly",
+    "ulice": "Hořesedly 149",
+    "mesto": "Hořesedly",
+    "psc": "270 04",
+    "lat": 50.1662299,
+    "lon": 13.6054022
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Cheb",
+    "slug": "/frischbeton-cheb",
+    "ulice": "Podhradská 2008/14",
+    "mesto": "Cheb",
+    "psc": "350 02",
+    "lat": 50.0634137,
+    "lon": 12.3858385
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Chrudim",
+    "slug": "/frischbeton-chrudim",
+    "ulice": "Průmyslová 90",
+    "mesto": "Chrudim",
+    "psc": "537 01",
+    "lat": 49.9574076,
+    "lon": 15.7779475
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Kadaň",
+    "slug": "/frischbeton-kadan",
+    "ulice": "",
+    "mesto": "Kadaň",
+    "psc": "432 01",
+    "lat": 50.3761991,
+    "lon": 13.2710364
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Karlovy Vary-Olšová Vrata",
+    "slug": "/frischbeton-karlovy-vary",
+    "ulice": "Strahovská 170",
+    "mesto": "Olšová Vrata",
+    "psc": "360 01",
+    "lat": 50.2048524,
+    "lon": 12.9229481
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Kladno",
+    "slug": "/frischbeton-kladno",
+    "ulice": "Milady Horákové 2769",
+    "mesto": "Kladno - Kročehlavy",
+    "psc": "272 02",
+    "lat": 50.1230099,
+    "lon": 14.1183701
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Kralupy",
+    "slug": "/frischbeton-kralupy",
+    "ulice": "",
+    "mesto": "Zlosyň",
+    "psc": "277 44",
+    "lat": 50.2782769,
+    "lon": 14.3668221
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Ledvice",
+    "slug": "/frischbeton-ledvice",
+    "ulice": "",
+    "mesto": "Bílina",
+    "psc": "418 01",
+    "lat": 50.5543645,
+    "lon": 13.7722381
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Liberec",
+    "slug": "/frischbeton-liberec",
+    "ulice": "Liberecká 7",
+    "mesto": "Chrastava 1",
+    "psc": "463 31",
+    "lat": 49.6664591,
+    "lon": 14.4895253
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Mělník",
+    "slug": "/frischbeton-melnik",
+    "ulice": "Nádražní 3401",
+    "mesto": "Mělník",
+    "psc": "276 01",
+    "lat": 50.3547209,
+    "lon": 14.4885837
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Mladá Boleslav",
+    "slug": "/frischbeton-mlada-boleslav",
+    "ulice": "Východní průmyslová zóna, Plazy 109",
+    "mesto": "Mladá Boleslav",
+    "psc": "293 01",
+    "lat": 50.4116187,
+    "lon": 14.9031301
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Mokrá",
+    "slug": "/frischbeton-mokra",
+    "ulice": "",
+    "mesto": "",
+    "psc": "364 53",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Nová Paka",
+    "slug": "/frischbeton-paka",
+    "ulice": "",
+    "mesto": "Nová Paka",
+    "psc": "509 01",
+    "lat": 50.4947616,
+    "lon": 15.5149801
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Nová Ves nad Nisou",
+    "slug": "/frischbeton-ves",
+    "ulice": "",
+    "mesto": "Nová Ves nad Nisou",
+    "psc": "468 27",
+    "lat": 50.7257683,
+    "lon": 15.2141311
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Odry",
+    "slug": "/frischbeton-odry",
+    "ulice": "Vítovská 2/113",
+    "mesto": "Odry",
+    "psc": "742 35",
+    "lat": 49.6771643,
+    "lon": 17.8194728
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Opava",
+    "slug": "/frischbeton-opava",
+    "ulice": "areál STRABAG Asfalt s.r.o., ul. Hlavní 1494/23",
+    "mesto": "Opava - Kylešovice",
+    "psc": "747 06",
+    "lat": 49.9077048,
+    "lon": 17.9119244
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Praha",
+    "slug": "/frischbeton-praha",
+    "ulice": "K Měcholupům 2",
+    "mesto": "Praha 10",
+    "psc": "109 00",
+    "lat": 50.04864,
+    "lon": 14.5642498
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Rychnov nad Kněžnou",
+    "slug": "/frischbeton-rychnov",
+    "ulice": "Pod Budínem č.p. 367",
+    "mesto": "Rychnov nad Kněžnou",
+    "psc": "516 01",
+    "lat": 50.1632537,
+    "lon": 16.2748393
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Sokolov",
+    "slug": "/frischbeton-sokolov",
+    "ulice": "Dobrovského 530",
+    "mesto": "Dolní Rychnov",
+    "psc": "356 04",
+    "lat": 50.166674,
+    "lon": 12.6462773
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Teplice",
+    "slug": "/frischbeton-teplice",
+    "ulice": "areál Jaroslav (P.O.Box 24)",
+    "mesto": "Novosedlice",
+    "psc": "417 31",
+    "lat": 50.656333,
+    "lon": 13.8230407
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Těšovice",
+    "slug": "/frischbeton-tesovice",
+    "ulice": "",
+    "mesto": "Těšovice-Husinec",
+    "psc": "384 21",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Troubelice",
+    "slug": "/frischbeton-troubelice",
+    "ulice": "Troubelice č.p. 24",
+    "mesto": "Troubelice",
+    "psc": "783 83",
+    "lat": 49.8172471,
+    "lon": 17.0810755
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Třebovice",
+    "slug": "/frischbeton-trebovice",
+    "ulice": "Třebovice č.p. 99",
+    "mesto": "Třebovice",
+    "psc": "561 24",
+    "lat": 49.8592524,
+    "lon": 16.5020378
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Vimperk",
+    "slug": "/frischbeton-vimperk",
+    "ulice": "",
+    "mesto": "Vimperk",
+    "psc": "385 01",
+    "lat": 49.0526997,
+    "lon": 13.774198
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Vysoké Mýto",
+    "slug": "/frischbeton-vysoke-myto",
+    "ulice": "Lipová 182 (areál STRABAG Asfalt s.r.o.)",
+    "mesto": "Vysoké Mýto",
+    "psc": "566 01",
+    "lat": 49.9534727,
+    "lon": 16.1616455
+  },
+  {
+    "name": "FRISCHBETON s.r.o. - Žamberk",
+    "slug": "/frischbeton-zamberk",
+    "ulice": "Zemědělská 1566",
+    "mesto": "Žamberk",
+    "psc": "564 01",
+    "lat": 50.0722522,
+    "lon": 16.4635768
+  },
+  {
+    "name": "GLOBEX stroje s.r.o.",
+    "slug": "/globex-stroje",
+    "ulice": "Všechromy 103",
+    "mesto": "Strančice",
+    "psc": "251 63",
+    "lat": 49.9464922,
+    "lon": 14.6464656
+  },
+  {
+    "name": "GOLDBECK Prefabeton s.r.o. - betonárna Žatec",
+    "slug": "/goldbeck-prefabeton",
+    "ulice": "Leoše Janáčka 1270",
+    "mesto": "Žatec",
+    "psc": "438 01",
+    "lat": 50.3420261,
+    "lon": 13.5459662
+  },
+  {
+    "name": "H.A.N.S. stavby, a.s. (betonárna)",
+    "slug": "/hans-stavby",
+    "ulice": "Prům. areál Malá Čeperka č.p. 335",
+    "mesto": "Staré Ždánice",
+    "psc": "533 44",
+    "lat": 50.1242122,
+    "lon": 15.7215075
+  },
+  {
+    "name": "HB beton s.r.o.- Jindřichův Hradec",
+    "slug": "/hb-beton-jhradec",
+    "ulice": "Horní Žďár 37",
+    "mesto": "Horní Žďár",
+    "psc": "377 01",
+    "lat": 50.4937251,
+    "lon": 15.8714663
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Beroun",
+    "slug": "/tbg-beroun",
+    "ulice": "Beroun 660 (areál cementárny Králův Dvůr)",
+    "mesto": "Beroun",
+    "psc": "266 01",
+    "lat": 49.9640292,
+    "lon": 14.0733907
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Bruntál",
+    "slug": "/cmb-bruntal",
+    "ulice": "",
+    "mesto": "Bruntál",
+    "psc": "792 01",
+    "lat": 49.9885113,
+    "lon": 17.4652901
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Čáslav",
+    "slug": "/cmb-caslav",
+    "ulice": "Nazaret 2089",
+    "mesto": "",
+    "psc": "286 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Děčín",
+    "slug": "/tbg-decin",
+    "ulice": "",
+    "mesto": "Děčín 5",
+    "psc": "405 02",
+    "lat": 50.7632906,
+    "lon": 14.1658231
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Grygov u Olomouce",
+    "slug": "/tbg-grygov",
+    "ulice": "V Podlesí 258 (areál společnosti CS – BETON Prefa)",
+    "mesto": "Grygov",
+    "psc": "783 73",
+    "lat": 49.5376286,
+    "lon": 17.310008
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Hlinsko",
+    "slug": "/cmb-hlinsko",
+    "ulice": "Kouty 100",
+    "mesto": "Hlinsko",
+    "psc": "539 01",
+    "lat": 49.7479126,
+    "lon": 15.890365
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Humpolec",
+    "slug": "/tbg-humpolec",
+    "ulice": "Okružní 637",
+    "mesto": "Humpolec",
+    "psc": "396 01",
+    "lat": 49.5408693,
+    "lon": 15.3438088
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Cheb",
+    "slug": "/tbg-cheb",
+    "ulice": "Karlovarská 40",
+    "mesto": "Cheb",
+    "psc": "350 02",
+    "lat": 50.0832886,
+    "lon": 12.4063039
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Chotoviny u Tábora",
+    "slug": "/tbg-chotoviny",
+    "ulice": "U Písničky 210",
+    "mesto": "Chotoviny",
+    "psc": "391 37",
+    "lat": 49.4775442,
+    "lon": 14.6558916
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Jihlava",
+    "slug": "/tbg-jihlava",
+    "ulice": "",
+    "mesto": "Jihlava",
+    "psc": "586 01",
+    "lat": 49.4145045,
+    "lon": 15.5993887
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Jindřichův Hradec",
+    "slug": "/tbg-jindrichuv-hradec",
+    "ulice": "Jarošovská 2217/II",
+    "mesto": "Jindřichův Hradec",
+    "psc": "377 01",
+    "lat": 49.1517319,
+    "lon": 15.0137258
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Kladno",
+    "slug": "/tbg-kladno",
+    "ulice": "Milady Horákové 2759",
+    "mesto": "Kladno - Kročehlavy",
+    "psc": "272 01",
+    "lat": 50.1250014,
+    "lon": 14.1200247
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Kraslice",
+    "slug": "/cmb-kraslice",
+    "ulice": "Wolkerova 440",
+    "mesto": "Kraslice",
+    "psc": "358 01",
+    "lat": 50.3340799,
+    "lon": 12.5058722
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Krnov",
+    "slug": "/tbg-krnov",
+    "ulice": "Ve Vrbině 4",
+    "mesto": "Krnov",
+    "psc": "794 01",
+    "lat": 50.0919276,
+    "lon": 17.72054
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Milevsko",
+    "slug": "/cmb-milevsko",
+    "ulice": "Lipová cesta 736",
+    "mesto": "Milevsko",
+    "psc": "399 01",
+    "lat": 49.4541237,
+    "lon": 14.373562
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Milovice",
+    "slug": "/cmb-milovice",
+    "ulice": "Topolová 823",
+    "mesto": "Milovice - Mladá",
+    "psc": "289 23",
+    "lat": 50.2292404,
+    "lon": 14.8818384
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Nový Jičín",
+    "slug": "/tbg-novy-jicin",
+    "ulice": "Loučka 68 - Bocheta",
+    "mesto": "Nový Jičín",
+    "psc": "741 03",
+    "lat": 49.594881,
+    "lon": 18.0102584
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Nymburk",
+    "slug": "/tbg-nymburk",
+    "ulice": "Dopravní 2098 (areál BUILDING SP)",
+    "mesto": "Nymburk",
+    "psc": "288 02",
+    "lat": 50.1852696,
+    "lon": 15.0414543
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Opava",
+    "slug": "/tbg-opava",
+    "ulice": "Těšínská 2856/70",
+    "mesto": "Opava",
+    "psc": "746 01",
+    "lat": 49.929115,
+    "lon": 17.9234525
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Ostrava-Vítkovice",
+    "slug": "/tbg-vitkovice",
+    "ulice": "Místecká 1121/60",
+    "mesto": "Ostrava - Vítkovice",
+    "psc": "703 00",
+    "lat": 49.8036888,
+    "lon": 18.2719937
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Ostrožská Nová Ves",
+    "slug": "/cmb-ves",
+    "ulice": "Nádražní č.p. 946",
+    "mesto": "Ostrožská Nová Ves",
+    "psc": "687 22",
+    "lat": 49.0043387,
+    "lon": 17.4363185
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Pacov",
+    "slug": "/tbg-pacov",
+    "ulice": "Žižkova 1129",
+    "mesto": "Pacov",
+    "psc": "395 01",
+    "lat": 49.4618037,
+    "lon": 14.9971237
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Pelhřimov",
+    "slug": "/tbg-pelhrimov",
+    "ulice": "Skrýšovská 2143 , P.O.Box 8",
+    "mesto": "Pelhřimov",
+    "psc": "393 01",
+    "lat": 49.4308737,
+    "lon": 15.2232341
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Planá u Mariánských Lázní",
+    "slug": "/tbg-plana-1",
+    "ulice": "",
+    "mesto": "Planá u Mariánských Lázní",
+    "psc": "348 15",
+    "lat": 49.8677777,
+    "lon": 12.748517
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Poříčany",
+    "slug": "/tbg-poricany",
+    "ulice": "Poříčany 534",
+    "mesto": "Poříčany",
+    "psc": "289 14",
+    "lat": 50.10701,
+    "lon": 14.9162601
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Příbram",
+    "slug": "/tbg-pribram",
+    "ulice": "K Podlesí 598",
+    "mesto": "Příbram",
+    "psc": "261 01",
+    "lat": 49.6904219,
+    "lon": 13.9947569
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Příbram-Háje",
+    "slug": "/cmb-pribram-haje",
+    "ulice": "",
+    "mesto": "Příbram",
+    "psc": "261 01",
+    "lat": 49.6901444,
+    "lon": 14.0103663
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Rakovník",
+    "slug": "/tbg-rakovnik",
+    "ulice": "Huřviny 2545",
+    "mesto": "Rakovník",
+    "psc": "269 01",
+    "lat": 50.0844299,
+    "lon": 13.7317617
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Rožnov p. Radhoštěm",
+    "slug": "/tbg-roznov",
+    "ulice": "1. máje 2604",
+    "mesto": "Rožnov pod Radhoštěm",
+    "psc": "756 61",
+    "lat": 49.4621983,
+    "lon": 18.1156035
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Rumburk",
+    "slug": "/tbg-rumburk",
+    "ulice": "Tř. 9.května 911/66",
+    "mesto": "Rumburk",
+    "psc": "408 01",
+    "lat": 50.9551279,
+    "lon": 14.541257
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Sedlčany",
+    "slug": "/tbg-sedlcany",
+    "ulice": "",
+    "mesto": "Sedlčany -",
+    "psc": "264 01",
+    "lat": 49.6582258,
+    "lon": 14.4254935
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Slaný",
+    "slug": "/tbg-slany",
+    "ulice": "Politických vězňů 1337",
+    "mesto": "Slaný",
+    "psc": "274 01",
+    "lat": 50.2404963,
+    "lon": 14.08486
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Soběslav",
+    "slug": "/tbg-sobeslav",
+    "ulice": "Petra Bezruče 447/14",
+    "mesto": "Soběslav",
+    "psc": "392 01",
+    "lat": 49.2575387,
+    "lon": 14.7271209
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Strakonice",
+    "slug": "/tbg-strakonice",
+    "ulice": "Písecká 1669",
+    "mesto": "Strakonice",
+    "psc": "386 01",
+    "lat": 49.2698779,
+    "lon": 13.9165517
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Studénka",
+    "slug": "/tbg-studenka",
+    "ulice": "Oderská 839 (areál společnosti MULTIP Moravia s.r.o.)",
+    "mesto": "Studénka",
+    "psc": "742 13",
+    "lat": 49.7137494,
+    "lon": 18.0610845
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Tábor",
+    "slug": "/tbg-tabor",
+    "ulice": "Chýnovská 2217",
+    "mesto": "Tábor",
+    "psc": "390 02",
+    "lat": 49.4080722,
+    "lon": 14.6896721
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Třeboň",
+    "slug": "/tbg-trebon",
+    "ulice": "Rybářská 671/II",
+    "mesto": "Třeboň",
+    "psc": "379 01",
+    "lat": 49.0174531,
+    "lon": 14.7561189
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Uherské Hradiště – Jarošov",
+    "slug": "/cmb-jarosov",
+    "ulice": "Pivovarská 570",
+    "mesto": "Uherské Hradiště – Jarošov",
+    "psc": "686 01",
+    "lat": 49.0909888,
+    "lon": 17.4980983
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Uherský Brod",
+    "slug": "/cmb-brod",
+    "ulice": "U Korečnice 1768",
+    "mesto": "Uherský Brod",
+    "psc": "688 01",
+    "lat": 49.0195625,
+    "lon": 17.65747
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Vlkoš u Kyjova",
+    "slug": "/cmb-vlkos",
+    "ulice": "průmyslová zóna 157",
+    "mesto": "Vlkoš",
+    "psc": "696 41",
+    "lat": 49.394951,
+    "lon": 17.4196334
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Vodňany",
+    "slug": "/tbg-vodnany",
+    "ulice": "",
+    "mesto": "Vodňany",
+    "psc": "389 01",
+    "lat": 49.1478708,
+    "lon": 14.1754647
+  },
+  {
+    "name": "Heidelberg Materials CZ, a.s., provoz Ždírec nad Doubravou",
+    "slug": "/cmb-zdirec",
+    "ulice": "",
+    "mesto": "Ždírec nad Doubravou",
+    "psc": "582 63",
+    "lat": 49.7000629,
+    "lon": 15.8044146
+  },
+  {
+    "name": "HERKUL a.s. - Betonárna",
+    "slug": "/herkul-betonarna",
+    "ulice": "Průmyslová 228",
+    "mesto": "Obrnice",
+    "psc": "435 21",
+    "lat": 50.4958254,
+    "lon": 13.6903193
+  },
+  {
+    "name": "HOFMAN - výroba a transport betonu, autodoprava s.r.o.",
+    "slug": "/hofman",
+    "ulice": "Plazy 27",
+    "mesto": "Mladá Boleslav",
+    "psc": "293 01",
+    "lat": 50.4146915,
+    "lon": 14.9727827
+  },
+  {
+    "name": "HOFMANN BETON s.r.o., Sokolov + Chodov",
+    "slug": "/hofmann-sokolov",
+    "ulice": "Chebská 2151",
+    "mesto": "Sokolov",
+    "psc": "356 33",
+    "lat": 50.1638284,
+    "lon": 12.6335706
+  },
+  {
+    "name": "HOCHTIEF CZ a. s. - betonárna České Budějovice",
+    "slug": "/hochtief-budejovice",
+    "ulice": "Okružní 544",
+    "mesto": "",
+    "psc": "370 04",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "HOCHTIEF CZ a.s.- Závod Planá (betonárna)",
+    "slug": "/hochtief-plana",
+    "ulice": "Chýnovská 714",
+    "mesto": "Planá nad Lužnicí",
+    "psc": "391 11",
+    "lat": 49.3609172,
+    "lon": 14.7165813
+  },
+  {
+    "name": "iBeton s.r.o.",
+    "slug": "/ibeton",
+    "ulice": "Rozňák 162",
+    "mesto": "Knyk",
+    "psc": "580 01",
+    "lat": 49.6427892,
+    "lon": 15.5661892
+  },
+  {
+    "name": "IDA PRO spol. s r.o. Malé Svatoňovice",
+    "slug": "/ida-beton",
+    "ulice": "Jana Masaryka 339",
+    "mesto": "Malé Svatoňovice",
+    "psc": "542 34",
+    "lat": 50.5339466,
+    "lon": 16.0497807
+  },
+  {
+    "name": "IDEASTAV STAVEBNÍ s.r.o. - betonárna Tišice u Mělníka",
+    "slug": "/ideastav",
+    "ulice": "Mělnická 158 (Areál firmy Agri Cs a.s.)",
+    "mesto": "Tišice",
+    "psc": "277 15",
+    "lat": 50.2696451,
+    "lon": 14.5557159
+  },
+  {
+    "name": "IMC Holding spol. s r.o. - betonárna Mnichovo Hradiště",
+    "slug": "/imc-holding",
+    "ulice": "Veselá 173",
+    "mesto": "Mnichovo Hradiště",
+    "psc": "295 01",
+    "lat": 50.504629,
+    "lon": 14.9702701
+  },
+  {
+    "name": "IMC Holding spol. s r.o. - betonárna Velké Hamry",
+    "slug": "/imc-holding-hamry",
+    "ulice": "Velké Hamry 624",
+    "mesto": "Velké Hamry",
+    "psc": "468 45",
+    "lat": 50.7202539,
+    "lon": 15.294529
+  },
+  {
+    "name": "Ing. Petr Havel - EKOMONT - betonárna",
+    "slug": "/ekomont-beton",
+    "ulice": "Mlékojedská 3",
+    "mesto": "Litoměřice",
+    "psc": "412 01",
+    "lat": 50.5266211,
+    "lon": 14.1326261
+  },
+  {
+    "name": "INSTAV BAU, s.r.o.- Hořovice",
+    "slug": "/instav-horovice",
+    "ulice": "Klostermannova 532/1",
+    "mesto": "Hořovice",
+    "psc": "268 01",
+    "lat": 49.8437001,
+    "lon": 13.9053938
+  },
+  {
+    "name": "INSTAV BAU, s.r.o.- Rokycany",
+    "slug": "/instav-rokycany",
+    "ulice": "Příbramská 308 (areál bývalého st. statku)",
+    "mesto": "Rokycany",
+    "psc": "337 01",
+    "lat": 49.7428813,
+    "lon": 13.594778
+  },
+  {
+    "name": "INSTAV BAU, s.r.o.- Zbiroh - Malý Újezd",
+    "slug": "/instav-zbiroh",
+    "ulice": "Kařez 88 (Zbiroh - Malý Újezd)",
+    "mesto": "Malý Újezd",
+    "psc": "337 01",
+    "lat": 50.3324672,
+    "lon": 14.5295783
+  },
+  {
+    "name": "JAVŮREK cz s.r.o. - betonárna",
+    "slug": "/javurek-beton",
+    "ulice": "",
+    "mesto": "Ústí nad Orlicí - Hylváty",
+    "psc": "562 24",
+    "lat": 49.954366,
+    "lon": 16.4122152
+  },
+  {
+    "name": "Jemnická Stavba, a.s.",
+    "slug": "/jemnicka-stavba",
+    "ulice": "U Černého mostu 773",
+    "mesto": "Jemnice",
+    "psc": "675 31",
+    "lat": 49.010709,
+    "lon": 15.5707351
+  },
+  {
+    "name": "Jiří Školník STYLSTAV s.r.o.",
+    "slug": "/stylstav",
+    "ulice": "T.G.Masaryka 948",
+    "mesto": "Městec Králové",
+    "psc": "289 03",
+    "lat": 50.2084305,
+    "lon": 15.3069078
+  },
+  {
+    "name": "JIŘÍ ZDERČÍK - betonárka Kozojedy",
+    "slug": "/zdercik-kozojedy",
+    "ulice": "",
+    "mesto": "Kostelec nad",
+    "psc": "281 63",
+    "lat": 49.9957829,
+    "lon": 14.8628986
+  },
+  {
+    "name": "JK Beton s.r.o.",
+    "slug": "/slanar-josef",
+    "ulice": "K dílnám 965",
+    "mesto": "Kolín",
+    "psc": "280 02",
+    "lat": 50.012252,
+    "lon": 15.2294083
+  },
+  {
+    "name": "KÁMEN Zbraslav, a.s. – Betonárna Dolní Měcholupy",
+    "slug": "/kamen-zbraslav-mecholupy",
+    "ulice": "Kutnohorská 718/34",
+    "mesto": "Praha 10 – Dolní Měcholupy",
+    "psc": "109 00",
+    "lat": 50.0570974,
+    "lon": 14.5616617
+  },
+  {
+    "name": "KÁMEN Zbraslav, a.s. – Betonárna Kněževes – mimo běžný provoz",
+    "slug": "/kamen-zbraslav-knezeves",
+    "ulice": "",
+    "mesto": "Kněževes – Středokluky",
+    "psc": "252 68",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "KÁMEN Zbraslav, a.s. – Betonárna Stodůlky",
+    "slug": "/kamen-zbraslav-stodulky",
+    "ulice": "Sárská 2664 (za Baumaxem)",
+    "mesto": "Praha 13 – Stodůlky",
+    "psc": "155 00",
+    "lat": 50.0418601,
+    "lon": 14.3444818
+  },
+  {
+    "name": "KÁMEN Zbraslav, a.s. – Betonárna Zbraslav",
+    "slug": "/kamen-zbraslav-zbraslav",
+    "ulice": "Žitavského 1178",
+    "mesto": "Praha 5 – Zbraslav",
+    "psc": "156 00",
+    "lat": 49.9598044,
+    "lon": 14.3940203
+  },
+  {
+    "name": "Karel Lorenc - výroba stavebních hmot",
+    "slug": "/lorenc",
+    "ulice": "",
+    "mesto": "Holýšov",
+    "psc": "345 62",
+    "lat": 49.5973247,
+    "lon": 13.1014134
+  },
+  {
+    "name": "KARETA s.r.o. - betonárna Bruntál",
+    "slug": "/kareta-beton",
+    "ulice": "Zahradní 1612/44",
+    "mesto": "Bruntál",
+    "psc": "792 01",
+    "lat": 50.005055,
+    "lon": 17.4681313
+  },
+  {
+    "name": "KARETA s.r.o. - betonárna Jeseník",
+    "slug": "/kareta-jesenik",
+    "ulice": "",
+    "mesto": "Jeseník",
+    "psc": "790 01",
+    "lat": 50.2296385,
+    "lon": 17.2046012
+  },
+  {
+    "name": "KARPEM REALITY s.r.o.",
+    "slug": "/karpem",
+    "ulice": "Prokopa Velikého 572",
+    "mesto": "Domažlice",
+    "psc": "344 01",
+    "lat": 49.4481276,
+    "lon": 12.933971
+  },
+  {
+    "name": "Klika &amp; Dvořák, s.r.o.",
+    "slug": "/klika-dvorak",
+    "ulice": "K Brůdku 90",
+    "mesto": "Chrášťany, Praha západ",
+    "psc": "252 19",
+    "lat": 50.0436075,
+    "lon": 14.2620263
+  },
+  {
+    "name": "KODE C.B. s.r.o. - betonárna České Budějovice",
+    "slug": "/kode-cb",
+    "ulice": "Rudolfovská 170",
+    "mesto": "",
+    "psc": "370 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "KŠ Prefa s.r.o. - Betonárna Štětí",
+    "slug": "/ksprefa-steti",
+    "ulice": "Litoměřická 723",
+    "mesto": "Štětí",
+    "psc": "411 08",
+    "lat": 50.4668778,
+    "lon": 14.367518
+  },
+  {
+    "name": "KVD Plus s.r.o. - betonárna Dolní Beřkovice",
+    "slug": "/kvd-plus-berkovice",
+    "ulice": "",
+    "mesto": "Dolní Beřkovice",
+    "psc": "277 01",
+    "lat": 50.3930719,
+    "lon": 14.4508695
+  },
+  {
+    "name": "Liapor s.r.o.",
+    "slug": "/lias-beton",
+    "ulice": "Vintířov 176",
+    "mesto": "Vintířov",
+    "psc": "357 35",
+    "lat": 50.2351179,
+    "lon": 12.6913754
+  },
+  {
+    "name": "LIMPA s.r.o.",
+    "slug": "/limpa",
+    "ulice": "Pracnerova 758",
+    "mesto": "Roudnice nad Labem",
+    "psc": "413 01",
+    "lat": 50.4171874,
+    "lon": 14.2551394
+  },
+  {
+    "name": "LS stavby s.r.o.",
+    "slug": "/lesni-stavby",
+    "ulice": "Palackého 764",
+    "mesto": "Nýrsko",
+    "psc": "340 22",
+    "lat": 49.2865379,
+    "lon": 13.1315211
+  },
+  {
+    "name": "Ludvas Trade s.r.o.",
+    "slug": "/ludvas-trade",
+    "ulice": "Třída Hrdinů 1370/57",
+    "mesto": "Rýmařov",
+    "psc": "795 01",
+    "lat": 49.9274199,
+    "lon": 17.2892156
+  },
+  {
+    "name": "M-Bet s.r.o.",
+    "slug": "/m-bet",
+    "ulice": "Milheimova 2889",
+    "mesto": "Pardubice",
+    "psc": "530 02",
+    "lat": 50.0292845,
+    "lon": 15.7585469
+  },
+  {
+    "name": "M-SILNICE a.s. - betonárna Turnov (OZ OV)",
+    "slug": "/m-silnice-turnov",
+    "ulice": "Nudvojovická 1344",
+    "mesto": "Turnov",
+    "psc": "511 01",
+    "lat": 50.5825173,
+    "lon": 15.1364319
+  },
+  {
+    "name": "MANE BETON a.s. - České Budějovice",
+    "slug": "/mane-beton",
+    "ulice": "Okružní 2615/7",
+    "mesto": "",
+    "psc": "370 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "MANE BETON a.s. - Týn nad Vltavou",
+    "slug": "/mane-beton-tyn",
+    "ulice": "",
+    "mesto": "Týn nad Vltavou",
+    "psc": "375 01",
+    "lat": 49.2232025,
+    "lon": 14.4083179
+  },
+  {
+    "name": "MBF-GROUP s.r.o.",
+    "slug": "/mbf-group",
+    "ulice": "Jarošova 2961/1",
+    "mesto": "Bratislava",
+    "psc": "831 03",
+    "lat": 49.0106718,
+    "lon": 16.6869867
+  },
+  {
+    "name": "MERIT, spol. s r.o. - betonárna Skuteč",
+    "slug": "/merit-skutec",
+    "ulice": "",
+    "mesto": "Skuteč - Litická",
+    "psc": "539 73",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "MERIT, spol. s r.o. - betonárna Slatiňany",
+    "slug": "/merit-beton",
+    "ulice": "U Cukrovaru 790",
+    "mesto": "Slatiňany",
+    "psc": "538 21",
+    "lat": 49.9246513,
+    "lon": 15.8090663
+  },
+  {
+    "name": "Michal Andr - ANDR - beton",
+    "slug": "/andr-beton",
+    "ulice": "Švermova 960",
+    "mesto": "Nové Město pod Smrkem",
+    "psc": "463 65",
+    "lat": 50.925557,
+    "lon": 15.2250771
+  },
+  {
+    "name": "MILAN SKRYJA s.r.o. - betonárna Velvary",
+    "slug": "/skryja-velvary",
+    "ulice": "U Cukrovaru 755",
+    "mesto": "Velvary",
+    "psc": "273 24",
+    "lat": 50.2877247,
+    "lon": 14.2409885
+  },
+  {
+    "name": "Miloslav Konfršt - betonárna a autodoprava",
+    "slug": "/konfrst",
+    "ulice": "Horní Krupá 90",
+    "mesto": "Havlíčkův Brod",
+    "psc": "580 01",
+    "lat": 49.6718401,
+    "lon": 15.5898831
+  },
+  {
+    "name": "OSBET BETON s.r.o.",
+    "slug": "/osbet",
+    "ulice": "Polní 291",
+    "mesto": "Dobřichovice",
+    "psc": "252 29",
+    "lat": 49.9335382,
+    "lon": 14.2757504
+  },
+  {
+    "name": "OSP spol. s r.o. - betonárna Jaroměřice",
+    "slug": "/osp-jaromerice",
+    "ulice": "Březinova 64",
+    "mesto": "Jaroměřice nad Rokytnou",
+    "psc": "675 51",
+    "lat": 49.1102407,
+    "lon": 15.8804577
+  },
+  {
+    "name": "OSP spol. s r.o. - betonárna Moravský Krumlov",
+    "slug": "/osp-moravsky-krumlov",
+    "ulice": "Okružní 394",
+    "mesto": "Moravský Krumlov",
+    "psc": "672 01",
+    "lat": 49.0383897,
+    "lon": 16.3126616
+  },
+  {
+    "name": "PAS NATURA s.r.o. - betonárna Dačice",
+    "slug": "/pas-plus",
+    "ulice": "Zahrádky 28",
+    "mesto": "Dačice",
+    "psc": "380 01",
+    "lat": 49.0939167,
+    "lon": 15.4470356
+  },
+  {
+    "name": "Pavel Šopík - BETONÁRNA",
+    "slug": "/sopik-betonarka",
+    "ulice": "Rýmařov - Jamartice 118, areál bývalé STS",
+    "mesto": "Rýmařov",
+    "psc": "795 01",
+    "lat": 49.9320352,
+    "lon": 17.2714574
+  },
+  {
+    "name": "PEKO-GDS s.r.o. - prodej a rozvoz betonu",
+    "slug": "/peko-gds-rozvoz",
+    "ulice": "",
+    "mesto": "Praha 4 - Kunratice",
+    "psc": "148 00",
+    "lat": 50.02077,
+    "lon": 14.4904596
+  },
+  {
+    "name": "Petr Charvát - betonárka Lukavec",
+    "slug": "/petr-charvat",
+    "ulice": "Lukavec u Hořic 55",
+    "mesto": "Hořice v Podkrkonoší",
+    "psc": "508 01",
+    "lat": 50.3562714,
+    "lon": 15.634861
+  },
+  {
+    "name": "Petrokámen s.r.o. - betonárna Ostrava-Vítkovice",
+    "slug": "/petrokamen-betonarna-ostrava",
+    "ulice": "Místecká 3001/107",
+    "mesto": "Ostrava - Vítkovice",
+    "psc": "703 00",
+    "lat": 49.8000479,
+    "lon": 18.2769257
+  },
+  {
+    "name": "Pletka - PSR",
+    "slug": "/pletka-psr",
+    "ulice": "",
+    "mesto": "Rožďalovice",
+    "psc": "289 34",
+    "lat": 50.3034933,
+    "lon": 15.1699546
+  },
+  {
+    "name": "Podhola-stavební firma s.r.o. - Betonárna Kryry",
+    "slug": "/podhola-betonarna-kryry",
+    "ulice": "",
+    "mesto": "Kryry",
+    "psc": "439 81",
+    "lat": 50.1694618,
+    "lon": 13.4372023
+  },
+  {
+    "name": "POZEMSTAV TŘEBÍČ, spol. s r.o.",
+    "slug": "/pozemstav-trebic",
+    "ulice": "Hrotovická 191",
+    "mesto": "Třebíč",
+    "psc": "674 01",
+    "lat": 49.2054678,
+    "lon": 15.8959653
+  },
+  {
+    "name": "Prefa Brno a.s.- závod Hodonín (betonárna)",
+    "slug": "/prefa-brno-hodonin-beton",
+    "ulice": "Na Výhoně 3527",
+    "mesto": "Hodonín",
+    "psc": "695 00",
+    "lat": 48.866926,
+    "lon": 17.1402212
+  },
+  {
+    "name": "Prefa Brno a.s.- závod Strážnice (betonárna)",
+    "slug": "/prefa-brno-straznice-beton",
+    "ulice": "U cihelny 1375",
+    "mesto": "Strážnice",
+    "psc": "696 62",
+    "lat": 48.8944451,
+    "lon": 17.322021
+  },
+  {
+    "name": "PREFA HUBENOV s.r.o.",
+    "slug": "/prefa-hubenov-beton",
+    "ulice": "Hubenov 24",
+    "mesto": "Kaplice",
+    "psc": "382 41",
+    "lat": 48.7627175,
+    "lon": 14.4727662
+  },
+  {
+    "name": "PREFA PECINA s.r.o. - betonárna Paseka",
+    "slug": "/prefa-pecina-beton",
+    "ulice": "Paseka 16",
+    "mesto": "Paseka",
+    "psc": "783 97",
+    "lat": 49.7978115,
+    "lon": 17.2297776
+  },
+  {
+    "name": "PREFA PECINA s.r.o. - betonárna Rataje",
+    "slug": "/prefa-pecina-rataje",
+    "ulice": "č. 4",
+    "mesto": "Těšetice - Rataje",
+    "psc": "783 46",
+    "lat": 49.590835,
+    "lon": 17.1307038
+  },
+  {
+    "name": "PREFA Roudná s.r.o.",
+    "slug": "/prefa-roudna-beton",
+    "ulice": "Roudná 277",
+    "mesto": "Soběslav",
+    "psc": "392 01",
+    "lat": 49.3025459,
+    "lon": 14.711577
+  },
+  {
+    "name": "PREFA VELIM s.r.o.",
+    "slug": "/prefa-velim",
+    "ulice": "Palackého 124",
+    "mesto": "Velim",
+    "psc": "284 01",
+    "lat": 50.068237,
+    "lon": 15.129402
+  },
+  {
+    "name": "PRESTA-mix, spol. s r.o. - betonárna Kuřim",
+    "slug": "/presta-mix-kurim",
+    "ulice": "Blanenská 1762",
+    "mesto": "Kuřim",
+    "psc": "664 34",
+    "lat": 49.3196198,
+    "lon": 16.5454422
+  },
+  {
+    "name": "PSG a.s.",
+    "slug": "/psg-as",
+    "ulice": "Napajedelská 1552",
+    "mesto": "Otrokovice",
+    "psc": "765 02",
+    "lat": 49.1979576,
+    "lon": 17.5341263
+  },
+  {
+    "name": "PSP s.r.o., Pelhřimov",
+    "slug": "/psp-pelhrimov",
+    "ulice": "Myslotínská 2258",
+    "mesto": "Pelhřimov",
+    "psc": "393 01",
+    "lat": 49.4190088,
+    "lon": 15.2201111
+  },
+  {
+    "name": "PUPY CZ s.r.o. - Mělník",
+    "slug": "/pupy-cz",
+    "ulice": "",
+    "mesto": "Mělník - Mlazice",
+    "psc": "276 01",
+    "lat": 50.3750936,
+    "lon": 14.4678172
+  },
+  {
+    "name": "RECTA s.r.o.",
+    "slug": "/recta-beton",
+    "ulice": "Na Podolí 157",
+    "mesto": "Načeradec",
+    "psc": "257 08",
+    "lat": 49.6120263,
+    "lon": 14.8990963
+  },
+  {
+    "name": "RECYKLÁČ s.r.o. - betonárna Plzeň - Valcha (DOČASNĚ UZAVŘENO)",
+    "slug": "/recyklac-plzen-valcha",
+    "ulice": "",
+    "mesto": "Plzeň - Valcha",
+    "psc": "301 00",
+    "lat": 49.7076537,
+    "lon": 13.3154502
+  },
+  {
+    "name": "REKOM Nový Bydžov, a.s.",
+    "slug": "/rekom",
+    "ulice": "",
+    "mesto": "Měník - Barchůvek čp. 2",
+    "psc": "504 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "René Darmovzal – Vrbno pod Pradědem (betonárna)",
+    "slug": "/darmovzal-betonarna",
+    "ulice": "Mnichov 360",
+    "mesto": "Vrbno pod Pradědem",
+    "psc": "793 26",
+    "lat": 50.1351038,
+    "lon": 17.3792088
+  },
+  {
+    "name": "Richard Záhora",
+    "slug": "/zahora",
+    "ulice": "",
+    "mesto": "Rousínov",
+    "psc": "683 01",
+    "lat": 49.1971086,
+    "lon": 16.8678616
+  },
+  {
+    "name": "RYCOBETON s.r.o.",
+    "slug": "/rycobeton",
+    "ulice": "č.p.119",
+    "mesto": "Běstovice",
+    "psc": "565 01",
+    "lat": 50.0201392,
+    "lon": 16.2109207
+  },
+  {
+    "name": "SaM silnice a mosty a.s., Česká Lípa (betonárna)",
+    "slug": "/sam-cl-beton",
+    "ulice": "5. května 3123",
+    "mesto": "",
+    "psc": "470 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "SILNICE ČÁSLAV - HOLDING, a.s. - Malín",
+    "slug": "/silnice-caslav-malin",
+    "ulice": "",
+    "mesto": "Kutná Hora - Malín",
+    "psc": "286 01",
+    "lat": 49.9614732,
+    "lon": 15.2881176
+  },
+  {
+    "name": "SILNICE NEPOMUK s.r.o.",
+    "slug": "/silnice-nepomuk",
+    "ulice": "Areál SILNICE NEPOMUK s.r.o., parcela č.433/12, směr Mileč",
+    "mesto": "Nepomuk",
+    "psc": "335 01",
+    "lat": 49.642788,
+    "lon": 13.8372608
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Brno Horní Heršpice",
+    "slug": "/skanska-transbeton-brno",
+    "ulice": "Železná ul. čp 13",
+    "mesto": "Brno - Horní Heršpice",
+    "psc": "619 00",
+    "lat": 49.167415,
+    "lon": 16.606795
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Hněvotín",
+    "slug": "/skanska-transbeton-hnevotin",
+    "ulice": "",
+    "mesto": "Hněvotín",
+    "psc": "783 47",
+    "lat": 49.572698,
+    "lon": 17.1805004
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Chodov",
+    "slug": "/skanska-transbeton-chodov",
+    "ulice": "Na Jelenách 1",
+    "mesto": "Praha 4 - Chodov",
+    "psc": "149 00",
+    "lat": 50.0197939,
+    "lon": 14.5042951
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Kolín",
+    "slug": "/skanska-transbeton-kolin",
+    "ulice": "Ovčárecká 314",
+    "mesto": "Kolín",
+    "psc": "280 02",
+    "lat": 50.0424236,
+    "lon": 15.2098563
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Letňany",
+    "slug": "/skanska-transbeton-letnany",
+    "ulice": "Toužimská ul. 664",
+    "mesto": "Praha 9 - Letňany",
+    "psc": "199 00",
+    "lat": 50.1371506,
+    "lon": 14.5152339
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Lipník nad Bečvou",
+    "slug": "/skanska-transbeton-lipnik",
+    "ulice": "Loučská 1477",
+    "mesto": "Lipník nad Bečvou",
+    "psc": "751 31",
+    "lat": 49.5403417,
+    "lon": 17.5967606
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Mohelnice",
+    "slug": "/skanska-transbeton-mohelnice",
+    "ulice": "Olomoucká 342/69",
+    "mesto": "Mohelnice",
+    "psc": "789 85",
+    "lat": 49.7664551,
+    "lon": 16.9211088
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Olomouc",
+    "slug": "/skanska-transbeton-olomouc",
+    "ulice": "Pavelkova 8/1177",
+    "mesto": "Olomouc - Hodolany",
+    "psc": "779 00",
+    "lat": 49.5873209,
+    "lon": 17.2971191
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Ruzyně",
+    "slug": "/skanska-transbeton-ruzyne",
+    "ulice": "",
+    "mesto": "Praha 6 - Ruzyně",
+    "psc": "161 00",
+    "lat": 50.0837866,
+    "lon": 14.317927
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Řeporyje",
+    "slug": "/skanska-transbeton-reporyje",
+    "ulice": "K Třebonicům - plocha CP1",
+    "mesto": "Praha 5 - Řeporyje",
+    "psc": "155 00",
+    "lat": 50.0382647,
+    "lon": 14.311559
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Trmice",
+    "slug": "/skanska-transbeton-trmice",
+    "ulice": "",
+    "mesto": "Trmice u Ústí nad Labem",
+    "psc": "400 04",
+    "lat": 50.6428488,
+    "lon": 13.9942622
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Uhříněves",
+    "slug": "/skanska-transbeton-uhrineves",
+    "ulice": "",
+    "mesto": "Praha 10 - Uhříněves",
+    "psc": "104 00",
+    "lat": 50.0318725,
+    "lon": 14.5992822
+  },
+  {
+    "name": "Skanska Transbeton, s.r.o., betonárna Veltrusy",
+    "slug": "/skanska-transbeton-chvateruby",
+    "ulice": "silnice II/608 mezi obcemi Postřižín a Veltrusy",
+    "mesto": "",
+    "psc": "278 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "Skowron sp. z o.o.",
+    "slug": "/skowron",
+    "ulice": "",
+    "mesto": "",
+    "psc": "",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "SLOUPÁRNA Majdalena s.r.o.",
+    "slug": "/slouparna-majdalena-prefa",
+    "ulice": "Majdalena 141",
+    "mesto": "Majdalena",
+    "psc": "378 03",
+    "lat": 48.9730127,
+    "lon": 14.8369287
+  },
+  {
+    "name": "STABET, spol. s r.o. - betonárna Vsetín-Lázky",
+    "slug": "/stabet-beton",
+    "ulice": "",
+    "mesto": "Vsetín - Lázky",
+    "psc": "775 01",
+    "lat": 49.3498515,
+    "lon": 17.9734598
+  },
+  {
+    "name": "STANISLAV SITNÝ - Milovice",
+    "slug": "/sitny-milovice",
+    "ulice": "Družstevní 497",
+    "mesto": "Milovice",
+    "psc": "289 23",
+    "lat": 50.2302329,
+    "lon": 14.8960552
+  },
+  {
+    "name": "STAPPA mix Brno, spol. s r.o.",
+    "slug": "/stappa-mix-brno",
+    "ulice": "Heršpická 993/11b",
+    "mesto": "Brno",
+    "psc": "639 00",
+    "lat": 49.1752127,
+    "lon": 16.60563
+  },
+  {
+    "name": "START Zelený s.r.o.",
+    "slug": "/start-zeleny",
+    "ulice": "Na Hranici 12",
+    "mesto": "Jihlava",
+    "psc": "586 01",
+    "lat": 49.4274657,
+    "lon": 15.607834
+  },
+  {
+    "name": "STAVA s.r.o. - betonárna Hostěradice",
+    "slug": "/stava-hosteradice",
+    "ulice": "Hostěradice 17",
+    "mesto": "Kamenný Přívoz",
+    "psc": "252 82",
+    "lat": 49.8629538,
+    "lon": 14.48958
+  },
+  {
+    "name": "STAVA s.r.o. - betonárna Radlík",
+    "slug": "/stava",
+    "ulice": "Radlík 156",
+    "mesto": "Jílové u Prahy",
+    "psc": "254 01",
+    "lat": 49.9047351,
+    "lon": 14.4872088
+  },
+  {
+    "name": "STAVEBNÍ PODNIK PŘELOUČ, s.r.o.",
+    "slug": "/sp-prelouc",
+    "ulice": "Chrudimská 1661",
+    "mesto": "Přelouč",
+    "psc": "535 01",
+    "lat": 50.0342026,
+    "lon": 15.5776765
+  },
+  {
+    "name": "Stavební prodej J+K a.s. - betonárka Netřebice",
+    "slug": "/jk-velesin",
+    "ulice": "",
+    "mesto": "Velešín",
+    "psc": "382 32",
+    "lat": 48.8292557,
+    "lon": 14.4635063
+  },
+  {
+    "name": "Stavební prodej J+K a.s. - betonárka Pištín",
+    "slug": "/jk-pistin",
+    "ulice": "",
+    "mesto": "Pištín",
+    "psc": "373 46",
+    "lat": 49.0457496,
+    "lon": 14.3349892
+  },
+  {
+    "name": "Stavebniny Bělidlo, s.r.o. - betonárna",
+    "slug": "/belidlo",
+    "ulice": "Čeladná 834",
+    "mesto": "",
+    "psc": "739 12",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "STAVEXA s.r.o.- Betonárna Rynholec",
+    "slug": "/stavexa-rynholec",
+    "ulice": "",
+    "mesto": "Provozovna - Betonárna RYNHOLEC",
+    "psc": "270 62",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "STAVING, spol. s r.o., Jičín - Moravčice",
+    "slug": "/staving-moravcice",
+    "ulice": "",
+    "mesto": "Jičín - Moravčice",
+    "psc": "506 01",
+    "lat": 50.4314242,
+    "lon": 15.3900617
+  },
+  {
+    "name": "STAVOS Brno, a.s. - Dukovany",
+    "slug": "/stavos-dukovany",
+    "ulice": "U Svitavy 1077/2",
+    "mesto": "Brno -",
+    "psc": "618 00",
+    "lat": 49.1739948,
+    "lon": 16.633684
+  },
+  {
+    "name": "STEMRO s. r. o. - betonárka Rokytnice nad Jizerou",
+    "slug": "/stemro",
+    "ulice": "Dolní Rokytnice 297",
+    "mesto": "Rokytnice nad Jizerou",
+    "psc": "512 44",
+    "lat": 50.7264669,
+    "lon": 15.4364966
+  },
+  {
+    "name": "Stylstav s.r.o. - betonárna Křižanov",
+    "slug": "/stylstav-krizanov",
+    "ulice": "Křižanov 256",
+    "mesto": "Křižanov",
+    "psc": "594 51",
+    "lat": 49.3823404,
+    "lon": 16.1134673
+  },
+  {
+    "name": "ŠIMÁČEK - STAVBY, spol. s r.o.",
+    "slug": "/simacek-stavby-beton",
+    "ulice": "Točník 106",
+    "mesto": "Klatovy",
+    "psc": "339 01",
+    "lat": 49.424378,
+    "lon": 13.3072644
+  },
+  {
+    "name": "T-TRANSPORTBETON s.r.o.",
+    "slug": "/t-transportbeton",
+    "ulice": "Páterovská 1",
+    "mesto": "Bělá pod Bezdězem",
+    "psc": "294 21",
+    "lat": 50.5088933,
+    "lon": 14.8360708
+  },
+  {
+    "name": "TAŠ-STAPPA beton, spol. s r.o. - prodej betonových směsí",
+    "slug": "/tas-stappa-beton",
+    "ulice": "Areál Svit - Rybníky VII/5547",
+    "mesto": "Zlín - Prštné",
+    "psc": "760 01",
+    "lat": 49.2199156,
+    "lon": 17.6406107
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Blansko",
+    "slug": "/betonmix-blansko",
+    "ulice": "Na Brankách 4",
+    "mesto": "Blansko",
+    "psc": "678 01",
+    "lat": 49.3566448,
+    "lon": 16.6407475
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Bosonohy",
+    "slug": "/betonmix-bosonohy",
+    "ulice": "Jihlavská 51",
+    "mesto": "Brno - Bosonohy",
+    "psc": "642 00",
+    "lat": 49.1732978,
+    "lon": 16.5437384
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Černovice",
+    "slug": "/betonmix-cernovice",
+    "ulice": "Vinohradská 1188",
+    "mesto": "Brno -",
+    "psc": "618 00",
+    "lat": 49.1696804,
+    "lon": 16.6469026
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Královo Pole",
+    "slug": "/betonmix-pole",
+    "ulice": "Křižíkova 68e",
+    "mesto": "Brno - Královo Pole",
+    "psc": "612 00",
+    "lat": 49.2224245,
+    "lon": 16.6165317
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Mistřín",
+    "slug": "/betonmix-mistrin",
+    "ulice": "Ke Mlýnu 1289",
+    "mesto": "Svatobořice - Mistřín",
+    "psc": "696 04",
+    "lat": 48.9606946,
+    "lon": 17.0880122
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Olbramovice",
+    "slug": "/tbg-olbramovice",
+    "ulice": "Olbramovice 355 – lom",
+    "mesto": "Olbramovice",
+    "psc": "671 76",
+    "lat": 48.9848041,
+    "lon": 16.4023938
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Prostějov",
+    "slug": "/betonmix-prostejov",
+    "ulice": "Průmyslová 7",
+    "mesto": "Prostějov",
+    "psc": "796 01",
+    "lat": 49.4745434,
+    "lon": 17.1320797
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Vyškov",
+    "slug": "/betonmix-vyskov",
+    "ulice": "Cukrovarská 457/14",
+    "mesto": "Vyškov",
+    "psc": "682 01",
+    "lat": 49.2716002,
+    "lon": 16.993463
+  },
+  {
+    "name": "TBG BETONMIX a.s. - provoz Znojmo",
+    "slug": "/tbg-znojmo",
+    "ulice": "DYJE č. ev. 502",
+    "mesto": "Dyje",
+    "psc": "669 02",
+    "lat": 48.8470392,
+    "lon": 16.1167758
+  },
+  {
+    "name": "TBG České Budějovice spol. s r.o.",
+    "slug": "/tbg-cb",
+    "ulice": "Planá č.p. 78",
+    "mesto": "p. Boršov nad Vltavou",
+    "psc": "373 82",
+    "lat": 48.9220007,
+    "lon": 14.4346332
+  },
+  {
+    "name": "TBG Klatovy s.r.o., provoz Klatovy-Čertovka",
+    "slug": "/tbg-klatovy",
+    "ulice": "Čertovka 890/2",
+    "mesto": "Klatovy",
+    "psc": "339 01",
+    "lat": 49.4148329,
+    "lon": 13.3181555
+  },
+  {
+    "name": "TBG Louny s.r.o., provoz Louny",
+    "slug": "/tbg-louny",
+    "ulice": "Průmyslová 2724",
+    "mesto": "Louny",
+    "psc": "440 01",
+    "lat": 50.3438444,
+    "lon": 13.8199961
+  },
+  {
+    "name": "TBG Louny s.r.o., provoz Žatec",
+    "slug": "/tbg-zatec",
+    "ulice": "Čeradická 3015",
+    "mesto": "Žatec",
+    "psc": "438 01",
+    "lat": 50.3170541,
+    "lon": 13.526097
+  },
+  {
+    "name": "TBG METROSTAV s.r.o. - Písnice",
+    "slug": "/tbg-pisnice",
+    "ulice": "",
+    "mesto": "Praha 4 - Písnice",
+    "psc": "140 00",
+    "lat": 50.0018509,
+    "lon": 14.4757305
+  },
+  {
+    "name": "TBG METROSTAV s.r.o. - Praha Libeň",
+    "slug": "/tbg-troja",
+    "ulice": "Povltavská 440",
+    "mesto": "Praha 7 – Libeň",
+    "psc": "170 00",
+    "lat": 50.1150199,
+    "lon": 14.4410047
+  },
+  {
+    "name": "TBG METROSTAV s.r.o. - Radlice",
+    "slug": "/tbg-radlice",
+    "ulice": "Puchmajerova 3",
+    "mesto": "Praha 5 - Radlice",
+    "psc": "150 00",
+    "lat": 50.0550011,
+    "lon": 14.374228
+  },
+  {
+    "name": "TBG METROSTAV s.r.o. - Rohanský ostrov",
+    "slug": "/tbg-rohansky",
+    "ulice": "",
+    "mesto": "Praha 8 - Karlín",
+    "psc": "186 00",
+    "lat": 50.0905127,
+    "lon": 14.4478679
+  },
+  {
+    "name": "TBG METROSTAV s.r.o. - Úvaly",
+    "slug": "/tbg-uvaly",
+    "ulice": "Tuklaty 215",
+    "mesto": "Tuklaty",
+    "psc": "250 82",
+    "lat": 50.0838841,
+    "lon": 14.7662331
+  },
+  {
+    "name": "TBG PKS a.s. - provoz Bystřice nad Pernštejnem",
+    "slug": "/tbg-bystrice",
+    "ulice": "Výrobní 1443",
+    "mesto": "Bystřice nad Pernštejnem",
+    "psc": "593 01",
+    "lat": 49.5105668,
+    "lon": 16.2439887
+  },
+  {
+    "name": "TBG PKS a.s. - provoz Velká Bíteš",
+    "slug": "/tbg-bites",
+    "ulice": "",
+    "mesto": "Velká Bíteš",
+    "psc": "595 01",
+    "lat": 49.2883646,
+    "lon": 16.2271255
+  },
+  {
+    "name": "TBG PKS a.s. - provoz Velké Meziříčí",
+    "slug": "/tbg-mezirici",
+    "ulice": "Křenice 2189",
+    "mesto": "Velké Meziříčí",
+    "psc": "594 01",
+    "lat": 49.3421406,
+    "lon": 16.0231867
+  },
+  {
+    "name": "TBG PKS a.s. - provoz Žďár nad Sázavou",
+    "slug": "/tbg-zdar",
+    "ulice": "Jamská 2440/61",
+    "mesto": "Žďár nad Sázavou",
+    "psc": "591 39",
+    "lat": 49.5560865,
+    "lon": 15.9532956
+  },
+  {
+    "name": "TBG Plzeň Transportbeton s.r.o., provoz Česká Lípa",
+    "slug": "/tbg-ceska-lipa",
+    "ulice": "Svojsíkova stezka 3418",
+    "mesto": "",
+    "psc": "470 01",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "TBG Plzeň Transportbeton s.r.o., provoz Plzeň",
+    "slug": "/tbg-plzen",
+    "ulice": "Ke Karlovu 8",
+    "mesto": "Plzeň - Bory",
+    "psc": "316 00",
+    "lat": 49.7328487,
+    "lon": 13.3439627
+  },
+  {
+    "name": "TBG Plzeň Transportbeton s.r.o., provoz Ústí nad Labem-Chabařovice",
+    "slug": "/tbg-chabarovice",
+    "ulice": "Nádražní 379",
+    "mesto": "Ústí nad Labem - Chabařovice",
+    "psc": "403 17",
+    "lat": 50.6676109,
+    "lon": 13.9236167
+  },
+  {
+    "name": "TBG PODIVÍN s.r.o. - provoz Podivín",
+    "slug": "/tbg-podivin",
+    "ulice": "Zborovská 977",
+    "mesto": "Podivín",
+    "psc": "691 45",
+    "lat": 48.8250276,
+    "lon": 16.8537913
+  },
+  {
+    "name": "TBG SEVEROZÁPADNÍ ČECHY s.r.o., provoz Chomutov",
+    "slug": "/tbg-chomutov",
+    "ulice": "Na Moráni 5458",
+    "mesto": "Chomutov",
+    "psc": "430 01",
+    "lat": 50.4525801,
+    "lon": 13.4193578
+  },
+  {
+    "name": "TBG SEVEROZÁPADNÍ ČECHY s.r.o., provoz Karlovy Vary-Otovice",
+    "slug": "/tbg-otovice",
+    "ulice": "Na Vlečce 179",
+    "mesto": "Karlovy Vary - Otovice",
+    "psc": "362 32",
+    "lat": 50.2498635,
+    "lon": 12.8687634
+  },
+  {
+    "name": "TBG SEVEROZÁPADNÍ ČECHY s.r.o., provoz Litvínov",
+    "slug": "/tbg-litvinov",
+    "ulice": "",
+    "mesto": "Litvínov - Záluží",
+    "psc": "436 70",
+    "lat": 50.5611052,
+    "lon": 13.6106077
+  },
+  {
+    "name": "TBG SEVEROZÁPADNÍ ČECHY s.r.o., provoz Mariánské Lázně",
+    "slug": "/tbg-marianske-lazne",
+    "ulice": "Stavební Mlýn 29",
+    "mesto": "Mariánské Lázně",
+    "psc": "353 01",
+    "lat": 49.9431247,
+    "lon": 12.7040856
+  },
+  {
+    "name": "TBG SEVEROZÁPADNÍ ČECHY s.r.o., provoz Most",
+    "slug": "/tbg-cepirohy",
+    "ulice": "Čepirohy 115 - areál firmy Altamex",
+    "mesto": "Most -",
+    "psc": "434 01",
+    "lat": 50.5032737,
+    "lon": 13.636112
+  },
+  {
+    "name": "TBG SWIETELSKY s.r.o. - betonárna České Budějovice",
+    "slug": "/tbg-swietelsky",
+    "ulice": "Branišovská 729",
+    "mesto": "",
+    "psc": "370 05",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "TBG Východní Čechy s.r.o., provoz Hradec Králové",
+    "slug": "/tbg-hradec",
+    "ulice": "Panelová 992",
+    "mesto": "Hradec Králové 3",
+    "psc": "500 03",
+    "lat": 50.2139761,
+    "lon": 15.8431403
+  },
+  {
+    "name": "TBG Východní Čechy s.r.o., provoz Jablonec nad Nisou",
+    "slug": "/tbg-jablonec",
+    "ulice": "Na Hutích 44",
+    "mesto": "Jablonec nad Nisou",
+    "psc": "466 01",
+    "lat": 50.7169176,
+    "lon": 15.1871712
+  },
+  {
+    "name": "TBG Východní Čechy s.r.o., provoz Jičín",
+    "slug": "/tbg-jicin",
+    "ulice": "",
+    "mesto": "Jičín",
+    "psc": "506 01",
+    "lat": 50.4370452,
+    "lon": 15.3516528
+  },
+  {
+    "name": "TBG Východní Čechy s.r.o., provoz Trutnov",
+    "slug": "/tbg-trutnov",
+    "ulice": "Kalná Voda 77",
+    "mesto": "Mladé Buky",
+    "psc": "542 23",
+    "lat": 50.6028442,
+    "lon": 15.8634516
+  },
+  {
+    "name": "TBG Východní Čechy s.r.o., provoz Vrchlabí",
+    "slug": "/tbg-vrchlabi",
+    "ulice": "Nádražní 1687",
+    "mesto": "Vrchlabí",
+    "psc": "543 01",
+    "lat": 50.6171941,
+    "lon": 15.6243199
+  },
+  {
+    "name": "TBG VYSOČINA s.r.o. - provoz Moravské Budějovice",
+    "slug": "/tbg-moravske-budejovice",
+    "ulice": "Dopravní 1124",
+    "mesto": "Moravské Budějovice",
+    "psc": "676 02",
+    "lat": 49.0550147,
+    "lon": 15.8017827
+  },
+  {
+    "name": "TBG VYSOČINA s.r.o. - provoz Třebíč",
+    "slug": "/tbg-trebic",
+    "ulice": "Žďárského 200",
+    "mesto": "Kožichovice",
+    "psc": "674 01",
+    "lat": 49.2033856,
+    "lon": 15.9030186
+  },
+  {
+    "name": "TENST, spol. s r.o.",
+    "slug": "/tenst-beton",
+    "ulice": "Červený mlýn 1939",
+    "mesto": "Tišnov",
+    "psc": "666 01",
+    "lat": 49.3412935,
+    "lon": 16.4206716
+  },
+  {
+    "name": "THERMOSERVIS - TRANSPORT s.r.o.",
+    "slug": "/thermoservis-transport",
+    "ulice": "Roviny 825/4",
+    "mesto": "Brno - Chrlice",
+    "psc": "643 00",
+    "lat": 49.1262136,
+    "lon": 16.6793268
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Brno",
+    "slug": "/transbeton-brno",
+    "ulice": "Vídeňská 120",
+    "mesto": "Brno",
+    "psc": "619 00",
+    "lat": 49.1403938,
+    "lon": 16.6021936
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Holešov",
+    "slug": "/transbeton-holesov",
+    "ulice": "Tovární 1849",
+    "mesto": "Holešov",
+    "psc": "769 01",
+    "lat": 49.3261057,
+    "lon": 17.5817343
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Hustopeče",
+    "slug": "/transbeton-hustopece",
+    "ulice": "Bratislavská 1276/22",
+    "mesto": "Hustopeče",
+    "psc": "693 01",
+    "lat": 48.9312125,
+    "lon": 16.7501252
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Kopřivnice",
+    "slug": "/transbeton-koprivnice",
+    "ulice": "Panská – areál TATRY (u brány č. 6)",
+    "mesto": "Kopřivnice",
+    "psc": "742 21",
+    "lat": 49.598913,
+    "lon": 18.1452134
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Kroměříž",
+    "slug": "/transbeton-kromeriz",
+    "ulice": "Kotojedská č. ev. 944",
+    "mesto": "Kroměříž",
+    "psc": "767 01",
+    "lat": 49.2984191,
+    "lon": 17.3929804
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Křižanovice u Bučovic",
+    "slug": "/transbeton-krizanovice",
+    "ulice": "č. p. 397",
+    "mesto": "Hodějice",
+    "psc": "684 01",
+    "lat": 49.1414949,
+    "lon": 16.9136861
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Mikulov",
+    "slug": "/transbeton-mikulov",
+    "ulice": "",
+    "mesto": "Mikulov",
+    "psc": "692 01",
+    "lat": 48.8068577,
+    "lon": 16.6383914
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Přerov",
+    "slug": "/transbeton-prerov",
+    "ulice": "Tovačovská 3376/2e",
+    "mesto": "Přerov",
+    "psc": "750 02",
+    "lat": 49.446894,
+    "lon": 17.4367004
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Skalice nad Svitavou",
+    "slug": "/transbeton-skalice",
+    "ulice": "č. p. 197",
+    "mesto": "Skalice nad Svitavou",
+    "psc": "679 01",
+    "lat": 49.480837,
+    "lon": 16.6073215
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Vyškov",
+    "slug": "/transbeton-vyskov",
+    "ulice": "Kroměřížská 756/10b",
+    "mesto": "Vyškov",
+    "psc": "682 01",
+    "lat": 49.2804049,
+    "lon": 17.0196794
+  },
+  {
+    "name": "TRANSBETON s.r.o. – betonárna Znojmo",
+    "slug": "/transbeton-znojmo",
+    "ulice": "Uhelná 3944/11",
+    "mesto": "Znojmo",
+    "psc": "669 02",
+    "lat": 48.8491398,
+    "lon": 16.0700142
+  },
+  {
+    "name": "TROCHTA s.r.o.",
+    "slug": "/trochta",
+    "ulice": "Dukelských hrdinů 2544",
+    "mesto": "Rakovník",
+    "psc": "269 01",
+    "lat": 50.1071517,
+    "lon": 13.7078255
+  },
+  {
+    "name": "TYBET INVEST s.r.o. - Týnec nad Sázavou",
+    "slug": "/tybet-invest",
+    "ulice": "Pražská 95",
+    "mesto": "Týnec nad Sázavou",
+    "psc": "257 41",
+    "lat": 49.8347126,
+    "lon": 14.5936887
+  },
+  {
+    "name": "VAKSTAV spol. s r.o. Jablonné n. Orlicí",
+    "slug": "/vakstav-beton",
+    "ulice": "Jamné nad Orlicí 136",
+    "mesto": "Jablonné nad Orlicí",
+    "psc": "561 64",
+    "lat": 50.0398651,
+    "lon": 16.6008888
+  },
+  {
+    "name": "VbetonLouny s.r.o.",
+    "slug": "/vbetonlouny",
+    "ulice": "Blšany u Loun 1 (zámecký areál)",
+    "mesto": "Blšany u Loun",
+    "psc": "440 01",
+    "lat": 50.3469804,
+    "lon": 13.8526462
+  },
+  {
+    "name": "WAYCOBE s.r.o. - betonárna Černošice",
+    "slug": "/tybet-invest-cernosice",
+    "ulice": "",
+    "mesto": "",
+    "psc": "252 28",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "ZAPA beton a.s. - Benešov",
+    "slug": "/zapa-benesov",
+    "ulice": "Křižíkova 12/24",
+    "mesto": "Benešov u Prahy",
+    "psc": "256 01",
+    "lat": 49.7748073,
+    "lon": 14.6840841
+  },
+  {
+    "name": "ZAPA beton a.s. - Brandýs n.Labem",
+    "slug": "/zapa-brandys",
+    "ulice": "Strojírenská 2115",
+    "mesto": "Brandýs nad Labem",
+    "psc": "250 01",
+    "lat": 50.1782103,
+    "lon": 14.6630262
+  },
+  {
+    "name": "ZAPA beton a.s. - Dolní Dunajovice",
+    "slug": "/zapa-dunajovice",
+    "ulice": "",
+    "mesto": "Dolní Dunajovice",
+    "psc": "691 85",
+    "lat": 48.85468,
+    "lon": 16.5922756
+  },
+  {
+    "name": "ZAPA beton a.s. - Frýdek-Místek",
+    "slug": "/zapa-frydek-mistek",
+    "ulice": "Collo louky 2248",
+    "mesto": "Frýdek-Místek",
+    "psc": "738 01",
+    "lat": 49.6726625,
+    "lon": 18.3278438
+  },
+  {
+    "name": "ZAPA beton a.s. - Havlíčkův Brod",
+    "slug": "/zapa-brod",
+    "ulice": "",
+    "mesto": "Havlíčkův Brod",
+    "psc": "580 01",
+    "lat": 49.5991813,
+    "lon": 15.5881118
+  },
+  {
+    "name": "ZAPA beton a.s. - Hlinsko",
+    "slug": "/zapa-hlinsko",
+    "ulice": "",
+    "mesto": "Hlinsko",
+    "psc": "539 01",
+    "lat": 49.7625672,
+    "lon": 15.907339
+  },
+  {
+    "name": "ZAPA beton a.s. - Hodonín",
+    "slug": "/zapa-hodonin",
+    "ulice": "Průmyslová 2A/4079 (proti bývalému SLOKOVU)",
+    "mesto": "Hodonín 1",
+    "psc": "695 01",
+    "lat": 48.8512846,
+    "lon": 17.1243293
+  },
+  {
+    "name": "ZAPA beton a.s. - Holubice",
+    "slug": "/zapa-holubice",
+    "ulice": "",
+    "mesto": "Holubice u Brna",
+    "psc": "683 51",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "ZAPA beton a.s. - Horní Počernice",
+    "slug": "/zapa-pocernice",
+    "ulice": "F.V.Veselého 2718/9",
+    "mesto": "Praha 20 - Horní Počernice",
+    "psc": "193 00",
+    "lat": 50.1207148,
+    "lon": 14.614067
+  },
+  {
+    "name": "ZAPA beton a.s. - Horoměřice",
+    "slug": "/zapa-horomerice",
+    "ulice": "",
+    "mesto": "Horoměřice",
+    "psc": "252 62",
+    "lat": 50.1317791,
+    "lon": 14.3387291
+  },
+  {
+    "name": "ZAPA beton a.s. - Hradec Králové",
+    "slug": "/zapa-hradec",
+    "ulice": "Stavební 988",
+    "mesto": "Hradec Králové - Pouchov",
+    "psc": "503 41",
+    "lat": 50.2509337,
+    "lon": 15.8455068
+  },
+  {
+    "name": "ZAPA beton a.s. - Hranice",
+    "slug": "/zapa-hranice",
+    "ulice": "",
+    "mesto": "Hranice",
+    "psc": "753 39",
+    "lat": 49.5481764,
+    "lon": 17.7347407
+  },
+  {
+    "name": "ZAPA beton a.s. - Hulín",
+    "slug": "/zapa-hulin",
+    "ulice": "Záhlinická 1284",
+    "mesto": "Hulín",
+    "psc": "768 24",
+    "lat": 49.3005944,
+    "lon": 17.4816016
+  },
+  {
+    "name": "ZAPA beton a.s. - Chotěboř",
+    "slug": "/zapa-chotebor",
+    "ulice": "",
+    "mesto": "Chotěboř",
+    "psc": "583 01",
+    "lat": 49.7202055,
+    "lon": 15.6704437
+  },
+  {
+    "name": "ZAPA beton a.s. - Chvaletice",
+    "slug": "/zapa-chvaletice",
+    "ulice": "",
+    "mesto": "Chvaletice",
+    "psc": "533 12",
+    "lat": 50.0348654,
+    "lon": 15.4184231
+  },
+  {
+    "name": "ZAPA beton a.s. - Kačerov",
+    "slug": "/zapa-kacerov",
+    "ulice": "",
+    "mesto": "",
+    "psc": "",
+    "lat": null,
+    "lon": null
+  },
+  {
+    "name": "ZAPA beton a.s. - Kladno",
+    "slug": "/zapa-kladno",
+    "ulice": "",
+    "mesto": "Kladno",
+    "psc": "272 03",
+    "lat": 50.1466053,
+    "lon": 14.1026398
+  },
+  {
+    "name": "ZAPA beton a.s. - Kolín",
+    "slug": "/zapa-kolin",
+    "ulice": "K Dílnám 724",
+    "mesto": "Kolín",
+    "psc": "280 02",
+    "lat": 50.0117158,
+    "lon": 15.2313066
+  },
+  {
+    "name": "ZAPA beton a.s. - Křížkový Újezdec",
+    "slug": "/zapa-ujezdec",
+    "ulice": "",
+    "mesto": "Křížkový Újezdec",
+    "psc": "251 68",
+    "lat": 49.9307788,
+    "lon": 14.5853621
+  },
+  {
+    "name": "ZAPA beton a.s. - Lanškroun",
+    "slug": "/zapa-lanskroun",
+    "ulice": "Nádražní 819",
+    "mesto": "Lanškroun",
+    "psc": "563 01",
+    "lat": 49.9067016,
+    "lon": 16.595498
+  },
+  {
+    "name": "ZAPA beton a.s. - Ledeč nad Sázavou",
+    "slug": "/zapa-ledec",
+    "ulice": "Souboř 34",
+    "mesto": "Ledeč nad Sázavou",
+    "psc": "584 01",
+    "lat": 49.7166892,
+    "lon": 15.2674266
+  },
+  {
+    "name": "ZAPA beton a.s. - Liberec",
+    "slug": "/zapa-liberec",
+    "ulice": "České mládeže 993/80",
+    "mesto": "Liberec V",
+    "psc": "460 06",
+    "lat": 50.7702648,
+    "lon": 15.0583947
+  },
+  {
+    "name": "ZAPA beton a.s. - Litvínov",
+    "slug": "/zapa-litvinov",
+    "ulice": "Areál s.p.DHL, P.O.BOX 14",
+    "mesto": "Litvínov - Záluží",
+    "psc": "435 14",
+    "lat": 50.5611052,
+    "lon": 13.6106077
+  },
+  {
+    "name": "ZAPA beton a.s. - Mladá Boleslav",
+    "slug": "/zapa-boleslav",
+    "ulice": "",
+    "mesto": "Kosmonosy",
+    "psc": "293 06",
+    "lat": 50.4389828,
+    "lon": 14.9305091
+  },
+  {
+    "name": "ZAPA beton a.s. - Moravská Třebová - Sušice",
+    "slug": "/zapa-trebova",
+    "ulice": "",
+    "mesto": "Moravská Třebová - Sušice",
+    "psc": "570 01",
+    "lat": 49.7732377,
+    "lon": 16.6627317
+  },
+  {
+    "name": "ZAPA beton a.s. - Neratovice",
+    "slug": "/zapa-neratovice",
+    "ulice": "",
+    "mesto": "Neratovice",
+    "psc": "277 11",
+    "lat": 50.2598479,
+    "lon": 14.5175086
+  },
+  {
+    "name": "ZAPA beton a.s. - Nové Město na Moravě",
+    "slug": "/zapa-nove-mesto",
+    "ulice": "Vančurova 1342",
+    "mesto": "Nové Město na Moravě",
+    "psc": "592 31",
+    "lat": 49.5701894,
+    "lon": 16.0829521
+  },
+  {
+    "name": "ZAPA beton a.s. - Olomouc - Holice",
+    "slug": "/zapa-holice",
+    "ulice": "Přerovská 621",
+    "mesto": "Olomouc - Holice",
+    "psc": "783 71",
+    "lat": 49.5787111,
+    "lon": 17.2947783
+  },
+  {
+    "name": "ZAPA beton a.s. - Ostrava - Heřmanice",
+    "slug": "/zapa-hermanice",
+    "ulice": "",
+    "mesto": "Ostrava - Heřmanice",
+    "psc": "713 00",
+    "lat": 49.847968,
+    "lon": 18.3241148
+  },
+  {
+    "name": "ZAPA beton a.s. - Ostrava - Hrabová",
+    "slug": "/zapa-hrabova",
+    "ulice": "",
+    "mesto": "Ostrava - Hrabová",
+    "psc": "720 00",
+    "lat": 49.7786345,
+    "lon": 18.2786769
+  },
+  {
+    "name": "ZAPA beton a.s. - Pardubice",
+    "slug": "/zapa-pardubice",
+    "ulice": "Holandská 532",
+    "mesto": "Pardubice",
+    "psc": "533 01",
+    "lat": 50.0203301,
+    "lon": 15.8193012
+  },
+  {
+    "name": "ZAPA beton a.s. - Pardubice - Semtín",
+    "slug": "/zapa-semtin",
+    "ulice": "Rosice 755",
+    "mesto": "Pardubice V",
+    "psc": "533 53",
+    "lat": 50.0127508,
+    "lon": 15.7680814
+  },
+  {
+    "name": "ZAPA beton a.s. - Písnice",
+    "slug": "/zapa-pisnice",
+    "ulice": "Vídeňská 495",
+    "mesto": "Praha 4 - Písnice",
+    "psc": "142 00",
+    "lat": 50.0018509,
+    "lon": 14.4757305
+  },
+  {
+    "name": "ZAPA beton a.s. - Pohořelice",
+    "slug": "/zapa-pohorelice",
+    "ulice": "U Cihelny 6",
+    "mesto": "Pohořelice",
+    "psc": "691 23",
+    "lat": 48.9807646,
+    "lon": 16.5009939
+  },
+  {
+    "name": "ZAPA beton a.s. - Polička",
+    "slug": "/zapa-policka",
+    "ulice": "",
+    "mesto": "Polička",
+    "psc": "572 01",
+    "lat": 49.7188913,
+    "lon": 16.2639835
+  },
+  {
+    "name": "ZAPA beton a.s. - Prostějov",
+    "slug": "/zapa-prostejov",
+    "ulice": "Kojetínská 1",
+    "mesto": "Prostějov",
+    "psc": "796 03",
+    "lat": 49.4666376,
+    "lon": 17.1339605
+  },
+  {
+    "name": "ZAPA beton a.s. - Přerov",
+    "slug": "/zapa-prerov2",
+    "ulice": "K Moštěnici 265/8a",
+    "mesto": "Přerov V",
+    "psc": "750 02",
+    "lat": 49.4553775,
+    "lon": 17.4508621
+  },
+  {
+    "name": "ZAPA beton a.s. - Říčany",
+    "slug": "/zapa-ricany",
+    "ulice": "",
+    "mesto": "Říčany",
+    "psc": "251 01",
+    "lat": 49.9919444,
+    "lon": 14.6542365
+  },
+  {
+    "name": "ZAPA beton a.s. - Slaný",
+    "slug": "/zapa-slany",
+    "ulice": "Pražská 1011",
+    "mesto": "Slaný",
+    "psc": "274 01",
+    "lat": 50.2274188,
+    "lon": 14.1102363
+  },
+  {
+    "name": "ZAPA beton a.s. - Slušovice",
+    "slug": "/zapa-slusovice",
+    "ulice": "",
+    "mesto": "Slušovice",
+    "psc": "763 15",
+    "lat": 49.2479338,
+    "lon": 17.8012424
+  },
+  {
+    "name": "ZAPA beton a.s. - Staré Město",
+    "slug": "/zapa-stare-mesto2",
+    "ulice": "",
+    "mesto": "Staré Město",
+    "psc": "686 02",
+    "lat": 50.0842845,
+    "lon": 14.4178391
+  },
+  {
+    "name": "ZAPA beton a.s. - Stráž pod Ralskem",
+    "slug": "/zapa-straz",
+    "ulice": "",
+    "mesto": "Stráž pod Ralskem",
+    "psc": "471 27",
+    "lat": 50.7029923,
+    "lon": 14.8009646
+  },
+  {
+    "name": "ZAPA beton a.s. - Strážnice",
+    "slug": "/zapa-straznice",
+    "ulice": "Veselská cesta 746",
+    "mesto": "Strážnice",
+    "psc": "696 62",
+    "lat": 48.9018932,
+    "lon": 17.314434
+  },
+  {
+    "name": "ZAPA beton a.s. - Středokluky",
+    "slug": "/zapa-stredokluky",
+    "ulice": "areál PORR, Nové Středokluky 391",
+    "mesto": "Středokluky",
+    "psc": "252 68",
+    "lat": 50.1321835,
+    "lon": 14.2341922
+  },
+  {
+    "name": "ZAPA beton a.s. - Suchdol nad Odrou",
+    "slug": "/zapa-suchdol",
+    "ulice": "",
+    "mesto": "Suchdol nad Odrou",
+    "psc": "742 01",
+    "lat": 49.6557221,
+    "lon": 17.928155
+  },
+  {
+    "name": "ZAPA beton a.s. - Svitavy",
+    "slug": "/zapa-svitavy",
+    "ulice": "V Zahrádkách 1, (areál firmy STAPO)",
+    "mesto": "Svitavy",
+    "psc": "568 02",
+    "lat": 49.7562053,
+    "lon": 16.4688995
+  },
+  {
+    "name": "ZAPA beton a.s. - Šenov u Nového Jičína",
+    "slug": "/zapa-senov",
+    "ulice": "Školní 562",
+    "mesto": "Šenov u Nového Jičína",
+    "psc": "742 42",
+    "lat": 49.605275,
+    "lon": 18.0067688
+  },
+  {
+    "name": "ZAPA beton a.s. - Šumperk",
+    "slug": "/zapa-sumperk",
+    "ulice": "Jesenická 43 (areál panelárny)",
+    "mesto": "Šumperk",
+    "psc": "787 01",
+    "lat": 49.9655521,
+    "lon": 16.9705651
+  },
+  {
+    "name": "ZAPA beton a.s. - Tábor",
+    "slug": "/zapa-tabor",
+    "ulice": "Vožická 2604",
+    "mesto": "Tábor",
+    "psc": "390 01",
+    "lat": 49.4150482,
+    "lon": 14.6935445
+  },
+  {
+    "name": "ZAPA beton a.s. - Ústí nad Orlicí",
+    "slug": "/zapa-usti",
+    "ulice": "Vrbová 655",
+    "mesto": "Ústí nad Orlicí",
+    "psc": "562 01",
+    "lat": 49.9679307,
+    "lon": 16.3930771
+  },
+  {
+    "name": "ZAPA beton a.s. - Vlašim",
+    "slug": "/zapa-vlasim",
+    "ulice": "",
+    "mesto": "Vlašim",
+    "psc": "258 01",
+    "lat": 49.7065924,
+    "lon": 14.8987513
+  },
+  {
+    "name": "ZAPA beton a.s. - Vysoké Mýto",
+    "slug": "/zapa-myto",
+    "ulice": "Husova 542 (Areál Agile)",
+    "mesto": "Vysoké Mýto",
+    "psc": "566 01",
+    "lat": 49.9534727,
+    "lon": 16.1616455
+  },
+  {
+    "name": "ZAPA beton a.s. - Vyškov",
+    "slug": "/zapa-vyskov",
+    "ulice": "Sochorova 705",
+    "mesto": "Vyškov",
+    "psc": "682 01",
+    "lat": 49.2862356,
+    "lon": 17.0027738
+  },
+  {
+    "name": "ZAPA beton a.s. - Zlatníky - Hodkovice",
+    "slug": "/zapa-zlatniky",
+    "ulice": "Břežanská 346",
+    "mesto": "Zlatníky - Hodkovice",
+    "psc": "252 41",
+    "lat": 49.9693399,
+    "lon": 14.4739807
+  },
+  {
+    "name": "ZAPA beton a.s. - Zlín",
+    "slug": "/zapa-zlin",
+    "ulice": "",
+    "mesto": "Zlín",
+    "psc": "763 02",
+    "lat": 49.226766,
+    "lon": 17.6667415
+  },
+  {
+    "name": "ZAPA UNISTAV s.r.o. - Brno",
+    "slug": "/zapa-unistav-brno",
+    "ulice": "Moravanská 224/98",
+    "mesto": "Brno",
+    "psc": "619 00",
+    "lat": 49.1445836,
+    "lon": 16.6051832
+  },
+  {
+    "name": "ZEMAN, s.r.o.",
+    "slug": "/zeman",
+    "ulice": "Bernartice čp. 63",
+    "mesto": "pošta",
+    "psc": "257 65",
+    "lat": 49.3527098,
+    "lon": 16.0174788
+  },
+  {
+    "name": "ZETES BETON, s.r.o. - betonárna Horažďovice",
+    "slug": "/zetes",
+    "ulice": "Komenského 685",
+    "mesto": "Horažďovice - Zářečí",
+    "psc": "341 01",
+    "lat": 49.322977,
+    "lon": 13.6775404
+  }
+]

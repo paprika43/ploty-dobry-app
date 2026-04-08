@@ -1,5 +1,5 @@
-/* =======================================
-   Ploty Dobrý – Kalkulátor oplocení
+﻿/* =======================================
+   Ploty DobrĂ˝ â€“ KalkulĂˇtor oplocenĂ­
    CSS Styles with Dark/Light theme
    ======================================= */
 
@@ -122,7 +122,7 @@ header h1 {
   color: var(--header-text);
   border: 1px solid rgba(255,255,255,0.4);
   padding: 5px 14px;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -139,7 +139,7 @@ header h1 {
   font-size: 20px;
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: 0;
   transition: background 0.2s;
 }
 
@@ -180,7 +180,7 @@ main {
   z-index: 51;
   background: var(--btn-bg);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 0;
   cursor: pointer;
   padding: 2px 8px;
   font-size: 14px;
@@ -244,6 +244,40 @@ main {
   margin-left: 22px;
 }
 
+/* Transport panel */
+.doprava-section h3 {
+  color: var(--text);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+.btn-accent:hover {
+  background: var(--accent-hover);
+}
+
+.btn-small {
+  background: var(--btn-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+}
+.btn-small:hover {
+  background: var(--btn-hover);
+}
+
 .radio-group {
   display: flex;
   flex-direction: column;
@@ -259,19 +293,40 @@ main {
   cursor: pointer;
 }
 
-select, input[type="number"] {
+select, input[type="number"], input[type="text"] {
   width: 100%;
-  padding: 6px 8px;
+  padding: 7px 10px;
   background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 4px;
+  border: 2px solid var(--accent);
+  border-radius: 0;
   color: var(--text);
   font-size: 13px;
+  font-weight: 500;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+select {
+  border-color: #3498db;
+}
+
+input[type="number"] {
+  border-color: var(--accent);
+}
+
+input[type="text"] {
+  border-color: #8e44ad;
 }
 
 select:focus, input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: #e67e22;
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.2);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
 }
 
 .tooltip {
@@ -293,7 +348,7 @@ select:focus, input:focus {
   font-size: 12px;
   background: var(--btn-bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   color: var(--text);
   transition: all 0.15s;
@@ -353,7 +408,7 @@ select:focus, input:focus {
 .calc-highlight {
   background: var(--calc-bg);
   border: 1px solid var(--calc-border);
-  border-radius: 6px;
+  border-radius: 0;
   padding: 8px 10px;
   margin: 8px 0;
 }
@@ -422,7 +477,7 @@ select:focus, input:focus {
   gap: 4px;
   background: var(--legend-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 4px;
   box-shadow: var(--shadow);
   z-index: 10;
@@ -452,7 +507,7 @@ select:focus, input:focus {
   align-items: center;
   background: var(--legend-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: var(--shadow);
   z-index: 20;
@@ -509,7 +564,7 @@ select:focus, input:focus {
   transform: translateX(-50%);
   background: var(--legend-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 8px 16px;
   font-size: 12px;
   color: var(--text-muted);
@@ -525,7 +580,7 @@ select:focus, input:focus {
   font-size: 18px;
   background: var(--btn-bg);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 0;
   cursor: pointer;
   color: var(--text);
   display: flex;
@@ -555,7 +610,7 @@ select:focus, input:focus {
   gap: 8px;
   background: var(--legend-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 6px 12px;
   font-size: 11px;
   color: var(--text-muted);
@@ -588,7 +643,7 @@ select:focus, input:focus {
   right: 12px;
   background: var(--legend-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 8px 12px;
   font-size: 11px;
   box-shadow: var(--shadow);
@@ -611,7 +666,7 @@ select:focus, input:focus {
 .legend-color {
   width: 12px;
   height: 12px;
-  border-radius: 3px;
+  border-radius: 0;
   display: inline-block;
 }
 
@@ -621,7 +676,7 @@ select:focus, input:focus {
   background: var(--tooltip-bg);
   color: var(--tooltip-text);
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 12px;
   pointer-events: none;
   z-index: 200;
@@ -645,7 +700,7 @@ select:focus, input:focus {
 
 .dialog {
   background: var(--dialog-bg);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 20px 24px;
   min-width: 300px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
@@ -668,7 +723,7 @@ select:focus, input:focus {
   background: var(--accent);
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
@@ -684,7 +739,7 @@ select:focus, input:focus {
   background: var(--btn-bg);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   font-size: 13px;
   transition: background 0.15s;
@@ -695,7 +750,7 @@ select:focus, input:focus {
 }
 
 /* ============================================ */
-/* CENOVÁ NABÍDKA – PRŮVODCE                    */
+/* CENOVĂ NABĂŤDKA â€“ PRĹ®VODCE                    */
 /* ============================================ */
 .quote-dialog {
   max-width: 900px;
@@ -731,7 +786,7 @@ select:focus, input:focus {
   flex: 1;
   padding: 7px 10px;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
   background: var(--input-bg);
   color: var(--text);
   font-size: 13px;
@@ -752,7 +807,7 @@ select:focus, input:focus {
   margin-bottom: 12px;
   padding: 10px 14px;
   background: rgba(59,130,246,0.08);
-  border-radius: 8px;
+  border-radius: 0;
   border-left: 4px solid var(--accent, #2563eb);
 }
 .qg-warnings {
@@ -763,7 +818,7 @@ select:focus, input:focus {
   margin-bottom: 4px;
   background: rgba(234,179,8,0.12);
   border-left: 4px solid #eab308;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 13px;
   line-height: 1.4;
 }
@@ -785,7 +840,7 @@ select:focus, input:focus {
   gap: 2px 8px;
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   transition: background 0.15s;
   align-items: start;
@@ -817,7 +872,7 @@ select:focus, input:focus {
   color: #dc2626;
   background: rgba(220,38,38,0.1);
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: 0;
   margin-left: 4px;
   vertical-align: middle;
 }
@@ -826,7 +881,7 @@ select:focus, input:focus {
   color: #888;
   background: rgba(128,128,128,0.1);
   padding: 1px 5px;
-  border-radius: 3px;
+  border-radius: 0;
   margin-left: 4px;
   vertical-align: middle;
 }
@@ -853,7 +908,7 @@ select:focus, input:focus {
 }
 
 /* ============================================ */
-/* KATALOG PRODUKTŮ                             */
+/* KATALOG PRODUKTĹ®                             */
 /* ============================================ */
 .catalog-dialog {
   max-width: 1100px;
@@ -881,7 +936,7 @@ select:focus, input:focus {
   flex: 1 1 220px;
   padding: 7px 12px;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
   background: var(--input-bg);
   color: var(--text);
   font-size: 13px;
@@ -895,7 +950,7 @@ select:focus, input:focus {
   flex: 0 1 220px;
   padding: 7px 10px;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
   background: var(--input-bg);
   color: var(--text);
   font-size: 13px;
@@ -915,7 +970,7 @@ select:focus, input:focus {
 }
 .catalog-card {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   background: var(--card-bg, var(--panel-bg));
   transition: box-shadow 0.15s;
@@ -1050,7 +1105,7 @@ select:focus, input:focus {
   top: 0;
   background: var(--bg-sidebar);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 0;
   padding: 8px 14px;
   display: flex;
   align-items: center;
@@ -1204,7 +1259,7 @@ select:focus, input:focus {
 .size-btn {
   width: 28px;
   height: 28px;
-  border-radius: 6px;
+  border-radius: 0;
   border: 1px solid var(--border);
   background: var(--btn-bg);
   cursor: pointer;
@@ -1230,7 +1285,7 @@ select:focus, input:focus {
   position: fixed;
   background: var(--dialog-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 4px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   z-index: 500;
@@ -1247,7 +1302,7 @@ select:focus, input:focus {
   color: var(--text);
   font-size: 13px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0;
   transition: background 0.1s;
 }
 
@@ -1266,7 +1321,7 @@ select:focus, input:focus {
 
 #sidebar::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 /* Responsive */

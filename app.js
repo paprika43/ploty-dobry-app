@@ -22,6 +22,7 @@ const state = {
     // Svařované
     svarSloupky: 'klasicke_48',
     svarRoleDelka: 25,
+    svarOkoVyska: 5, // výška oka v cm (pro BEKACLIP výpočet)
     // 2D
     sila2D: '6/5/6',
     barva2D: 'zelena',
@@ -32,11 +33,39 @@ const state = {
     maxFieldM: 2.5,
     // Betonový
     betonVzor: 'jednostranny',
+    betonBarva: 'seda',
     betonDesky: 3,
     betonSokl: false,
     betonSoklVyska: 20,
-    // Doprava
-    vzdalenostKm: 0,
+    // Doprava – společné
+    adresaStavby: '',
+    betonarka: '',
+    // Doprava montážníka
+    doprMontKm: 0,
+    doprMontSazba: 15,
+    doprMontCest: 1,
+    doprMontZpat: true,
+    doprMontMytne: false,
+    doprMontMytneKc: 0,
+    // Doprava betonových produktů (individuální)
+    dopravaBetProduktu: false,
+    doprBetKm: 0,
+    doprBetSazba: 15,
+    doprBetCest: 1,
+    doprBetZpat: true,
+    doprBetMytne: false,
+    doprBetMytneKc: 0,
+    doprBetVozidlo: 'dodavka', // dodavka | vlek | hydraulicka
+    doprBetPaletCustom: 0, // 0 = auto
+    // Doprava betonu z betonárky
+    doprBetonKm: 0,
+    doprBetonSazba: 15,
+    doprBetonCest: 1,
+    doprBetonZpat: true,
+    doprBetonMytne: false,
+    doprBetonMytneKc: 0,
+    // Vykládka palet
+    vkladkaPaleta: 120,
   },
   // Fence path
   vertices: [],
@@ -1417,6 +1446,11 @@ function getShadeClothColor3D(segFromIdx) {
 }
 
 function getPostColor2D(vertexIndex) {
+  // Betonový plot: concrete post color
+  if (state.fenceType === 'betonovy') {
+    const bc = { seda: '#aaaaaa', piskova: '#c8b88a', hneda: '#8b6f4e', cervena: '#a0584a' };
+    return bc[state.config.betonBarva] || '#aaaaaa';
+  }
   const barva = state.postColors[vertexIndex];
   if (!barva || barva === 'zelena') return '#27ae60'; // default green
   if (barva === 'antracit') return '#4a4f52';
@@ -1425,6 +1459,10 @@ function getPostColor2D(vertexIndex) {
 }
 
 function getPostColor3D(vertexIndex) {
+  // Betonový plot: concrete post color
+  if (state.fenceType === 'betonovy') {
+    return BETON_COLORS_3D[state.config.betonBarva] || BETON_COLORS_3D.seda;
+  }
   const barva = state.postColors[vertexIndex];
   if (!barva || barva === 'zelena') return 0x2ecc71; // default green
   if (barva === 'antracit') return 0x4a4f52;
@@ -1525,9 +1563,10 @@ function getFieldFenceH(segFrom, fieldIdx, seg) {
   return getSegFenceH(seg);
 }
 
-// Wire count for a segment: 3 if fenceH > 125, else 2
+// Wire count for a segment: 4 if fenceH > 180, 3 if > 125, else 2
 function getSegWireCount(seg) {
-  return getSegFenceH(seg) > 125 ? 3 : 2;
+  const h = getSegFenceH(seg);
+  return h > 180 ? 4 : h > 125 ? 3 : 2;
 }
 
 // Effective post height for vertex post (cm) - takes max of all adjacent segments
@@ -1627,7 +1666,7 @@ function getWireColor2D(segIdx, fieldIdx) {
   return '#27ae60';
 }
 
-// Build a canvas texture with the chain-link diamond pattern
+// Build a canvas texture with the chain-link diamond pattern (čtyřhranné pletivo)
 function makeChainLinkTexture(hexColor) {
   // One diamond cell: 64×64 px, wire is thick so it survives mipmap shrinking
   const cell = 64;
@@ -1647,8 +1686,6 @@ function makeChainLinkTexture(hexColor) {
   cx.lineCap = 'square';
 
   // Draw a single diamond that fills the cell and tiles seamlessly:
-  // vertices: top-centre, right-centre, bottom-centre, left-centre
-  // + the four half-diamonds at the corners (for seamless tiling)
   const hw = cell / 2;
 
   cx.beginPath();
@@ -1670,16 +1707,209 @@ function makeChainLinkTexture(hexColor) {
   return tex;
 }
 
+// Build a welded mesh texture (svařované pletivo) — rectangular grid pattern
+function makeWeldedMeshTexture(hexColor) {
+  const cell = 64;
+  const c = document.createElement('canvas');
+  c.width = cell;
+  c.height = cell;
+  const cx = c.getContext('2d');
+
+  const r = (hexColor >> 16) & 0xff;
+  const g = (hexColor >> 8) & 0xff;
+  const b = hexColor & 0xff;
+  const colorStr = `rgb(${r},${g},${b})`;
+
+  cx.clearRect(0, 0, cell, cell);
+  cx.strokeStyle = colorStr;
+  cx.lineWidth = 5;
+  cx.lineCap = 'square';
+
+  // Rectangular grid — horizontal and vertical lines
+  cx.beginPath();
+  // Vertical line left
+  cx.moveTo(0, 0); cx.lineTo(0, cell);
+  // Vertical line right (wraps)
+  cx.moveTo(cell, 0); cx.lineTo(cell, cell);
+  // Horizontal line top
+  cx.moveTo(0, 0); cx.lineTo(cell, 0);
+  // Horizontal line bottom (wraps)
+  cx.moveTo(0, cell); cx.lineTo(cell, cell);
+  cx.stroke();
+
+  // Weld spots at intersections
+  cx.fillStyle = colorStr;
+  cx.beginPath();
+  cx.arc(0, 0, 4, 0, Math.PI * 2);
+  cx.arc(cell, 0, 4, 0, Math.PI * 2);
+  cx.arc(0, cell, 4, 0, Math.PI * 2);
+  cx.arc(cell, cell, 4, 0, Math.PI * 2);
+  cx.fill();
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.minFilter = THREE.LinearMipmapLinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  tex.anisotropy = 4;
+  tex.generateMipmaps = true;
+  return tex;
+}
+
+// Build a panel texture (2D/3D plotové dílce) — vertical bars with horizontal wires
+function makePanelTexture(hexColor, is3D) {
+  const w = 128, h = 128;
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const cx = c.getContext('2d');
+
+  const r = (hexColor >> 16) & 0xff;
+  const g = (hexColor >> 8) & 0xff;
+  const b = hexColor & 0xff;
+  const colorStr = `rgb(${r},${g},${b})`;
+  const darkStr = `rgb(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)})`;
+
+  cx.clearRect(0, 0, w, h);
+
+  // Background fill — slightly lighter version of fence color
+  cx.fillStyle = `rgba(${r},${g},${b},0.15)`;
+  cx.fillRect(0, 0, w, h);
+
+  // Vertical bars (svislé dráty)
+  cx.strokeStyle = colorStr;
+  cx.lineWidth = 3;
+  const barSpacing = 16;
+  for (let x = barSpacing / 2; x < w; x += barSpacing) {
+    cx.beginPath();
+    cx.moveTo(x, 0);
+    cx.lineTo(x, h);
+    cx.stroke();
+  }
+
+  // Horizontal wires (vodorovné dráty) — thicker, zdvojené
+  cx.strokeStyle = darkStr;
+  cx.lineWidth = 4;
+  const hSpacing = 32;
+  for (let y = hSpacing / 2; y < h; y += hSpacing) {
+    cx.beginPath();
+    cx.moveTo(0, y);
+    cx.lineTo(w, y);
+    cx.stroke();
+    // Double wire
+    cx.beginPath();
+    cx.moveTo(0, y + 3);
+    cx.lineTo(w, y + 3);
+    cx.stroke();
+  }
+
+  // 3D panels: add prolis marks (horizontal bends)
+  if (is3D) {
+    cx.strokeStyle = `rgba(${Math.min(255,r+60)},${Math.min(255,g+60)},${Math.min(255,b+60)},0.6)`;
+    cx.lineWidth = 6;
+    const prolisY = [h * 0.2, h * 0.5, h * 0.8];
+    for (const y of prolisY) {
+      cx.beginPath();
+      cx.moveTo(0, y);
+      cx.lineTo(w, y);
+      cx.stroke();
+    }
+  }
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.minFilter = THREE.LinearMipmapLinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  tex.anisotropy = 4;
+  tex.generateMipmaps = true;
+  return tex;
+}
+
+// Concrete color map
+const BETON_COLORS_3D = {
+  seda:    0xaaaaaa,
+  piskova: 0xc8b88a,
+  hneda:   0x8b6f4e,
+  cervena: 0xa0584a,
+};
+
+// Build concrete surface texture
+function makeConcreteTexture(hexColor) {
+  const sz = 128;
+  const c = document.createElement('canvas');
+  c.width = sz; c.height = sz;
+  const cx = c.getContext('2d');
+
+  const r = (hexColor >> 16) & 0xff;
+  const g = (hexColor >> 8) & 0xff;
+  const b = hexColor & 0xff;
+
+  // Base color
+  cx.fillStyle = `rgb(${r},${g},${b})`;
+  cx.fillRect(0, 0, sz, sz);
+
+  // Subtle noise for concrete texture
+  for (let i = 0; i < 800; i++) {
+    const x = Math.random() * sz;
+    const y = Math.random() * sz;
+    const variation = (Math.random() - 0.5) * 30;
+    const nr = Math.max(0, Math.min(255, r + variation));
+    const ng = Math.max(0, Math.min(255, g + variation));
+    const nb = Math.max(0, Math.min(255, b + variation));
+    cx.fillStyle = `rgba(${nr|0},${ng|0},${nb|0},0.4)`;
+    cx.fillRect(x, y, 2 + Math.random() * 3, 1 + Math.random() * 2);
+  }
+
+  // Fine surface scratches for realism
+  cx.strokeStyle = `rgba(${Math.max(0,r-20)},${Math.max(0,g-20)},${Math.max(0,b-20)},0.15)`;
+  cx.lineWidth = 0.5;
+  for (let i = 0; i < 8; i++) {
+    const y = Math.random() * sz;
+    cx.beginPath();
+    cx.moveTo(0, y);
+    cx.lineTo(sz, y + (Math.random() - 0.5) * 4);
+    cx.stroke();
+  }
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.minFilter = THREE.LinearMipmapLinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  tex.anisotropy = 4;
+  tex.generateMipmaps = true;
+  return tex;
+}
+
 function getSeg3DMaterial(seg) {
   const { fenceType } = getSegStyle(seg);
   const color = getSegColor3D(seg);
   if (fenceType === 'betonovy') {
-    return new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.9, metalness: 0.0 });
+    const betonColor = BETON_COLORS_3D[state.config.betonBarva] || BETON_COLORS_3D.seda;
+    const tex = makeConcreteTexture(betonColor);
+    return new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9, metalness: 0.0 });
   }
-  if (fenceType === 'panely_2d' || fenceType === 'panely_3d') {
-    return new THREE.MeshStandardMaterial({ color, metalness: 0.4, roughness: 0.5 });
+  if (fenceType === 'panely_2d') {
+    const tex = makePanelTexture(color, false);
+    return new THREE.MeshStandardMaterial({ map: tex, color, metalness: 0.4, roughness: 0.5 });
   }
-  if (fenceType.startsWith('ctyrhranne') || fenceType === 'svarovane') {
+  if (fenceType === 'panely_3d') {
+    const tex = makePanelTexture(color, true);
+    return new THREE.MeshStandardMaterial({ map: tex, color, metalness: 0.4, roughness: 0.5 });
+  }
+  if (fenceType === 'svarovane') {
+    const tex = makeWeldedMeshTexture(color);
+    return new THREE.MeshStandardMaterial({
+      alphaMap: tex,
+      color,
+      metalness: 0.3,
+      roughness: 0.5,
+      transparent: true,
+      alphaTest: 0.1,
+      side: THREE.DoubleSide,
+    });
+  }
+  if (fenceType.startsWith('ctyrhranne')) {
     const tex = makeChainLinkTexture(color);
     return new THREE.MeshStandardMaterial({
       alphaMap: tex,
@@ -1687,7 +1917,7 @@ function getSeg3DMaterial(seg) {
       metalness: 0.3,
       roughness: 0.5,
       transparent: true,
-      alphaTest: 0.1,   // low threshold so blurred mipmap pixels still pass
+      alphaTest: 0.1,
       side: THREE.DoubleSide,
     });
   }
@@ -1698,9 +1928,12 @@ function getFenceColor() {
   const type = state.fenceType;
   if (type.startsWith('ctyrhranne')) return '#27ae60';
   if (type === 'svarovane') return '#27ae60';
-  if (type === 'panely_2d') return '#2980b9';
-  if (type === 'panely_3d') return '#2980b9';
-  if (type === 'betonovy') return '#7f8c8d';
+  if (type === 'panely_2d') return FENCE_COLORS_2D[state.config.barva2D] || '#2980b9';
+  if (type === 'panely_3d') return FENCE_COLORS_2D[state.config.barva3D] || '#2980b9';
+  if (type === 'betonovy') {
+    const bc = { seda: '#aaaaaa', piskova: '#c8b88a', hneda: '#8b6f4e', cervena: '#a0584a' };
+    return bc[state.config.betonBarva] || '#7f8c8d';
+  }
   return '#27ae60';
 }
 
@@ -2192,19 +2425,26 @@ function drawVertexPosts() {
       ctx.stroke();
     }
 
-    // Post circle with per-post color
+    // Post circle with per-post color (or square for betonový)
     const rScaled = r;
     ctx.fillStyle = getPostColor2D(i);
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, rScaled, 0, Math.PI * 2);
-    ctx.fill();
-
-    // White border
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, rScaled, 0, Math.PI * 2);
-    ctx.stroke();
+    if (state.fenceType === 'betonovy') {
+      // Square post for concrete
+      const side = rScaled * 1.8;
+      ctx.fillRect(s.x - side / 2, s.y - side / 2, side, side);
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(s.x - side / 2, s.y - side / 2, side, side);
+    } else {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, rScaled, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, rScaled, 0, Math.PI * 2);
+      ctx.stroke();
+    }
 
     // Corner indicator
     if (isCorner(i)) {
@@ -2289,8 +2529,8 @@ function drawPrichytky2D(segments) {
 }
 
 function drawStruts(segments) {
-  const isPanels = state.fenceType === 'panely_2d' || state.fenceType === 'panely_3d';
-  if (isPanels) return; // Panels don't need struts
+  const ft = state.fenceType;
+  if (ft !== 'ctyrhranne_bez_nd' && ft !== 'ctyrhranne_s_nd' && ft !== 'svarovane') return;
 
   const struts = getStrutPositions(segments);
   for (let _si = 0; _si < struts.length; _si++) {
@@ -2686,8 +2926,9 @@ function calculate() {
   result.totalPosts = totalPosts;
   result.fencePosts = Math.max(0, fencePosts);
 
-  // Struts (not for panels or betonový plot)
-  const strutPositions = (isPanels || isBeton) ? [] : getStrutPositions(segments);
+  // Struts — only for čtyřhranné pletivo (s/bez ND) and svařované pletivo
+  const hasStruts = (type === 'ctyrhranne_bez_nd' || type === 'ctyrhranne_s_nd' || type === 'svarovane');
+  const strutPositions = hasStruts ? getStrutPositions(segments) : [];
   const strutCount = strutPositions.length;
   result.strutCount = strutCount;
   result.strutLength = cfg.height + 50; // cm – délka vzpěry = výška pletiva + 50 cm (dle DOCX pravidel)
@@ -2762,6 +3003,34 @@ function calculate() {
     }
   }
 
+  // Spony Roca Fix (čtyřhranné) — 1 spona každých 20 cm na každém napínacím drátě
+  if (isCtyr) {
+    let totalSponyRocaFix = 0;
+    for (const seg of segments) {
+      const wc = getSegWireCount(seg);
+      const segLenCm = seg.lengthM * 100;
+      totalSponyRocaFix += Math.ceil(segLenCm / 20) * wc;
+    }
+    result.sponyRocaFix = totalSponyRocaFix;
+    // Balení: 1000 ks a 200 ks
+    const bal1000 = Math.floor(totalSponyRocaFix / 1000);
+    const zbytek = totalSponyRocaFix - bal1000 * 1000;
+    const bal200 = Math.ceil(zbytek / 200);
+    result.sponyRocaFixBal = { bal1000, bal200, celkem: bal1000 * 1000 + bal200 * 200 };
+  }
+
+  // Spony BEKACLIP (svařované) — na každém oku na každém sloupku
+  if (isSvar) {
+    const okoVyskaCm = cfg.svarOkoVyska || 5;
+    let totalBekaclipSpony = 0;
+    for (const seg of segments) {
+      const fenceHCm = getSegFenceH(seg);
+      const sponyNaSloupek = Math.floor(fenceHCm / okoVyskaCm);
+      totalBekaclipSpony += sponyNaSloupek * (seg.fields + 1);
+    }
+    result.sponyBekaclip = totalBekaclipSpony;
+  }
+
   // Příchytky
   if (isPanels) {
     result.prichytky = totalPosts * 5;
@@ -2769,11 +3038,14 @@ function calculate() {
   } else if (isCtyr || isSvar) {
     // Per-segment wire count for příchytky: use max of adjacent segments per post
     let totalClips = 0;
+    let maxWc = 0;
     for (const seg of segments) {
-      const wc = (isCtyr) ? getSegWireCount(seg) : 3;
+      const wc = getSegWireCount(seg);
+      if (wc > maxWc) maxWc = wc;
       totalClips += (seg.fields + 1) * wc; // each field boundary post + 1
     }
     result.prichytky = totalClips;
+    result.prichytkyNaDrat = maxWc; // počet příchytek na sloupek per drát
   }
 
   // Podhrabové desky (per-segment: respects individual overrides and global default)
@@ -2880,8 +3152,9 @@ function calculate() {
     const bagsVzpery = strutCount * 1.5;
     const totalBags = bagsSloupky + bagsBranky + bagsVzpery;
 
-    // Cubic meters from mixer: (posts + struts) / 37
-    const kubiky = (totalPosts + strutCount) / 37;
+    // Cubic meters: betonový sloupek = 0.04 m³, normální sloupek = 0.03 m³, vzpěra = 0.03 m³
+    const kubikyPerSloupek = isBeton ? 0.04 : 0.03;
+    const kubiky = totalPosts * kubikyPerSloupek + strutCount * 0.03;
 
     // Store detailed breakdown always (both options)
     result.betonDetail = {
@@ -2894,6 +3167,7 @@ function calculate() {
       totalBags: Math.ceil(totalBags),
       kubiky: kubiky,
       kubikyFormatted: kubiky.toFixed(2),
+      kubikyPerSloupek: kubikyPerSloupek,
       totalLength: totalLength,
     };
 
@@ -2935,19 +3209,160 @@ function calculate() {
   if (isBeton) {
     result.betonoveDesky = totalFields * cfg.betonDesky;
     result.betonoveSloupky = totalPosts;
-    result.chemickaKotva = Math.ceil(1.5 * (totalFields / 2));
+    result.chemickaKotva = Math.ceil(totalFields * 0.2); // 0,2 chemické kotvy na 1 pole
     if (cfg.betonSokl) {
       result.sokly = totalFields;
     }
+
+    // Klasifikace betonových sloupků: průběžný / koncový / rohový / 2×koncový
+    let slPrubezny = 0, slKoncovy = 0, slRohovy = 0, slDvojkoncovy = 0;
+    for (const post of allPosts) {
+      if (post.type === 'gatePost') {
+        slKoncovy++;
+        continue;
+      }
+      const vi = post.vertexIndex;
+      if (vi < 0) {
+        // intermediate post between two vertices = průběžný
+        slPrubezny++;
+        continue;
+      }
+      // vertex post — check if end, corner, or through
+      const isStart = vi === 0 || state.pathBreaks.has(vi - 1);
+      const isEnd = vi === state.vertices.length - 1 || state.pathBreaks.has(vi);
+      if (isStart || isEnd) {
+        // Path endpoint = koncový
+        if (isStart && isEnd) {
+          // Isolated point, shouldn't happen but handle
+          slKoncovy++;
+        } else {
+          slKoncovy++;
+        }
+      } else if (isCorner(vi)) {
+        // Corner — check angle
+        const prev = state.vertices[vi - 1];
+        const curr = state.vertices[vi];
+        const next = state.vertices[vi + 1];
+        const dx1 = curr.x - prev.x;
+        const dy1 = curr.y - prev.y;
+        const dx2 = next.x - curr.x;
+        const dy2 = next.y - curr.y;
+        const dot = dx1 * dx2 + dy1 * dy2;
+        const len1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+        const len2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+        const cosAngle = dot / (len1 * len2 + 0.0001);
+        const angleDeg = Math.acos(Math.max(-1, Math.min(1, cosAngle))) * 180 / Math.PI;
+        // 90° corner (with tolerance ±10°) = rohový sloupek
+        if (Math.abs(angleDeg - 90) <= 10) {
+          slRohovy++;
+        } else {
+          // Non-90° corner = 2× koncový sloupek
+          slDvojkoncovy++;
+        }
+      } else {
+        // Not a corner = průběžný
+        slPrubezny++;
+      }
+    }
+    result.betonSloupkyPrubezny = slPrubezny;
+    result.betonSloupkyKoncovy = slKoncovy;
+    result.betonSloupkyRohovy = slRohovy;
+    result.betonSloupkyDvojkoncovy = slDvojkoncovy;
   }
 
-  // Doprava
-  if (cfg.vzdalenostKm > 0) {
-    const doprMain = Math.max(500, cfg.vzdalenostKm * 2 * 18);
-    result.dopravaHlavni = doprMain;
-    if (result.betonTyp === 'betonarka') {
-      result.dopravaBetonarka = cfg.vzdalenostKm * 2 * 18;
+  // ═══════════════════════════════════════
+  // DOPRAVA A LOGISTIKA
+  // ═══════════════════════════════════════
+
+  // 1) Doprava montážníka
+  if (cfg.doprMontKm > 0) {
+    const km = cfg.doprMontKm;
+    const cest = Math.max(1, cfg.doprMontCest);
+    const sazba = cfg.doprMontSazba;
+    const mytne = cfg.doprMontMytne ? cfg.doprMontMytneKc : 0;
+    const nasobek = cfg.doprMontZpat ? 2 : 1;
+    const celkem = km * nasobek * cest * sazba + mytne * cest;
+    result.dopravaMontaznik = { km, cest, sazba, mytne, nasobek, celkem: Math.max(500, celkem) };
+  }
+
+  // 2) Doprava betonových produktů (individuální)
+  if (cfg.dopravaBetProduktu) {
+    let hmotnostKg = 0;
+    const betProduktyDetail = [];
+    // Betonové sloupky
+    if (isBeton && result.betonoveSloupky > 0) {
+      const hmKs = 45;
+      const hm = result.betonoveSloupky * hmKs;
+      hmotnostKg += hm;
+      betProduktyDetail.push({ nazev: 'Betonové sloupky', pocet: result.betonoveSloupky, hmKs, hmCelkem: hm });
     }
+    // Betonové desky
+    if (isBeton && result.betonoveDesky > 0) {
+      const hmKs = 34;
+      const hm = result.betonoveDesky * hmKs;
+      hmotnostKg += hm;
+      betProduktyDetail.push({ nazev: 'Betonové desky', pocet: result.betonoveDesky, hmKs, hmCelkem: hm });
+    }
+    // Pytlový beton
+    if (result.betonDetail && result.betonTyp === 'pytle') {
+      const hmKs = 25;
+      const hm = result.betonDetail.totalBags * hmKs;
+      hmotnostKg += hm;
+      betProduktyDetail.push({ nazev: 'Pytlový beton (25 kg)', pocet: result.betonDetail.totalBags, hmKs, hmCelkem: hm });
+    }
+    // Podhrabové desky
+    if (result.podhrabDesky > 0) {
+      const hmKs = 100;
+      const hm = result.podhrabDesky * hmKs;
+      hmotnostKg += hm;
+      betProduktyDetail.push({ nazev: 'Podhrabové desky', pocet: result.podhrabDesky, hmKs, hmCelkem: hm });
+    }
+
+    // Palety
+    let paletPytlu = 0, paletDesek = 0, paletSloupku = 0;
+    if (result.betonDetail && result.betonTyp === 'pytle') paletPytlu = Math.ceil(result.betonDetail.totalBags / 53);
+    if (isBeton && result.betonoveDesky > 0) paletDesek = Math.ceil(result.betonoveDesky / 20);
+    if (isBeton && result.betonoveSloupky > 0) paletSloupku = Math.ceil(result.betonoveSloupky / 25);
+    if (result.podhrabDesky > 0) paletDesek += Math.ceil(result.podhrabDesky / 20);
+    let paletCelkem = paletPytlu + paletDesek + paletSloupku;
+    if (cfg.doprBetPaletCustom > 0) paletCelkem = cfg.doprBetPaletCustom;
+    const vkladkaCelkem = paletCelkem * cfg.vkladkaPaleta;
+
+    // Vozidlo limity
+    const vozidloLimity = { dodavka: 1500, vlek: 2500, hydraulicka: 25000 };
+    const vozidloNazvy = { dodavka: 'Dodávka (do 1,5 t)', vlek: 'Auto s vlekem (do 2,5 t)', hydraulicka: 'Auto s hydraulickou rukou (do 25 t)' };
+    const limitKg = vozidloLimity[cfg.doprBetVozidlo] || 1500;
+    const doporuceneCest = hmotnostKg > 0 ? Math.ceil(hmotnostKg / limitKg) : 1;
+
+    const km = cfg.doprBetKm;
+    const cest = Math.max(1, cfg.doprBetCest || doporuceneCest);
+    const sazba = cfg.doprBetSazba;
+    const mytne = cfg.doprBetMytne ? cfg.doprBetMytneKc : 0;
+    const nasobek = cfg.doprBetZpat ? 2 : 1;
+    const celkem = km * nasobek * cest * sazba + mytne * cest;
+
+    result.dopravaBetProduktu = {
+      detail: betProduktyDetail,
+      hmotnostKg,
+      vozidlo: cfg.doprBetVozidlo,
+      vozidloNazev: vozidloNazvy[cfg.doprBetVozidlo],
+      limitKg,
+      doporuceneCest,
+      km, cest, sazba, mytne, nasobek,
+      celkem: Math.max(0, celkem),
+      palety: { pytlu: paletPytlu, desek: paletDesek, sloupku: paletSloupku, celkem: paletCelkem, vkladka: vkladkaCelkem },
+    };
+  }
+
+  // 3) Doprava betonu z betonárky
+  if (cfg.doprBetonKm > 0 && result.betonTyp === 'betonarka') {
+    const km = cfg.doprBetonKm;
+    const cest = Math.max(1, cfg.doprBetonCest);
+    const sazba = cfg.doprBetonSazba;
+    const mytne = cfg.doprBetonMytne ? cfg.doprBetonMytneKc : 0;
+    const nasobek = cfg.doprBetonZpat ? 2 : 1;
+    const celkem = km * nasobek * cest * sazba + mytne * cest;
+    result.dopravaBetonarka = { km, cest, sazba, mytne, nasobek, celkem };
   }
 
   // Rohy
@@ -2978,6 +3393,8 @@ function updateCalcPanel() {
   const type = state.fenceType;
   const isPanels = type === 'panely_2d' || type === 'panely_3d';
   const isBeton = type === 'betonovy';
+  const isCtyr = type.startsWith('ctyrhranne');
+  const isSvar = type === 'svarovane';
 
   let html = '';
 
@@ -2989,12 +3406,14 @@ function updateCalcPanel() {
   </div>`;
 
   // Sloupky
-  const typSloupkuLabels = { kulate_38: 'Kulaté 38 mm', kulate_48: 'Kulaté 48 mm', hranate_60x40: 'Hranaté 60×40 mm', hranate_60x60: 'Hranaté 60×60 mm' };
+  const typSloupkuLabels = { kulate_38: 'Kulaté 38 mm', kulate_48: 'Kulaté 48 mm', hranate_60x40: 'Hranaté 60×40 mm', hranate_60x60: 'Hranaté 60×60 mm', klasicke_48: 'Kulaté 48 mm', prolis_bekaclip: 'S prolisem (Bekaclip)' };
   const globalTyp = state.config.typSloupku;
-  html += `<div class="calc-section"><h4>Sloupky</h4>
+  const sloupkyNadpis = isBeton ? 'Betonové sloupky' : 'Sloupky';
+  const typSloupkuDisplay = isBeton ? 'Betonové' : isPanels ? 'Hranaté 60×40 mm' : (state.config.stiniciTkanina ? 'STRONG' : (typSloupkuLabels[globalTyp] || globalTyp));
+  html += `<div class="calc-section"><h4>${sloupkyNadpis}</h4>
     <div class="calc-row"><span class="label">Celkem sloupků</span><span class="value">${result.fencePosts}</span></div>
     <div class="calc-row"><span class="label">Délka sloupku</span><span class="value">${result.postHeight} cm</span></div>
-    <div class="calc-row"><span class="label">Typ sloupků</span><span class="value">${state.config.stiniciTkanina ? 'STRONG' : (typSloupkuLabels[globalTyp] || globalTyp)}</span></div>`;
+    <div class="calc-row"><span class="label">Typ sloupků</span><span class="value">${typSloupkuDisplay}</span></div>`;
   // Show per-segment overrides if any
   {
     const segOverrides = [];
@@ -3036,12 +3455,26 @@ function updateCalcPanel() {
     </div>`;
   }
 
-  // Vázací drát
+  // Spony Roca Fix (čtyřhranné)
+  if (result.sponyRocaFix) {
+    const b = result.sponyRocaFixBal;
+    html += `<div class="calc-section"><h4>Spony Roca Fix</h4>
+      <div class="calc-row"><span class="label">Celkem spon</span><span class="value">${result.sponyRocaFix} ks</span></div>
+      <div class="calc-row" style="font-size:11px;color:#888"><span class="label">(1 spona každých 20 cm na každém napínacím drátě)</span></div>
+      <div class="calc-row"><span class="label">Balení</span><span class="value">${b.bal1000 > 0 ? b.bal1000 + '× 1000 ks' : ''}${b.bal1000 > 0 && b.bal200 > 0 ? ' + ' : ''}${b.bal200 > 0 ? b.bal200 + '× 200 ks' : ''} = ${b.celkem} ks</span></div>
+    </div>`;
+  }
+
+  // Vázací drát + Spony BEKACLIP (svařované)
   if (result.vazaciDrat) {
     html += `<div class="calc-section"><h4>Vázací drát</h4>
       <div class="calc-row"><span class="label">Vázací drát</span><span class="value">ANO</span></div>`;
     if (result.bekaclip) {
       html += `<div class="calc-row"><span class="label">Kleště Bekaclip + spony</span><span class="value">ANO</span></div>`;
+    }
+    if (result.sponyBekaclip) {
+      html += `<div class="calc-row"><span class="label">Spony BEKACLIP</span><span class="value">${result.sponyBekaclip} ks</span></div>
+      <div class="calc-row" style="font-size:11px;color:#888"><span class="label">(na každém oku na každém sloupku, oko ${state.config.svarOkoVyska} cm)</span></div>`;
     }
     html += `</div>`;
   }
@@ -3049,8 +3482,11 @@ function updateCalcPanel() {
   // Příchytky
   if (result.prichytky) {
     html += `<div class="calc-section"><h4>Příchytky</h4>
-      <div class="calc-row"><span class="label">Počet příchytek</span><span class="value">${result.prichytky}${result.prichytkyExtra ? ' + ' + result.prichytkyExtra + ' ks navíc' : ''}</span></div>
-    </div>`;
+      <div class="calc-row"><span class="label">Počet příchytek</span><span class="value">${result.prichytky}${result.prichytkyExtra ? ' + ' + result.prichytkyExtra + ' ks navíc' : ''}</span></div>`;
+    if (result.prichytkyNaDrat) {
+      html += `<div class="calc-row" style="font-size:11px;color:#888"><span class="label">(${result.prichytkyNaDrat} příchytek na sloupek — 1 na každý napínací drát)</span></div>`;
+    }
+    html += `</div>`;
   }
 
   // Ráčny
@@ -3063,26 +3499,43 @@ function updateCalcPanel() {
 
   // Pletivo
   if (result.pletivoLength) {
-    html += `<div class="calc-section"><h4>Pletivo</h4>
+    const pletivoNadpis = type === 'svarovane' ? 'Svařované pletivo' : 'Čtyřhranné pletivo';
+    html += `<div class="calc-section"><h4>${pletivoNadpis}</h4>
       <div class="calc-row"><span class="label">Potřebná délka (+5%)</span><span class="value">${result.pletivoLength.toFixed(1)} m</span></div>
       <div class="calc-row"><span class="label">Počet rolí (${result.roleDelka} m)</span><span class="value">${result.roleCount}</span></div>
     </div>`;
   }
 
-  // Panely
+  // Panely (plotové dílce)
   if (result.panelCount !== undefined) {
-    html += `<div class="calc-section"><h4>Panely</h4>
-      <div class="calc-row"><span class="label">Počet panelů (2,5 m)</span><span class="value">${result.panelCount}</span></div>
+    const panelNadpis = type === 'panely_2d' ? 'Plotové dílce 2D' : 'Plotové dílce 3D';
+    html += `<div class="calc-section"><h4>${panelNadpis}</h4>
+      <div class="calc-row"><span class="label">Počet dílců (2,5 m)</span><span class="value">${result.panelCount}</span></div>
       <div class="calc-row"><span class="label">Sprej v barvě plotu</span><span class="value">${result.sprej}× (${result.barvaSprej})</span></div>
     </div>`;
   }
 
   // Betonový plot
   if (isBeton) {
+    const betonBarvaLabels = { seda: 'Šedá', piskova: 'Písková', hneda: 'Hnědá', cervena: 'Cihlově červená' };
+    const barvaLabel = betonBarvaLabels[state.config.betonBarva] || 'Šedá';
     html += `<div class="calc-section"><h4>Betonový plot</h4>
       <div class="calc-row"><span class="label">Betonové desky</span><span class="value">${result.betonoveDesky} ks</span></div>
-      <div class="calc-row"><span class="label">Betonové sloupky</span><span class="value">${result.betonoveSloupky} ks</span></div>
-      <div class="calc-row"><span class="label">Chemická kotva</span><span class="value">${result.chemickaKotva} ks</span></div>`;
+      <div class="calc-row"><span class="label">Barva desek</span><span class="value">${barvaLabel}</span></div>
+      <div class="calc-row"><span class="label">Betonové sloupky celkem</span><span class="value">${result.betonoveSloupky} ks</span></div>`;
+    if (result.betonSloupkyPrubezny > 0) {
+      html += `<div class="calc-row" style="padding-left:12px;font-size:12px;"><span class="label">↳ Průběžný sloupek</span><span class="value">${result.betonSloupkyPrubezny} ks</span></div>`;
+    }
+    if (result.betonSloupkyKoncovy > 0) {
+      html += `<div class="calc-row" style="padding-left:12px;font-size:12px;"><span class="label">↳ Koncový sloupek</span><span class="value">${result.betonSloupkyKoncovy} ks</span></div>`;
+    }
+    if (result.betonSloupkyRohovy > 0) {
+      html += `<div class="calc-row" style="padding-left:12px;font-size:12px;"><span class="label">↳ Rohový sloupek (90°)</span><span class="value">${result.betonSloupkyRohovy} ks</span></div>`;
+    }
+    if (result.betonSloupkyDvojkoncovy > 0) {
+      html += `<div class="calc-row" style="padding-left:12px;font-size:12px;color:#e67e22;"><span class="label">↳ 2× koncový sloupek (≠90°)</span><span class="value">${result.betonSloupkyDvojkoncovy} ks</span></div>`;
+    }
+    html += `<div class="calc-row"><span class="label">Chemická kotva</span><span class="value">${result.chemickaKotva} ks</span></div>`;
     if (result.sokly) {
       html += `<div class="calc-row"><span class="label">Sokly</span><span class="value">${result.sokly} ks</span></div>`;
     }
@@ -3180,8 +3633,8 @@ function updateCalcPanel() {
     html += `</div>`;
   }
 
-  // Rohy
-  if (result.cornerCount > 0) {
+  // Rohy — příslušenství (ne pro betonový plot)
+  if (result.cornerCount > 0 && !isBeton) {
     html += `<div class="calc-section"><h4>Příslušenství rohů</h4>
       <div class="calc-row"><span class="label">Opasky</span><span class="value">${result.cornerOpasky}</span></div>
       <div class="calc-row"><span class="label">Ráčny (rohové)</span><span class="value">${result.cornerRacny}</span></div>
@@ -3189,21 +3642,348 @@ function updateCalcPanel() {
     </div>`;
   }
 
-  // Doprava
-  if (result.dopravaHlavni) {
-    html += `<div class="calc-section"><h4>Doprava (orientační)</h4>
-      <div class="calc-row"><span class="label">Dopravné materiál</span><span class="value">${formatPrice(result.dopravaHlavni)}</span></div>`;
-    if (result.dopravaBetonarka) {
-      html += `<div class="calc-row"><span class="label">Dopravné betonárka</span><span class="value">${formatPrice(result.dopravaBetonarka)}</span></div>`;
+  // Povinné položky pro betonový plot (cenová nabídka)
+  if (isBeton) {
+    html += `<div class="calc-section" style="border:2px solid #e74c3c;background:#fdf2f2;padding:8px;">
+      <h4 style="color:#e74c3c;">⚠️ Povinné položky – cenová nabídka</h4>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">1. Montáž ruční kopání</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">2. Montáž zarezávání betonových panelů</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">3. Montáž zakopávání betonových desek</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">4. Individuální doprava betonových produktů</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">5. Platba: 65 % předem / 35 % po dokončení</span></div>
+    </div>`;
+  }
+
+  // Povinné položky pro čtyřhranné/svařované pletivo (cenová nabídka)
+  if (isCtyr || isSvar) {
+    const hasPodhrab = result.podhrabDesky > 0;
+    html += `<div class="calc-section" style="border:2px solid #e74c3c;background:#fdf2f2;padding:8px;">
+      <h4 style="color:#e74c3c;">⚠️ Povinné položky – cenová nabídka</h4>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">1. Montáž ruční kopání</span></div>`;
+    if (hasPodhrab) {
+      html += `<div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">2. Montáž zarezávání podhrabových desek</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">3. Montáž zakopávání podhrabových desek</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">4. Individuální doprava betonových produktů</span></div>
+      <div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">5. Platba: 65 % předem / 35 % po dokončení</span></div>`;
+    } else {
+      html += `<div class="calc-row" style="color:#c0392b;font-weight:600;"><span class="label">2. Platba: 65 % předem / 35 % po dokončení</span></div>`;
     }
     html += `</div>`;
   }
 
+  // Doprava
+  if (result.dopravaMontaznik || result.dopravaBetonarka || result.dopravaBetProduktu) {
+    html += `<div class="calc-section"><h4>🚛 Doprava</h4>`;
+
+    // Montážník
+    if (result.dopravaMontaznik) {
+      const m = result.dopravaMontaznik;
+      html += `<div class="calc-row" style="margin-top:4px;"><span class="label">🧑‍🔧 Doprava montážníka</span><span class="value"><strong>${formatPrice(m.celkem)}</strong></span></div>`;
+      html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">${m.km} km × ${m.nasobek} × ${m.cest} cest × ${m.sazba} Kč/km</span></div>`;
+      if (m.mytne > 0) html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">🛣️ Mýtné</span><span class="value">${formatPrice(m.mytne)} × ${m.cest} cest</span></div>`;
+    }
+
+    // Betonárka
+    if (result.dopravaBetonarka) {
+      const b = result.dopravaBetonarka;
+      html += `<div class="calc-row" style="margin-top:6px;border-top:1px dashed #ddd;padding-top:6px;"><span class="label">🏭 Doprava betonu z betonárky</span><span class="value"><strong>${formatPrice(b.celkem)}</strong></span></div>`;
+      html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">${b.km} km × ${b.nasobek} × ${b.cest} cest × ${b.sazba} Kč/km</span></div>`;
+      if (b.mytne > 0) html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">🛣️ Mýtné</span><span class="value">${formatPrice(b.mytne)} × ${b.cest} cest</span></div>`;
+    }
+
+    // Betonové produkty
+    if (result.dopravaBetProduktu) {
+      const bp = result.dopravaBetProduktu;
+      html += `<div class="calc-row" style="margin-top:6px;border-top:1px dashed #ddd;padding-top:6px;"><span class="label">🧱 Doprava betonových produktů</span><span class="value"><strong>${formatPrice(bp.celkem)}</strong></span></div>`;
+      html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">${bp.km} km × ${bp.nasobek} × ${bp.cest} cest × ${bp.sazba} Kč/km</span></div>`;
+      if (bp.mytne > 0) html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">🛣️ Mýtné</span><span class="value">${formatPrice(bp.mytne)} × ${bp.cest} cest</span></div>`;
+      html += `<div class="calc-row" style="font-size:11px;color:#888;padding-left:12px"><span class="label">🚗 Vozidlo</span><span class="value">${bp.vozidloNazev}</span></div>`;
+
+      if (bp.detail && bp.detail.length > 0) {
+        html += `<div class="calc-row" style="font-size:11px;color:#7f8c8d;margin-top:4px;padding-left:12px"><span class="label">Hmotnost produktů:</span></div>`;
+        for (const item of bp.detail) {
+          html += `<div class="calc-row" style="font-size:11px;padding-left:20px"><span class="label">${item.nazev} (${item.pocet}× po ${item.hmKs} kg)</span><span class="value">${(item.hmCelkem / 1000).toFixed(2)} t</span></div>`;
+        }
+        html += `<div class="calc-row" style="font-size:12px;font-weight:600;padding-left:12px;margin-top:2px"><span class="label">Celková hmotnost</span><span class="value">${(bp.hmotnostKg / 1000).toFixed(2)} t</span></div>`;
+        if (bp.hmotnostKg > bp.limitKg) {
+          html += `<div class="calc-row" style="font-size:11px;color:#e74c3c;padding-left:12px"><span class="label">⚠️ Hmotnost překračuje limit vozidla! Doporučeno min. ${bp.doporuceneCest} cest.</span></div>`;
+        }
+      }
+
+      // Palety
+      const p = bp.palety;
+      if (p.celkem > 0) {
+        html += `<div class="calc-row" style="font-size:11px;color:#7f8c8d;margin-top:4px;padding-left:12px"><span class="label">📦 Palety:</span></div>`;
+        if (p.pytlu > 0) html += `<div class="calc-row" style="font-size:11px;padding-left:20px"><span class="label">Pytlový beton</span><span class="value">${p.pytlu} palet (53 pytlů/pal.)</span></div>`;
+        if (p.desek > 0) html += `<div class="calc-row" style="font-size:11px;padding-left:20px"><span class="label">Desky</span><span class="value">${p.desek} palet (20 desek/pal.)</span></div>`;
+        if (p.sloupku > 0) html += `<div class="calc-row" style="font-size:11px;padding-left:20px"><span class="label">Sloupky</span><span class="value">${p.sloupku} palet (25 sloupků/pal.)</span></div>`;
+        html += `<div class="calc-row" style="font-size:12px;font-weight:600;padding-left:12px"><span class="label">Celkem palet</span><span class="value">${p.celkem} pal.</span></div>`;
+        html += `<div class="calc-row" style="font-size:12px;padding-left:12px"><span class="label">Vykládka palet</span><span class="value">${formatPrice(p.vkladka)}</span></div>`;
+      }
+    }
+
+    html += `</div>`;
+  }
+
   el.innerHTML = html;
+
+  // Update sidebar pallet breakdown in the transport section
+  const betVysledekEl = document.getElementById('betProduktyVysledek');
+  if (betVysledekEl && result) {
+    let bhtml = '';
+    // Always show weight/pallet breakdown if there's a fence drawn
+    const isBeton = type === 'betonovy';
+    const hasBags = result.betonDetail && result.betonTyp === 'pytle' && result.betonDetail.totalBags > 0;
+    const hasDesky = isBeton && result.betonoveDesky > 0;
+    const hasSloupky = isBeton && result.betonoveSloupky > 0;
+    const hasPodhrab = result.podhrabDesky > 0;
+
+    if (hasBags || hasDesky || hasSloupky || hasPodhrab) {
+      bhtml += '<div style="border-top:1px dashed #e0c080; padding-top:4px; margin-top:4px;">';
+      bhtml += '<strong style="font-size:11px;">📋 Rozpis produktů a palet:</strong><br>';
+
+      let totalKg = 0;
+      let paletCelkem = 0;
+
+      if (hasSloupky) {
+        const kg = result.betonoveSloupky * 45;
+        const pal = Math.ceil(result.betonoveSloupky / 25);
+        totalKg += kg;
+        paletCelkem += pal;
+        bhtml += `<span style="font-size:11px;">• Bet. sloupky: ${result.betonoveSloupky} ks × 45 kg = ${kg} kg → <b>${pal} palet</b> (25 ks/pal.)</span><br>`;
+      }
+      if (hasDesky) {
+        const kg = result.betonoveDesky * 34;
+        const pal = Math.ceil(result.betonoveDesky / 20);
+        totalKg += kg;
+        paletCelkem += pal;
+        bhtml += `<span style="font-size:11px;">• Bet. desky: ${result.betonoveDesky} ks × 34 kg = ${kg} kg → <b>${pal} palet</b> (20 ks/pal.)</span><br>`;
+      }
+      if (hasBags) {
+        const bags = result.betonDetail.totalBags;
+        const kg = bags * 25;
+        const pal = Math.ceil(bags / 53);
+        totalKg += kg;
+        paletCelkem += pal;
+        bhtml += `<span style="font-size:11px;">• Pytlový beton: ${bags} ks × 25 kg = ${kg} kg → <b>${pal} palet</b> (53 pytlů/pal.)</span><br>`;
+      }
+      if (hasPodhrab) {
+        const kg = result.podhrabDesky * 100;
+        const pal = Math.ceil(result.podhrabDesky / 20);
+        totalKg += kg;
+        paletCelkem += pal;
+        bhtml += `<span style="font-size:11px;">• Podhr. desky: ${result.podhrabDesky} ks × 100 kg = ${kg} kg → <b>${pal} palet</b> (20 ks/pal.)</span><br>`;
+      }
+
+      bhtml += `<div style="margin-top:4px; font-weight:600; font-size:12px;">Celkem: ${(totalKg / 1000).toFixed(2)} t, ${paletCelkem} palet</div>`;
+
+      // Auto-fill pallet custom field if it's 0
+      const paletInput = document.getElementById('cfgDoprBetPaletCustom');
+      if (paletInput && parseInt(paletInput.value) === 0) {
+        // Show auto-calculated value as placeholder
+        paletInput.placeholder = paletCelkem + ' (auto)';
+      }
+
+      bhtml += '</div>';
+    }
+    betVysledekEl.innerHTML = bhtml;
+  }
 }
 
 function formatPrice(val) {
   return Math.round(val).toLocaleString('cs-CZ') + ' Kč';
+}
+
+// ============================================================
+// DOPRAVA – Geocoding + Routing (Nominatim + OSRM)
+// ============================================================
+
+async function geocodeAddress(address) {
+  const url = `/api/geocode?q=${encodeURIComponent(address)}`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error('Geocoding selhal');
+  const data = await resp.json();
+  if (!data.length) throw new Error('Adresa nenalezena: ' + address);
+  return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon), display: data[0].display_name };
+}
+
+async function getRouteDistance(lat1, lon1, lat2, lon2) {
+  const url = `/api/route?from=${lon1},${lat1}&to=${lon2},${lat2}`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error('Routing selhal');
+  const data = await resp.json();
+  if (data.code !== 'Ok' || !data.routes || !data.routes.length) throw new Error('Trasa nenalezena');
+  return {
+    distanceKm: Math.round(data.routes[0].distance / 100) / 10,
+    durationMin: Math.round(data.routes[0].duration / 60),
+  };
+}
+
+async function vypocitatVzdalenostOnline() {
+  const adresaStavby = document.getElementById('cfgAdresaStavby').value.trim();
+  const betonarka = document.getElementById('cfgBetonarka').value.trim();
+  const statusEl = document.getElementById('vzdalenostStatus');
+
+  if (!adresaStavby || !betonarka) {
+    statusEl.textContent = '⚠️ Vyplňte obě adresy';
+    statusEl.style.color = 'orange';
+    return;
+  }
+
+  statusEl.textContent = '⏳ Hledám adresy...';
+  statusEl.style.color = 'var(--text-muted)';
+
+  try {
+    const [geo1, geo2] = await Promise.all([
+      geocodeAddress(adresaStavby),
+      geocodeAddress(betonarka),
+    ]);
+
+    statusEl.textContent = '⏳ Počítám trasu po silnici...';
+
+    const route = await getRouteDistance(geo1.lat, geo1.lon, geo2.lat, geo2.lon);
+
+    document.getElementById('cfgDoprMontKm').value = route.distanceKm;
+    document.getElementById('cfgDoprBetKm').value = route.distanceKm;
+    document.getElementById('cfgDoprBetonKm').value = route.distanceKm;
+    state.config.doprMontKm = route.distanceKm;
+    state.config.doprBetKm = route.distanceKm;
+    state.config.doprBetonKm = route.distanceKm;
+    state.config.adresaStavby = adresaStavby;
+    state.config.betonarka = betonarka;
+
+    statusEl.innerHTML = `✅ <strong>${route.distanceKm} km</strong> (cca ${route.durationMin} min)<br>` +
+      `<small>📍 ${geo1.display.split(',').slice(0,3).join(',')}</small><br>` +
+      `<small>🏭 ${geo2.display.split(',').slice(0,3).join(',')}</small>`;
+    statusEl.style.color = 'var(--accent)';
+
+    recalcAndRender();
+  } catch (err) {
+    statusEl.textContent = '❌ ' + err.message;
+    statusEl.style.color = 'red';
+  }
+}
+
+// Uložené betonárky (localStorage)
+function loadSavedBetonarky() {
+  const saved = JSON.parse(localStorage.getItem('plotyBetonarky') || '[]');
+  const select = document.getElementById('cfgBetonarkaSelect');
+  select.innerHTML = '<option value="">— Uložené betonárky —</option>';
+  saved.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b.adresa;
+    opt.textContent = b.nazev || b.adresa;
+    select.appendChild(opt);
+  });
+}
+
+function ulozBetonarku() {
+  const adresa = document.getElementById('cfgBetonarka').value.trim();
+  if (!adresa) return;
+  const nazev = prompt('Název betonárky (volitelné):', adresa) || adresa;
+  const saved = JSON.parse(localStorage.getItem('plotyBetonarky') || '[]');
+  if (saved.some(b => b.adresa === adresa)) {
+    alert('Tato betonárka už je uložená.');
+    return;
+  }
+  saved.push({ nazev, adresa });
+  localStorage.setItem('plotyBetonarky', JSON.stringify(saved));
+  loadSavedBetonarky();
+}
+
+function smazBetonarku() {
+  const select = document.getElementById('cfgBetonarkaSelect');
+  const adresa = select.value;
+  if (!adresa) return;
+  const saved = JSON.parse(localStorage.getItem('plotyBetonarky') || '[]');
+  const filtered = saved.filter(b => b.adresa !== adresa);
+  localStorage.setItem('plotyBetonarky', JSON.stringify(filtered));
+  loadSavedBetonarky();
+}
+
+// Hledat betonárky v okolí stavby
+async function hledatBetonarky() {
+  const adresaStavby = document.getElementById('cfgAdresaStavby').value.trim();
+  const vysledkyEl = document.getElementById('betonarkyVysledky');
+
+  if (!adresaStavby) {
+    vysledkyEl.innerHTML = '<div style="color:orange; font-size:12px;">⚠️ Nejdřív vyplňte adresu stavby</div>';
+    return;
+  }
+
+  vysledkyEl.innerHTML = '<div style="font-size:12px; color:var(--text-muted);">⏳ Hledám adresu stavby...</div>';
+
+  try {
+    // 1. Geocode stavba address
+    const geo = await geocodeAddress(adresaStavby);
+
+    vysledkyEl.innerHTML = '<div style="font-size:12px; color:var(--text-muted);">⏳ Hledám betonárky v okolí...</div>';
+
+    // 2. Load local betonárky database
+    const resp = await fetch('/betonarky.json');
+    if (!resp.ok) {
+      vysledkyEl.innerHTML = '<div style="font-size:12px; color:red;">❌ Databáze betonáren nenalezena. Spusťte: node scraper_betonarky.js</div>';
+      return;
+    }
+    const betonarky = await resp.json();
+
+    // 3. Calculate distances and filter
+    const withDist = betonarky
+      .filter(b => b.lat && b.lon)
+      .map(b => ({
+        ...b,
+        _dist: haversineKm(geo.lat, geo.lon, b.lat, b.lon),
+      }))
+      .sort((a, b) => a._dist - b._dist)
+      .slice(0, 20);
+
+    if (withDist.length === 0) {
+      vysledkyEl.innerHTML = '<div style="font-size:12px; color:orange;">Žádné betonárky v databázi. Spusťte: node scraper_betonarky.js</div>';
+      return;
+    }
+
+    // 4. Display results
+    let html = `<div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">Nejbližší betonárky (${betonarky.filter(b=>b.lat).length} v databázi):</div>`;
+    withDist.forEach(b => {
+      const name = b.name.replace(/&amp;/g, '&');
+      const addr = [b.ulice, b.mesto].filter(Boolean).join(', ');
+      const dist = b._dist.toFixed(1);
+      html += `<div class="betonarka-item" data-addr="${escapeHtml(addr || name)}" data-name="${escapeHtml(name)}" style="padding:4px 6px; margin:2px 0; background:var(--btn-bg); border-radius:4px; cursor:pointer; font-size:12px; border:1px solid var(--border);" onmouseover="this.style.background='var(--btn-hover)'" onmouseout="this.style.background='var(--btn-bg)'">`
+        + `<strong>${escapeHtml(name)}</strong> <span style="color:var(--accent); font-weight:600;">${dist} km</span>`
+        + (addr ? `<br><span style="font-size:11px; color:var(--text-muted);">${escapeHtml(addr)}</span>` : '')
+        + `</div>`;
+    });
+    vysledkyEl.innerHTML = html;
+
+    // Click handlers
+    vysledkyEl.querySelectorAll('.betonarka-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const name = el.dataset.name;
+        const addr = el.dataset.addr;
+        const text = addr || name;
+        document.getElementById('cfgBetonarka').value = text;
+        state.config.betonarka = text;
+        vysledkyEl.innerHTML = `<div style="font-size:12px; color:var(--accent);">✅ Vybrána: <strong>${escapeHtml(name)}</strong></div>`;
+      });
+    });
+
+  } catch (err) {
+    vysledkyEl.innerHTML = `<div style="font-size:12px; color:red;">❌ ${err.message}</div>`;
+  }
+}
+
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 // ============================================================
@@ -3214,118 +3994,267 @@ function getExportText() {
   if (!result) return 'Žádná data k exportu.';
 
   const cfg = state.config;
-  const lines = [];
+  const type = state.fenceType;
+  const isBeton = type === 'betonovy';
+  const isPanels = type === 'panely_2d' || type === 'panely_3d';
+  const isCtyr = type.startsWith('ctyrhranne');
+  const isSvar = type === 'svarovane';
+  const L = [];
+  const sep = '─'.repeat(50);
+  const sep2 = '═'.repeat(50);
 
-  lines.push('=== PLOTY DOBRÝ – KALKULACE OPLOCENÍ ===');
-  lines.push('');
-  lines.push(`Typ oplocení: ${getFenceTypeName()}`);
-  lines.push(`Výška: ${cfg.height} cm`);
-  lines.push('');
-  lines.push(`Celková délka plotu: ${result.totalLength.toFixed(1)} m`);
-  lines.push(`Počet polí: ${result.totalFields}`);
-  lines.push(`Počet rohů: ${result.cornerCount}`);
-  lines.push('');
-  lines.push('--- MATERIÁL ---');
-  lines.push(`Sloupky: ${result.fencePosts} ks (délka ${result.postHeight} cm)`);
+  L.push(sep2);
+  L.push('  PLOTY DOBRÝ – KALKULACE OPLOCENÍ');
+  L.push(sep2);
+  L.push('');
 
-  if (result.strutCount > 0 && state.fenceType !== 'betonovy') {
-    lines.push(`Vzpěry: ${result.strutCount} ks (délka ${result.strutLength} cm)`);
-    lines.push(`Ráčny: ${result.racnyCount} ks`);
+  // ── ZÁKLADNÍ ÚDAJE ──
+  L.push('▶ ZÁKLADNÍ ÚDAJE');
+  L.push(sep);
+  L.push(`  Typ oplocení:      ${getFenceTypeName()}`);
+  if (isBeton) {
+    L.push(`  Počet desek:       ${cfg.betonDesky} ks (výška ${cfg.betonDesky * 50} cm)`);
+    L.push(`  Barva:             ${cfg.betonBarva}`);
+    if (cfg.betonSokl) L.push(`  Sokl:              ANO (${cfg.betonSoklVyska} cm)`);
+  } else {
+    L.push(`  Výška pletiva:     ${cfg.height} cm`);
+  }
+  L.push(`  Délka sloupku:     ${result.postHeight} cm`);
+  L.push(`  Celková délka:     ${result.totalLength.toFixed(1)} m`);
+  L.push(`  Počet polí:        ${result.totalFields}`);
+  L.push(`  Počet rohů:        ${result.cornerCount}`);
+  if (result.gates.branka > 0) L.push(`  Branky:            ${result.gates.branka} ks`);
+  if (result.gates.brana > 0) L.push(`  Brány:             ${result.gates.brana} ks`);
+  L.push('');
+
+  // ── SLOUPKY ──
+  L.push('▶ SLOUPKY');
+  L.push(sep);
+  L.push(`  Celkem sloupků:    ${result.fencePosts} ks`);
+  L.push(`  Délka sloupku:     ${result.postHeight} cm`);
+  if (!isBeton && !isPanels) {
+    L.push(`  Typ:               ${cfg.typSloupku}`);
+  }
+  L.push('');
+
+  // ── VZPĚRY (jen pletiva) ──
+  if (result.strutCount > 0) {
+    L.push('▶ VZPĚRY');
+    L.push(sep);
+    L.push(`  Vzpěry:            ${result.strutCount} ks`);
+    L.push(`  Délka vzpěry:      ${result.strutLength} cm (= výška pletiva + 50 cm)`);
+    L.push(`  Ráčny:             ${result.racnyCount} ks`);
+    L.push('');
   }
 
+  // ── PLETIVO / PANELY / BETONOVÉ DESKY ──
+  L.push('▶ VÝPLŇ OPLOCENÍ');
+  L.push(sep);
+  if (isCtyr || isSvar) {
+    L.push(`  Pletivo:           ${result.pletivoLength.toFixed(1)} m (vč. 5% rezervy)`);
+    L.push(`  Role:              ${result.roleCount}× po ${result.roleDelka} m`);
+  }
+  if (isPanels) {
+    L.push(`  Panely 2,5 m:      ${result.panelCount} ks`);
+    L.push(`  Sprej (barva):     ${result.sprej}× (${result.barvaSprej})`);
+  }
+  if (isBeton) {
+    L.push(`  Betonové desky:    ${result.betonoveDesky} ks`);
+    L.push(`  Betonové sloupky:  ${result.betonoveSloupky} ks`);
+    if (result.betonSloupkyPrubezny > 0) L.push(`    - průběžný:      ${result.betonSloupkyPrubezny} ks`);
+    if (result.betonSloupkyKoncovy > 0) L.push(`    - koncový:       ${result.betonSloupkyKoncovy} ks`);
+    if (result.betonSloupkyRohovy > 0) L.push(`    - rohový (90°):  ${result.betonSloupkyRohovy} ks`);
+    if (result.betonSloupkyDvojkoncovy > 0) L.push(`    - 2× koncový:   ${result.betonSloupkyDvojkoncovy} ks`);
+    L.push(`  Chemická kotva:    ${result.chemickaKotva} ks (0,2 na pole)`);
+    if (result.sokly) L.push(`  Sokly:             ${result.sokly} ks`);
+  }
+  L.push('');
+
+  // ── NAPÍNACÍ DRÁTY ──
   if (result.napDratCount) {
-    lines.push(`Napínací drát: ${result.napDratCount}× celkem ${result.napDratLength.toFixed(1)} m`);
+    L.push('▶ NAPÍNACÍ DRÁTY');
+    L.push(sep);
+    L.push(`  Počet drátů:       ${result.napDratCount}×`);
+    L.push(`  Celk. délka:       ${result.napDratLength.toFixed(1)} m`);
+    L.push(`  ⚠ Každý drát = samostatné balení na sekci!`);
     if (result.napDratSections) {
-      lines.push(`  ⚠️ DŮLEŽITÉ: Každý drát = samostatné balení na sekci!`);
       for (let si = 0; si < result.napDratSections.length; si++) {
         const sec = result.napDratSections[si];
-        lines.push(`  Sekce ${si + 1}: ${sec.wireCount}× balení po ${sec.lengthM.toFixed(1)} m`);
+        L.push(`    Sekce ${si + 1}: ${sec.wireCount}× balení po ${sec.lengthM.toFixed(1)} m`);
       }
     }
+    L.push('');
   }
 
+  // ── SPONY ROCA FIX (čtyřhranné) ──
+  if (result.sponyRocaFix) {
+    const b = result.sponyRocaFixBal;
+    L.push('▶ SPONY ROCA FIX');
+    L.push(sep);
+    L.push(`  Celkem spon:       ${result.sponyRocaFix} ks`);
+    L.push(`  (1 spona každých 20 cm na každém napínacím drátě)`);
+    L.push(`  Balení:            ${b.bal1000 > 0 ? b.bal1000 + '× 1000 ks' : ''}${b.bal1000 > 0 && b.bal200 > 0 ? ' + ' : ''}${b.bal200 > 0 ? b.bal200 + '× 200 ks' : ''} = ${b.celkem} ks`);
+    L.push('');
+  }
+
+  // ── VÁZACÍ DRÁT / BEKACLIP ──
   if (result.vazaciDrat) {
-    lines.push('Vázací drát: ANO');
-    if (result.bekaclip) lines.push('Kleště Bekaclip + spony: ANO');
+    L.push('▶ VÁZACÍ DRÁT');
+    L.push(sep);
+    L.push(`  Vázací drát:       ANO (délka plotu)`);
+    if (result.bekaclip) L.push(`  Kleště Bekaclip:   ANO + spony`);
+    if (result.sponyBekaclip) {
+      L.push(`  Spony BEKACLIP:    ${result.sponyBekaclip} ks`);
+      L.push(`  (na každém oku na každém sloupku, oko ${state.config.svarOkoVyska} cm)`);
+    }
+    L.push('');
   }
 
+  // ── PŘÍCHYTKY ──
   if (result.prichytky) {
-    lines.push(`Příchytky: ${result.prichytky} ks`);
+    L.push('▶ PŘÍCHYTKY');
+    L.push(sep);
+    L.push(`  Příchytky:         ${result.prichytky} ks`);
+    if (result.prichytkyNaDrat) L.push(`  (${result.prichytkyNaDrat} na sloupek — 1 na každý napínací drát)`);
+    if (result.prichytkyExtra) L.push(`  Navíc rezerva:     +${result.prichytkyExtra} ks`);
+    L.push('');
   }
 
-  if (result.pletivoLength) {
-    lines.push(`Pletivo: ${result.pletivoLength.toFixed(1)} m (${result.roleCount}× role ${result.roleDelka} m)`);
-  }
-
-  if (result.panelCount !== undefined) {
-    lines.push(`Panely 2,5 m: ${result.panelCount} ks`);
-    lines.push(`Sprej: ${result.sprej}× (${result.barvaSprej})`);
-  }
-
-  if (result.betonoveDesky) {
-    lines.push(`Betonové desky: ${result.betonoveDesky} ks`);
-    lines.push(`Betonové sloupky: ${result.betonoveSloupky} ks`);
-    lines.push(`Chemická kotva: ${result.chemickaKotva} ks`);
-    if (result.sokly) lines.push(`Sokly: ${result.sokly} ks`);
-  }
-
+  // ── PODHRABOVÉ DESKY ──
   if (result.podhrabDesky) {
-    lines.push(`Podhrabové desky: ${result.podhrabDesky} ks`);
-    lines.push(`Držáky podhr. desek: ${result.podhrabDrzaky} ks`);
+    L.push('▶ PODHRABOVÉ DESKY');
+    L.push(sep);
+    L.push(`  Podhrabové desky:  ${result.podhrabDesky} ks`);
+    L.push(`  Držáky celkem:     ${result.podhrabDrzaky} ks`);
     if (result.podhrabDrzakyPrubezny != null) {
-      lines.push(`  - Průběžné držáky: ${result.podhrabDrzakyPrubezny} ks`);
-      lines.push(`  - Koncové držáky: ${result.podhrabDrzakyKoncovy} ks`);
+      L.push(`    - průběžné:      ${result.podhrabDrzakyPrubezny} ks`);
+      L.push(`    - koncové:       ${result.podhrabDrzakyKoncovy} ks`);
     }
     if (result.podhrabHranateWarning) {
-      lines.push(`  ⚠️ Hranaté sloupky – standardní držáky nelze použít!`);
+      L.push(`  ⚠ Hranaté sloupky – standardní držáky nelze použít!`);
     }
     if (result.podhrabDrzakySrouby > 0) {
-      lines.push(`Šrouby pro držáky desek: ${result.podhrabDrzakySrouby} ks`);
+      L.push(`  Samovrtné šrouby:  ${result.podhrabDrzakySrouby} ks (2 na držák)`);
     }
     if (result.strutBrackets > 0) {
-      lines.push(`Držáky vzpěr na desku: ${result.strutBrackets} ks`);
+      L.push(`  Držáky vzpěr:      ${result.strutBrackets} ks`);
     }
-    lines.push('Šroub VZP: ANO');
+    L.push(`  Šroub VZP:         ANO`);
+    L.push('');
   }
 
+  // ── ROHY (ne pro betonový) ──
+  if (result.cornerCount > 0 && !isBeton) {
+    L.push('▶ PŘÍSLUŠENSTVÍ ROHŮ');
+    L.push(sep);
+    L.push(`  Rohové opasky:     ${result.cornerOpasky} ks`);
+    L.push(`  Rohové ráčny:      ${result.cornerRacny} ks (2 na roh)`);
+    L.push(`  Šroubky + očka:    ${result.cornerCount} sad`);
+    L.push('');
+  }
+
+  // ── BETON ──
   if (result.betonDetail) {
     const bd = result.betonDetail;
-    lines.push('');
-    lines.push('--- BETON ---');
-    lines.push(`Doporučení: ${result.betonTyp === 'pytle' ? 'Pytlovaný beton (do 30 m)' : 'Beton z betonárky (nad 30 m)'}`);
-    if (bd.normalPostCount > 0) lines.push(`  Sloupky: ${bd.normalPostCount}× po 1,5 pytl. = ${bd.bagsSloupky} pytlů`);
-    if (bd.gatePostCount > 0) lines.push(`  Brány/branky: ${bd.gatePostCount}× po 2 pytl. = ${bd.bagsBranky} pytlů`);
-    if (bd.strutCount > 0) lines.push(`  Vzpěry: ${bd.strutCount}× po 1,5 pytl. = ${bd.bagsVzpery} pytlů`);
-    lines.push(`  Celkem: ${bd.totalBags} pytlů = ${bd.kubikyFormatted} m³`);
-    lines.push(`Pytlovaný beton (kód 2693): ${bd.totalBags} ks`);
-    lines.push(`Beton z betonárky: ${bd.kubikyFormatted} m³`);
+    const isPytleRec = result.betonTyp === 'pytle';
+    L.push('▶ BETON / UKOTVENÍ');
+    L.push(sep);
+    if (bd.normalPostCount > 0)
+      L.push(`  Sloupky:           ${bd.normalPostCount}× po 1,5 pytl. = ${bd.bagsSloupky} pytlů`);
+    if (bd.gatePostCount > 0)
+      L.push(`  Br./brk. sloupky:  ${bd.gatePostCount}× po 2 pytl. = ${bd.bagsBranky} pytlů`);
+    if (bd.strutCount > 0)
+      L.push(`  Vzpěry:            ${bd.strutCount}× po 1,5 pytl. = ${bd.bagsVzpery} pytlů`);
+    L.push('');
+    L.push(`  ▸ Varianta A: Pytlovaný beton ${isPytleRec ? '✅ DOPORUČENO' : ''}`);
+    L.push(`    Pytlů:           ${bd.totalBags} ks (kód 2693)`);
+    L.push(`  ▸ Varianta B: Beton z betonárky ${!isPytleRec ? '✅ DOPORUČENO' : ''}`);
+    L.push(`    Kubíky:          ${bd.kubikyFormatted} m³`);
+    L.push('');
   } else if (result.patky) {
-    lines.push(`Patky: ${result.patky} ks`);
+    L.push('▶ UKOTVENÍ');
+    L.push(sep);
+    L.push(`  Patky:             ${result.patky} ks`);
+    L.push('');
   }
 
-  if (result.gates.branka > 0) lines.push(`Branky: ${result.gates.branka} ks`);
-  if (result.gates.brana > 0) lines.push(`Brány: ${result.gates.brana} ks`);
-
-  if (result.cornerCount > 0) {
-    lines.push(`Rohové opasky: ${result.cornerOpasky} ks`);
-    lines.push(`Rohové ráčny: ${result.cornerRacny} ks`);
+  // ── POVINNÉ POLOŽKY (betonový plot) ──
+  if (isBeton) {
+    L.push('▶ ⚠ POVINNÉ POLOŽKY – CENOVÁ NABÍDKA');
+    L.push(sep);
+    L.push('  1. Montáž ruční kopání');
+    L.push('  2. Montáž zarezávání betonových panelů');
+    L.push('  3. Montáž zakopávání betonových desek');
+    L.push('  4. Individuální doprava betonových produktů');
+    L.push('  5. Platba: 65 % předem / 35 % po dokončení');
+    L.push('');
   }
 
-  if (result.dopravaHlavni) {
-    lines.push('');
-    lines.push('--- DOPRAVA ---');
-    lines.push(`Dopravné materiál: ${formatPrice(result.dopravaHlavni)}`);
-    if (result.dopravaBetonarka) {
-      lines.push(`Dopravné betonárka: ${formatPrice(result.dopravaBetonarka)}`);
+  // ── POVINNÉ POLOŽKY (čtyřhranné/svařované) ──
+  if (isCtyr || isSvar) {
+    const hasPodhrab = result.podhrabDesky > 0;
+    L.push('▶ ⚠ POVINNÉ POLOŽKY – CENOVÁ NABÍDKA');
+    L.push(sep);
+    L.push('  1. Montáž ruční kopání');
+    if (hasPodhrab) {
+      L.push('  2. Montáž zarezávání podhrabových desek');
+      L.push('  3. Montáž zakopávání podhrabových desek');
+      L.push('  4. Individuální doprava betonových produktů');
+      L.push('  5. Platba: 65 % předem / 35 % po dokončení');
+    } else {
+      L.push('  2. Platba: 65 % předem / 35 % po dokončení');
     }
+    L.push('');
   }
 
-  lines.push('');
-  lines.push('Ruční kopání: 0 Kč (v protokolu dle reality)');
-  lines.push('');
-  lines.push('=== KONEC KALKULACE ===');
+  // ── DOPRAVA ──
+  if (result.dopravaMontaznik || result.dopravaBetonarka || result.dopravaBetProduktu) {
+    L.push('▶ DOPRAVA');
+    L.push(sep);
+    if (result.dopravaMontaznik) {
+      const m = result.dopravaMontaznik;
+      L.push(`  Montážník:         ${formatPrice(m.celkem)}`);
+      L.push(`    ${m.km} km × ${m.nasobek} × ${m.cest} cest × ${m.sazba} Kč/km`);
+      if (m.mytne > 0) L.push(`    + mýtné ${formatPrice(m.mytne)} × ${m.cest} cest`);
+    }
+    if (result.dopravaBetonarka) {
+      const b = result.dopravaBetonarka;
+      L.push(`  Betonárka:         ${formatPrice(b.celkem)}`);
+      L.push(`    ${b.km} km × ${b.nasobek} × ${b.cest} cest × ${b.sazba} Kč/km`);
+      if (b.mytne > 0) L.push(`    + mýtné ${formatPrice(b.mytne)} × ${b.cest} cest`);
+    }
+    if (result.dopravaBetProduktu) {
+      const bp = result.dopravaBetProduktu;
+      L.push(`  Bet. produkty:     ${formatPrice(bp.celkem)}`);
+      L.push(`    ${bp.km} km × ${bp.nasobek} × ${bp.cest} cest × ${bp.sazba} Kč/km`);
+      if (bp.mytne > 0) L.push(`    + mýtné ${formatPrice(bp.mytne)} × ${bp.cest} cest`);
+      L.push(`    Vozidlo: ${bp.vozidloNazev}`);
+      L.push(`    Hmotnost: ${(bp.hmotnostKg / 1000).toFixed(2)} t`);
+      if (bp.detail && bp.detail.length > 0) {
+        for (const item of bp.detail) {
+          L.push(`      ${item.nazev}: ${item.pocet} ks × ${item.hmKs} kg = ${(item.hmCelkem / 1000).toFixed(2)} t`);
+        }
+      }
+      if (bp.palety.celkem > 0) {
+        L.push(`    Palety: ${bp.palety.celkem} pal.`);
+        if (bp.palety.pytlu > 0) L.push(`      Pytlový beton: ${bp.palety.pytlu} pal. (53 pytlů/pal.)`);
+        if (bp.palety.desek > 0) L.push(`      Desky: ${bp.palety.desek} pal. (20 ks/pal.)`);
+        if (bp.palety.sloupku > 0) L.push(`      Sloupky: ${bp.palety.sloupku} pal. (25 ks/pal.)`);
+        L.push(`    Vykládka: ${formatPrice(bp.palety.vkladka)} (${bp.palety.celkem} × ${cfg.vkladkaPaleta} Kč)`);
+      }
+    }
+    L.push('');
+  }
 
-  return lines.join('\n');
+  if (!isBeton) {
+    L.push(`  Ruční kopání:      0 Kč (v protokolu dle reality)`);
+    L.push('');
+  }
+  L.push(sep2);
+  L.push('  Ploty Dobrý a Urbánek s.r.o. | levne-pletivo.cz');
+  L.push(sep2);
+
+  return L.join('\n');
 }
 
 function getFenceTypeName() {
@@ -3353,6 +4282,271 @@ function copyToClipboard() {
     document.execCommand('copy');
     document.body.removeChild(ta);
     showNotification('Zkopírováno do schránky!');
+  });
+}
+
+function printExport() {
+  const result = calculate();
+  if (!result) { showNotification('Nejdříve nakreslete plot!'); return; }
+
+  const cfg = state.config;
+  const type = state.fenceType;
+  const isBeton = type === 'betonovy';
+  const isPanels = type === 'panely_2d' || type === 'panely_3d';
+  const isCtyr = type.startsWith('ctyrhranne');
+  const isSvar = type === 'svarovane';
+
+  // Capture 2D canvas as image
+  const canvasImg = canvas.toDataURL('image/png');
+
+  // Build HTML
+  let h = '';
+  const sec = (title) => `<div style="margin-top:8px;"><div style="font-size:12px;font-weight:700;color:#27ae60;border-bottom:1px solid #27ae60;padding-bottom:1px;margin-bottom:4px;">${title}</div>`;
+  const row = (label, val) => `<div style="display:flex;justify-content:space-between;font-size:11px;padding:1px 0;border-bottom:1px dotted #eee;"><span>${label}</span><strong>${val}</strong></div>`;
+  const note = (text) => `<div style="font-size:10px;color:#e67e22;margin:1px 0;">⚠ ${text}</div>`;
+  const endSec = '</div>';
+
+  h += `<div style="text-align:center;margin-bottom:6px;">
+    <div style="font-size:16px;font-weight:700;color:#27ae60;">PLOTY DOBRÝ</div>
+    <div style="font-size:9px;color:#888;">Ploty Dobrý a Urbánek s.r.o. | levne-pletivo.cz | 377 223 120</div>
+  </div>`;
+
+  h += `<div style="text-align:center;margin-bottom:6px;">
+    <img src="${canvasImg}" style="max-width:100%;max-height:140px;border:1px solid #ddd;">
+  </div>`;
+
+  // Základní údaje
+  h += sec('Základní údaje');
+  h += row('Typ oplocení', getFenceTypeName());
+  if (isBeton) {
+    h += row('Betonové desky', `${cfg.betonDesky} ks (výška ${cfg.betonDesky * 50} cm)`);
+    h += row('Barva', cfg.betonBarva);
+    if (cfg.betonSokl) h += row('Sokl', `ANO (${cfg.betonSoklVyska} cm)`);
+  } else {
+    h += row('Výška pletiva', `${cfg.height} cm`);
+  }
+  h += row('Délka sloupku', `${result.postHeight} cm`);
+  h += row('Celková délka', `${result.totalLength.toFixed(1)} m`);
+  h += row('Počet polí', result.totalFields);
+  h += row('Počet rohů', result.cornerCount);
+  if (result.gates.branka > 0) h += row('Branky', `${result.gates.branka} ks`);
+  if (result.gates.brana > 0) h += row('Brány', `${result.gates.brana} ks`);
+  h += endSec;
+
+  // Sloupky
+  h += sec('Sloupky');
+  h += row('Celkem sloupků', `${result.fencePosts} ks`);
+  h += row('Délka sloupku', `${result.postHeight} cm`);
+  h += endSec;
+
+  // Vzpěry
+  if (result.strutCount > 0) {
+    h += sec('Vzpěry');
+    h += row('Vzpěry', `${result.strutCount} ks`);
+    h += row('Délka vzpěry', `${result.strutLength} cm`);
+    h += row('Ráčny', `${result.racnyCount} ks`);
+    h += endSec;
+  }
+
+  // Výplň
+  h += sec('Výplň oplocení');
+  if (result.pletivoLength) {
+    h += row('Pletivo', `${result.pletivoLength.toFixed(1)} m (vč. 5% rezervy)`);
+    h += row('Role', `${result.roleCount}× po ${result.roleDelka} m`);
+  }
+  if (result.panelCount !== undefined) {
+    h += row('Panely 2,5 m', `${result.panelCount} ks`);
+    h += row('Sprej', `${result.sprej}× (${result.barvaSprej})`);
+  }
+  if (isBeton) {
+    h += row('Betonové desky', `${result.betonoveDesky} ks`);
+    h += row('Betonové sloupky', `${result.betonoveSloupky} ks`);
+    if (result.betonSloupkyPrubezny > 0) h += row('  - průběžný', `${result.betonSloupkyPrubezny} ks`);
+    if (result.betonSloupkyKoncovy > 0) h += row('  - koncový', `${result.betonSloupkyKoncovy} ks`);
+    if (result.betonSloupkyRohovy > 0) h += row('  - rohový (90°)', `${result.betonSloupkyRohovy} ks`);
+    if (result.betonSloupkyDvojkoncovy > 0) h += row('  - 2× koncový (≠90°)', `${result.betonSloupkyDvojkoncovy} ks`);
+    h += row('Chemická kotva', `${result.chemickaKotva} ks`);
+    if (result.sokly) h += row('Sokly', `${result.sokly} ks`);
+  }
+  h += endSec;
+
+  // Napínací dráty
+  if (result.napDratCount) {
+    h += sec('Napínací dráty');
+    h += row('Počet drátů', `${result.napDratCount}×`);
+    h += row('Celk. délka', `${result.napDratLength.toFixed(1)} m`);
+    h += note('Každý drát = samostatné balení na sekci!');
+    if (result.napDratSections) {
+      for (let si = 0; si < result.napDratSections.length; si++) {
+        const s = result.napDratSections[si];
+        h += row(`Sekce ${si + 1}`, `${s.wireCount}× balení po ${s.lengthM.toFixed(1)} m`);
+      }
+    }
+    h += endSec;
+  }
+
+  // Spony Roca Fix (čtyřhranné)
+  if (result.sponyRocaFix) {
+    const b = result.sponyRocaFixBal;
+    h += sec('Spony Roca Fix');
+    h += row('Celkem spon', `${result.sponyRocaFix} ks`);
+    h += note('1 spona každých 20 cm na každém napínacím drátě');
+    h += row('Balení', `${b.bal1000 > 0 ? b.bal1000 + '× 1000 ks' : ''}${b.bal1000 > 0 && b.bal200 > 0 ? ' + ' : ''}${b.bal200 > 0 ? b.bal200 + '× 200 ks' : ''} = ${b.celkem} ks`);
+    h += endSec;
+  }
+
+  // Vázací drát / BEKACLIP (svařované)
+  if (result.vazaciDrat) {
+    h += sec('Vázací drát');
+    h += row('Vázací drát', 'ANO');
+    if (result.bekaclip) h += row('Kleště Bekaclip', 'ANO + spony');
+    if (result.sponyBekaclip) {
+      h += row('Spony BEKACLIP', `${result.sponyBekaclip} ks`);
+      h += note(`Na každém oku na každém sloupku, oko ${state.config.svarOkoVyska} cm`);
+    }
+    h += endSec;
+  }
+
+  // Příchytky
+  if (result.prichytky) {
+    h += sec('Příchytky');
+    h += row('Příchytky', `${result.prichytky} ks`);
+    if (result.prichytkyNaDrat) h += note(`${result.prichytkyNaDrat} na sloupek — 1 na každý napínací drát`);
+    if (result.prichytkyExtra) h += row('Rezerva navíc', `+${result.prichytkyExtra} ks`);
+    h += endSec;
+  }
+
+  // Podhrabové desky
+  if (result.podhrabDesky) {
+    h += sec('Podhrabové desky');
+    h += row('Podhrabové desky', `${result.podhrabDesky} ks`);
+    h += row('Držáky celkem', `${result.podhrabDrzaky} ks`);
+    if (result.podhrabDrzakyPrubezny != null) {
+      h += row('  - průběžné', `${result.podhrabDrzakyPrubezny} ks`);
+      h += row('  - koncové', `${result.podhrabDrzakyKoncovy} ks`);
+    }
+    if (result.podhrabDrzakySrouby > 0) h += row('Samovrtné šrouby', `${result.podhrabDrzakySrouby} ks`);
+    if (result.strutBrackets > 0) h += row('Držáky vzpěr', `${result.strutBrackets} ks`);
+    h += row('Šroub VZP', 'ANO');
+    if (result.podhrabHranateWarning) h += note('Hranaté sloupky – standardní držáky nelze použít!');
+    h += endSec;
+  }
+
+  // Rohy (ne pro betonový)
+  if (result.cornerCount > 0 && !isBeton) {
+    h += sec('Příslušenství rohů');
+    h += row('Opasky', `${result.cornerOpasky} ks`);
+    h += row('Ráčny', `${result.cornerRacny} ks`);
+    h += row('Šroubky + očka', `${result.cornerCount} sad`);
+    h += endSec;
+  }
+
+  // Beton
+  if (result.betonDetail) {
+    const bd = result.betonDetail;
+    const isPytleRec = result.betonTyp === 'pytle';
+    h += sec('Beton / ukotvení');
+    if (bd.normalPostCount > 0) h += row('Sloupky', `${bd.normalPostCount}× 1,5 pytl. = ${bd.bagsSloupky} pytlů`);
+    if (bd.gatePostCount > 0) h += row('Brány/branky', `${bd.gatePostCount}× 2 pytl. = ${bd.bagsBranky} pytlů`);
+    if (bd.strutCount > 0) h += row('Vzpěry', `${bd.strutCount}× 1,5 pytl. = ${bd.bagsVzpery} pytlů`);
+    h += `<div style="margin-top:6px;padding:3px 6px;background:${isPytleRec ? '#eafaf1' : '#fdf2f2'};border-left:2px solid ${isPytleRec ? '#27ae60' : '#e74c3c'};">`;
+    h += row('Varianta A: Pytlovaný beton' + (isPytleRec ? ' ✅' : ''), `${bd.totalBags} ks (kód 2693)`);
+    h += `</div>`;
+    h += `<div style="margin-top:3px;padding:3px 6px;background:${!isPytleRec ? '#eafaf1' : '#fdf2f2'};border-left:2px solid ${!isPytleRec ? '#27ae60' : '#e74c3c'};">`;
+    h += row('Varianta B: Beton z betonárky' + (!isPytleRec ? ' ✅' : ''), `${bd.kubikyFormatted} m³`);
+    h += `</div>`;
+    h += endSec;
+  } else if (result.patky) {
+    h += sec('Ukotvení');
+    h += row('Patky', `${result.patky} ks`);
+    h += endSec;
+  }
+
+  // Povinné položky pro betonový plot
+  if (isBeton) {
+    h += `<div style="margin-top:8px;"><div style="font-size:12px;font-weight:700;color:#e74c3c;border-bottom:1px solid #e74c3c;padding-bottom:1px;margin-bottom:4px;">⚠ Povinné položky – cenová nabídka</div>`;
+    const mandRow = (text) => `<div style="font-size:11px;padding:1px 0;color:#c0392b;font-weight:600;">${text}</div>`;
+    h += mandRow('1. Montáž ruční kopání');
+    h += mandRow('2. Montáž zarezávání betonových panelů');
+    h += mandRow('3. Montáž zakopávání betonových desek');
+    h += mandRow('4. Individuální doprava betonových produktů');
+    h += mandRow('5. Platba: 65 % předem / 35 % po dokončení');
+    h += endSec;
+  }
+
+  // Povinné položky pro čtyřhranné/svařované
+  if (isCtyr || isSvar) {
+    const hasPodhrab = result.podhrabDesky > 0;
+    h += `<div style="margin-top:8px;"><div style="font-size:12px;font-weight:700;color:#e74c3c;border-bottom:1px solid #e74c3c;padding-bottom:1px;margin-bottom:4px;">⚠ Povinné položky – cenová nabídka</div>`;
+    const mandRow2 = (text) => `<div style="font-size:11px;padding:1px 0;color:#c0392b;font-weight:600;">${text}</div>`;
+    h += mandRow2('1. Montáž ruční kopání');
+    if (hasPodhrab) {
+      h += mandRow2('2. Montáž zarezávání podhrabových desek');
+      h += mandRow2('3. Montáž zakopávání podhrabových desek');
+      h += mandRow2('4. Individuální doprava betonových produktů');
+      h += mandRow2('5. Platba: 65 % předem / 35 % po dokončení');
+    } else {
+      h += mandRow2('2. Platba: 65 % předem / 35 % po dokončení');
+    }
+    h += endSec;
+  }
+
+  // Doprava
+  if (result.dopravaMontaznik || result.dopravaBetonarka || result.dopravaBetProduktu) {
+    h += sec('Doprava');
+    if (result.dopravaMontaznik) {
+      const m = result.dopravaMontaznik;
+      h += `<div style="font-size:10px;font-weight:600;color:#27ae60;margin-top:3px;">🧑‍🔧 Doprava montážníka</div>`;
+      h += row('Celkem', formatPrice(m.celkem));
+      h += `<div style="font-size:9px;color:#888;padding-left:8px;">${m.km} km × ${m.nasobek} × ${m.cest} cest × ${m.sazba} Kč/km${m.mytne > 0 ? ' + mýtné ' + formatPrice(m.mytne) : ''}</div>`;
+    }
+    if (result.dopravaBetonarka) {
+      const b = result.dopravaBetonarka;
+      h += `<div style="font-size:10px;font-weight:600;color:#3498db;margin-top:3px;">🏭 Doprava betonu z betonárky</div>`;
+      h += row('Celkem', formatPrice(b.celkem));
+      h += `<div style="font-size:9px;color:#888;padding-left:8px;">${b.km} km × ${b.nasobek} × ${b.cest} cest × ${b.sazba} Kč/km${b.mytne > 0 ? ' + mýtné ' + formatPrice(b.mytne) : ''}</div>`;
+    }
+    if (result.dopravaBetProduktu) {
+      const bp = result.dopravaBetProduktu;
+      h += `<div style="font-size:10px;font-weight:600;color:#e67e22;margin-top:3px;">🧱 Doprava betonových produktů</div>`;
+      h += row('Celkem', formatPrice(bp.celkem));
+      h += `<div style="font-size:9px;color:#888;padding-left:8px;">${bp.km} km × ${bp.nasobek} × ${bp.cest} cest × ${bp.sazba} Kč/km</div>`;
+      h += row('  Vozidlo', bp.vozidloNazev);
+      h += row('  Hmotnost', `${(bp.hmotnostKg / 1000).toFixed(2)} t`);
+      if (bp.palety.celkem > 0) {
+        h += row('  Palety', `${bp.palety.celkem} pal.`);
+        h += row('  Vykládka', formatPrice(bp.palety.vkladka));
+      }
+    }
+    h += endSec;
+  }
+
+  if (!isBeton) {
+    h += `<div style="margin-top:6px;font-size:11px;border-top:1px solid #27ae60;padding-top:2px;">
+      ${row('Ruční kopání', '0 Kč (dle reality)')}
+    </div>`;
+  }
+
+  // Download as PDF
+  const container = document.createElement('div');
+  container.style.cssText = 'font-family: "Segoe UI", Arial, sans-serif; color: #222; max-width: 700px; padding: 10px;';
+  container.innerHTML = h;
+  document.body.appendChild(container);
+
+  const opt = {
+    margin: [6, 8, 6, 8],
+    filename: `kalkulace-ploty-dobry-${new Date().toISOString().slice(0, 10)}.pdf`,
+    image: { type: 'jpeg', quality: 0.95 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+  };
+
+  html2pdf().set(opt).from(container).save().then(() => {
+    document.body.removeChild(container);
+    showNotification('PDF staženo!');
+  }).catch(() => {
+    document.body.removeChild(container);
+    showNotification('Chyba při generování PDF');
   });
 }
 
@@ -4128,7 +5322,7 @@ function updateTooltip(pos) {
     const postH = result ? result.postHeight : '—';
     const corner = isCorner(state.hoveredVertex) ? ' (roh)' : '';
     const segments = getSegments();
-    const struts = (state.fenceType !== 'panely_2d' && state.fenceType !== 'panely_3d')
+    const struts = (state.fenceType === 'ctyrhranne_bez_nd' || state.fenceType === 'ctyrhranne_s_nd' || state.fenceType === 'svarovane')
       ? getStrutPositions(segments) : [];
     const hasStrut = struts.find(s => s.vertexIndex === state.hoveredVertex);
     const strutInfo = hasStrut ? ` | Vzpěra (${hasStrut.reason})` : '';
@@ -4180,7 +5374,8 @@ function showContextMenu(x, y, vertIdx, segIdx) {
   menu.style.top = y + 'px';
 
   document.getElementById('ctxDeletePoint').style.display = vertIdx >= 0 ? 'block' : 'none';
-  document.getElementById('ctxAddStrut').style.display = vertIdx >= 0 ? 'block' : 'none';
+  const strutTypes = ['ctyrhranne_bez_nd', 'ctyrhranne_s_nd', 'svarovane'];
+  document.getElementById('ctxAddStrut').style.display = (vertIdx >= 0 && strutTypes.includes(state.fenceType)) ? 'block' : 'none';
   document.getElementById('ctxAddGate').style.display = segIdx >= 0 ? 'block' : 'none';
   document.getElementById('ctxSetSegStyle').style.display = segIdx >= 0 ? 'block' : 'none';
   const shadeBtn = document.getElementById('ctxToggleShade');
@@ -4757,6 +5952,10 @@ function setupConfigHandlers() {
     state.config.svarRoleDelka = parseInt(e.target.value);
     recalcAndRender();
   });
+  document.getElementById('cfgSvarOkoVyska').addEventListener('change', (e) => {
+    state.config.svarOkoVyska = parseFloat(e.target.value);
+    recalcAndRender();
+  });
 
   // 2D
   document.getElementById('cfgSila2D').addEventListener('change', (e) => {
@@ -4779,6 +5978,10 @@ function setupConfigHandlers() {
   });
 
   // Betonový
+  document.getElementById('cfgBetonBarva').addEventListener('change', (e) => {
+    state.config.betonBarva = e.target.value;
+    recalcAndRender();
+  });
   document.getElementById('cfgBetonVzor').addEventListener('change', (e) => {
     state.config.betonVzor = e.target.value;
     recalcAndRender();
@@ -4797,11 +6000,105 @@ function setupConfigHandlers() {
     recalcAndRender();
   });
 
-  // Vzdálenost
-  document.getElementById('cfgVzdalenost').addEventListener('input', (e) => {
-    state.config.vzdalenostKm = Math.max(0, parseInt(e.target.value) || 0);
+  // ── Doprava montážníka ──
+  document.getElementById('cfgDoprMontZpat').addEventListener('change', (e) => {
+    state.config.doprMontZpat = e.target.checked;
     recalcAndRender();
   });
+  ['cfgDoprMontKm', 'cfgDoprMontCest', 'cfgDoprMontSazba'].forEach(id => {
+    document.getElementById(id).addEventListener('input', (e) => {
+      const key = { cfgDoprMontKm: 'doprMontKm', cfgDoprMontCest: 'doprMontCest', cfgDoprMontSazba: 'doprMontSazba' }[id];
+      state.config[key] = Math.max(0, parseFloat(e.target.value) || 0);
+      recalcAndRender();
+    });
+  });
+  document.getElementById('cfgDoprMontMytne').addEventListener('change', (e) => {
+    state.config.doprMontMytne = e.target.checked;
+    document.getElementById('grpDoprMontMytne').style.display = e.target.checked ? '' : 'none';
+    recalcAndRender();
+  });
+  document.getElementById('cfgDoprMontMytneKc').addEventListener('input', (e) => {
+    state.config.doprMontMytneKc = Math.max(0, parseFloat(e.target.value) || 0);
+    recalcAndRender();
+  });
+
+  // ── Doprava betonových produktů ──
+  document.getElementById('cfgDoprBetZpat').addEventListener('change', (e) => {
+    state.config.doprBetZpat = e.target.checked;
+    recalcAndRender();
+  });
+  document.getElementById('cfgDopravaBetProduktu').addEventListener('change', (e) => {
+    state.config.dopravaBetProduktu = e.target.checked;
+    document.getElementById('grpBetProdukty').style.display = e.target.checked ? '' : 'none';
+    recalcAndRender();
+  });
+  document.getElementById('cfgDoprBetVozidlo').addEventListener('change', (e) => {
+    state.config.doprBetVozidlo = e.target.value;
+    recalcAndRender();
+  });
+  ['cfgDoprBetKm', 'cfgDoprBetCest', 'cfgDoprBetSazba'].forEach(id => {
+    document.getElementById(id).addEventListener('input', (e) => {
+      const key = { cfgDoprBetKm: 'doprBetKm', cfgDoprBetCest: 'doprBetCest', cfgDoprBetSazba: 'doprBetSazba' }[id];
+      state.config[key] = Math.max(0, parseFloat(e.target.value) || 0);
+      recalcAndRender();
+    });
+  });
+  document.getElementById('cfgDoprBetMytne').addEventListener('change', (e) => {
+    state.config.doprBetMytne = e.target.checked;
+    document.getElementById('grpDoprBetMytne').style.display = e.target.checked ? '' : 'none';
+    recalcAndRender();
+  });
+  document.getElementById('cfgDoprBetMytneKc').addEventListener('input', (e) => {
+    state.config.doprBetMytneKc = Math.max(0, parseFloat(e.target.value) || 0);
+    recalcAndRender();
+  });
+
+  // ── Doprava betonu z betonárky ──
+  document.getElementById('cfgDoprBetonZpat').addEventListener('change', (e) => {
+    state.config.doprBetonZpat = e.target.checked;
+    recalcAndRender();
+  });
+  ['cfgDoprBetonKm', 'cfgDoprBetonCest', 'cfgDoprBetonSazba'].forEach(id => {
+    document.getElementById(id).addEventListener('input', (e) => {
+      const key = { cfgDoprBetonKm: 'doprBetonKm', cfgDoprBetonCest: 'doprBetonCest', cfgDoprBetonSazba: 'doprBetonSazba' }[id];
+      state.config[key] = Math.max(0, parseFloat(e.target.value) || 0);
+      recalcAndRender();
+    });
+  });
+  document.getElementById('cfgDoprBetonMytne').addEventListener('change', (e) => {
+    state.config.doprBetonMytne = e.target.checked;
+    document.getElementById('grpDoprBetonMytne').style.display = e.target.checked ? '' : 'none';
+    recalcAndRender();
+  });
+  document.getElementById('cfgDoprBetonMytneKc').addEventListener('input', (e) => {
+    state.config.doprBetonMytneKc = Math.max(0, parseFloat(e.target.value) || 0);
+    recalcAndRender();
+  });
+
+  // ── Palety a vykládka ──
+  document.getElementById('cfgVkladkaPaleta').addEventListener('input', (e) => {
+    state.config.vkladkaPaleta = Math.max(0, parseFloat(e.target.value) || 0);
+    recalcAndRender();
+  });
+  document.getElementById('cfgDoprBetPaletCustom').addEventListener('input', (e) => {
+    state.config.doprBetPaletCustom = Math.max(0, parseInt(e.target.value) || 0);
+    recalcAndRender();
+  });
+
+  // Spočítat vzdálenost
+  document.getElementById('btnSpocitatVzdalenost').addEventListener('click', vypocitatVzdalenostOnline);
+
+  // Uložené betonárky
+  loadSavedBetonarky();
+  document.getElementById('cfgBetonarkaSelect').addEventListener('change', (e) => {
+    if (e.target.value) {
+      document.getElementById('cfgBetonarka').value = e.target.value;
+      state.config.betonarka = e.target.value;
+    }
+  });
+  document.getElementById('btnUlozBetonarku').addEventListener('click', ulozBetonarku);
+  document.getElementById('btnSmazBetonarku').addEventListener('click', smazBetonarku);
+  document.getElementById('btnHledatBetonarky').addEventListener('click', hledatBetonarky);
 }
 
 function updateTypeOptions() {
@@ -4819,6 +6116,32 @@ function updateTypeOptions() {
   } else if (type === 'betonovy') {
     document.getElementById('optBetonovy').style.display = '';
   }
+
+  // Dynamic label for height
+  const lblH = document.getElementById('lblHeight');
+  if (type.startsWith('ctyrhranne') || type === 'svarovane') {
+    lblH.textContent = 'Výška pletiva (cm)';
+  } else if (type === 'panely_2d' || type === 'panely_3d') {
+    lblH.textContent = 'Výška panelu (cm)';
+  } else if (type === 'betonovy') {
+    lblH.textContent = 'Výška plotu (cm)';
+  }
+
+  const isBeton = type === 'betonovy';
+  const isPanels = type === 'panely_2d' || type === 'panely_3d';
+
+  // Hide height input if betonový (calculated from desky count)
+  document.getElementById('grpHeight').style.display = isBeton ? 'none' : '';
+
+  // Max field width not applicable for betonový (always 2m) and panels (always 2.5m)
+  document.getElementById('grpMaxField').style.display = (isBeton || isPanels) ? 'none' : '';
+
+  // Podhrabové desky — not for betonový (has sokl instead)
+  document.getElementById('grpPodhrab').style.display = isBeton ? 'none' : '';
+  if (isBeton) document.getElementById('grpPodhrabVyska').style.display = 'none';
+
+  // Stínící tkanina — only for čtyřhranné/svařované
+  document.getElementById('grpStineni').style.display = (type.startsWith('ctyrhranne') || type === 'svarovane') ? '' : 'none';
 }
 
 // ============================================================
@@ -5661,6 +6984,19 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     html += `<h4 class="qg-title">${g.title}</h4>`;
     html += `<p class="qg-intro">${g.intro}</p>`;
 
+    // Inject calculated data if fence is drawn
+    const calcResult = calculate();
+    if (calcResult) {
+      const exportText = getExportText();
+      html += `<div style="background:#f0faf0;border:2px solid #27ae60;padding:10px;margin:10px 0;border-radius:4px;">`;
+      html += `<h5 style="margin:0 0 6px 0;color:#27ae60;font-size:14px;">📋 Kalkulace z aktuálního plotu</h5>`;
+      html += `<pre style="font-size:11px;line-height:1.4;white-space:pre-wrap;word-wrap:break-word;margin:0;font-family:'Courier New',monospace;max-height:400px;overflow-y:auto;">${escapeHtml(exportText)}</pre>`;
+      html += `<div style="margin-top:8px;text-align:center;">`;
+      html += `<button class="btn-accent" style="margin-right:6px;font-size:12px;padding:4px 12px;" onclick="copyToClipboard();showNotification('Zkopírováno!')">📋 Kopírovat do schránky</button>`;
+      html += `<button class="btn-accent" style="font-size:12px;padding:4px 12px;" onclick="printExport()">📥 Stáhnout PDF</button>`;
+      html += `</div></div>`;
+    }
+
     // Warnings
     if (g.warnings && g.warnings.length) {
       html += '<div class="qg-warnings">';
@@ -5670,6 +7006,38 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 
     // Checklist
     html += '<h5 class="qg-section">✅ Checklist – co musí být v CN</h5>';
+
+    // Povinné položky pro betonový plot — červeně
+    if (type === 'betonovy') {
+      html += `<div style="background:#fdf2f2;border:2px solid #e74c3c;padding:10px 14px;margin:0 0 12px 0;border-radius:4px;">`;
+      html += `<h5 style="margin:0 0 6px 0;color:#e74c3c;font-size:14px;font-weight:700;">⚠️ Povinné položky – MUSÍ být v cenové nabídce</h5>`;
+      html += `<div style="color:#c0392b;font-weight:600;font-size:13px;line-height:1.8;">`;
+      html += `1. Montáž ruční kopání<br>`;
+      html += `2. Montáž zarezávání betonových panelů<br>`;
+      html += `3. Montáž zakopávání betonových desek<br>`;
+      html += `4. Individuální doprava betonových produktů<br>`;
+      html += `5. Platba: 65 % předem / 35 % po dokončení`;
+      html += `</div></div>`;
+    }
+
+    // Povinné položky pro čtyřhranné/svařované — červeně
+    if (type.startsWith('ctyrhranne') || type === 'svarovane') {
+      const hasPodhrab = calcResult && calcResult.podhrabDesky > 0;
+      html += `<div style="background:#fdf2f2;border:2px solid #e74c3c;padding:10px 14px;margin:0 0 12px 0;border-radius:4px;">`;
+      html += `<h5 style="margin:0 0 6px 0;color:#e74c3c;font-size:14px;font-weight:700;">⚠️ Povinné položky – MUSÍ být v cenové nabídce</h5>`;
+      html += `<div style="color:#c0392b;font-weight:600;font-size:13px;line-height:1.8;">`;
+      html += `1. Montáž ruční kopání<br>`;
+      if (hasPodhrab) {
+        html += `2. Montáž zarezávání podhrabových desek<br>`;
+        html += `3. Montáž zakopávání podhrabových desek<br>`;
+        html += `4. Individuální doprava betonových produktů<br>`;
+        html += `5. Platba: 65 % předem / 35 % po dokončení`;
+      } else {
+        html += `2. Platba: 65 % předem / 35 % po dokončení`;
+      }
+      html += `</div></div>`;
+    }
+
     html += '<div class="qg-checklist">';
     g.checklist.forEach((c, i) => {
       const req = c.required ? '<span class="qg-req">POVINNÉ</span>' : '<span class="qg-opt">volitelné</span>';
@@ -5850,7 +7218,7 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 // EXPORT BUTTONS
 // ============================================================
 document.getElementById('btnCopy').addEventListener('click', copyToClipboard);
-document.getElementById('btnPrint').addEventListener('click', () => window.print());
+document.getElementById('btnPrint').addEventListener('click', printExport);
 
 // ============================================================
 // KEYBOARD SHORTCUTS
@@ -6195,6 +7563,16 @@ function resize3D() {
 
 // ---- Materials ----
 function get3DPostMaterial() {
+  const type = state.fenceType;
+  if (type === 'betonovy') {
+    const betonColor = BETON_COLORS_3D[state.config.betonBarva] || BETON_COLORS_3D.seda;
+    return new THREE.MeshStandardMaterial({ color: betonColor, metalness: 0.0, roughness: 0.85 });
+  }
+  if (type === 'panely_2d' || type === 'panely_3d') {
+    const barva = type === 'panely_2d' ? state.config.barva2D : state.config.barva3D;
+    const color = FENCE_COLORS_3D[barva] || 0x4a4f52;
+    return new THREE.MeshStandardMaterial({ color, metalness: 0.4, roughness: 0.4 });
+  }
   return new THREE.MeshStandardMaterial({ color: 0x2ecc71, metalness: 0.3, roughness: 0.5 });
 }
 
@@ -6202,9 +7580,9 @@ function get3DFenceColor() {
   const type = state.fenceType;
   if (type.startsWith('ctyrhranne')) return 0x2ecc71;
   if (type === 'svarovane') return 0x2ecc71;
-  if (type === 'panely_2d') return 0x3498db;
-  if (type === 'panely_3d') return 0x2980b9;
-  if (type === 'betonovy') return 0x999999;
+  if (type === 'panely_2d') return FENCE_COLORS_3D[state.config.barva2D] || 0x3498db;
+  if (type === 'panely_3d') return FENCE_COLORS_3D[state.config.barva3D] || 0x2980b9;
+  if (type === 'betonovy') return BETON_COLORS_3D[state.config.betonBarva] || 0x999999;
   return 0x2ecc71;
 }
 
@@ -6853,11 +8231,22 @@ function build3DFence() {
     if (isRound || type === 'svarovane') {
       geo = new THREE.CylinderGeometry(postRadius, postRadius, totalFenceH + 0.15, 12);
     } else if (isBeton) {
+      // Betonový sloupek — wider square post (0.14 × 0.14)
       geo = new THREE.BoxGeometry(0.14, totalFenceH + 0.15, 0.14);
     } else {
       geo = new THREE.BoxGeometry(0.08, totalFenceH + 0.15, 0.06);
     }
-    const actualPostMat = new THREE.MeshStandardMaterial({ color: colorOverride3D, metalness: 0.3, roughness: 0.5 });
+
+    let actualPostMat;
+    if (isBeton) {
+      // Concrete texture matching fence color
+      const betonColor = BETON_COLORS_3D[state.config.betonBarva] || BETON_COLORS_3D.seda;
+      const tex = makeConcreteTexture(betonColor);
+      actualPostMat = new THREE.MeshStandardMaterial({ map: tex, metalness: 0.0, roughness: 0.85 });
+    } else {
+      actualPostMat = new THREE.MeshStandardMaterial({ color: colorOverride3D, metalness: 0.3, roughness: 0.5 });
+    }
+
     const mesh = new THREE.Mesh(geo, actualPostMat);
     mesh.position.set(p3.x, p3.y + (totalFenceH + 0.15) / 2, p3.z);
     mesh.castShadow = true;
@@ -7327,7 +8716,8 @@ function build3DFence() {
   }
 
   // ---- Struts ----
-  if (!isPanels) {
+  const hasStruts3D = (state.fenceType === 'ctyrhranne_bez_nd' || state.fenceType === 'ctyrhranne_s_nd' || state.fenceType === 'svarovane');
+  if (hasStruts3D) {
     const struts = getStrutPositions(segments);
     for (let _si = 0; _si < struts.length; _si++) {
       const strut = struts[_si];
@@ -7521,8 +8911,14 @@ function build3DFence() {
         const wireBottom = segPodHW + segMeshGapW + 0.05;
         const wirePositions = [wireTop, wireBottom];
 
-        // If fence height > 125cm, add middle wire
-        if (getSegFenceH(seg) > 125) {
+        // Add middle wires based on fence height
+        const segH = getSegFenceH(seg);
+        if (segH > 180) {
+          // 4 wires: evenly spaced
+          const span = wireTop - wireBottom;
+          wirePositions.push(wireBottom + span / 3);
+          wirePositions.push(wireBottom + 2 * span / 3);
+        } else if (segH > 125) {
           wirePositions.push((wireTop + wireBottom) / 2);
         }
 
@@ -7577,7 +8973,12 @@ function build3DFence() {
       const rWireTop = segPodHR + segMeshGapR + segFenceHR - 0.05;
       const rWireBottom = segPodHR + segMeshGapR + 0.05;
       const rWirePositions = [rWireTop, rWireBottom];
-      if (getSegFenceH(nearSeg) > 125) {
+      const nearSegH = getSegFenceH(nearSeg);
+      if (nearSegH > 180) {
+        const span = rWireTop - rWireBottom;
+        rWirePositions.push(rWireBottom + span / 3);
+        rWirePositions.push(rWireBottom + 2 * span / 3);
+      } else if (nearSegH > 125) {
         rWirePositions.push((rWireTop + rWireBottom) / 2);
       }
 
@@ -8057,18 +9458,24 @@ function addFencePanel(cx, cz, width, totalH, podhrabH, angle, fenceMat, podhrab
     : (segFromIdx !== undefined ? { elementType: 'segment', segmentIndex: segFromIdx } : {});
 
   if (isBeton) {
-    // Concrete fence: thick solid slabs
-    const slabGeo = new THREE.BoxGeometry(width, fenceH, 0.04);
+    // Concrete fence: individual stacked boards (each 50cm = 0.50m)
+    const boardCount = state.config.betonDesky || 3;
+    const boardH = 0.50; // each board is 50cm
+    const boardGap = 0.01; // 1cm gap between boards
     const matToUse = panelColorOverride
       ? new THREE.MeshStandardMaterial({ color: panelColorOverride, roughness: 0.9, metalness: 0.0 })
       : fenceMat;
-    const slab = new THREE.Mesh(slabGeo, matToUse);
-    slab.position.set(cx, ty + podhrabH + meshGap + fenceH / 2, cz);
-    slab.rotation.y = angle;
-    slab.castShadow = true;
-    slab.receiveShadow = true;
-    slab.userData = fieldUserData;
-    view3D.fenceGroup.add(slab);
+    for (let bi = 0; bi < boardCount; bi++) {
+      const slabGeo = new THREE.BoxGeometry(width, boardH, 0.04);
+      const slab = new THREE.Mesh(slabGeo, matToUse);
+      const yBase = ty + podhrabH + meshGap + bi * (boardH + boardGap) + boardH / 2;
+      slab.position.set(cx, yBase, cz);
+      slab.rotation.y = angle;
+      slab.castShadow = true;
+      slab.receiveShadow = true;
+      slab.userData = fieldUserData;
+      view3D.fenceGroup.add(slab);
+    }
   } else {
     // Clone material so we can set per-panel texture repeat
     const mat = panelColorOverride
